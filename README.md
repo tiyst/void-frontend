@@ -1,9 +1,9 @@
 # Development
 
-Project uses React + Sass.
+Project uses React & Sass + prettier.
 
 Vite config preconfigured to include color palette in all scss files.
-
+Run format script before commiting (precommit hook not implemented)
 
 # React + TypeScript + Vite
 
@@ -22,14 +22,14 @@ If you are developing a production application, we recommend updating the config
 
 ```js
 export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+	languageOptions: {
+		// other options...
+		parserOptions: {
+			project: ['./tsconfig.node.json', './tsconfig.app.json'],
+			tsconfigRootDir: import.meta.dirname
+		}
+	}
+});
 ```
 
 - Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
@@ -38,20 +38,20 @@ export default tseslint.config({
 
 ```js
 // eslint.config.js
-import react from 'eslint-plugin-react'
+import react from 'eslint-plugin-react';
 
 export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+	// Set the react version
+	settings: { react: { version: '18.3' } },
+	plugins: {
+		// Add the react plugin
+		react
+	},
+	rules: {
+		// other rules...
+		// Enable its recommended rules
+		...react.configs.recommended.rules,
+		...react.configs['jsx-runtime'].rules
+	}
+});
 ```

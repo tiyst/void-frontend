@@ -1,0 +1,15 @@
+.base {
+	border-radius: 15px;
+	padding: 10px 20px;
+	background-color: #1c1c1c;
+	color: #ffffff;
+	transition:
+		box-shadow 0.3s ease,
+		transform 0.2s ease;
+
+	box-shadow: 0 0 5px 2px $secondary-blue;
+
+	&:hover {
+		box-shadow: 0 0 5px 5px $secondary-blue;
+	}
+}
