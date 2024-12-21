@@ -1,0 +1,38 @@
+.page-container {
+  margin: 0;
+  padding: 0 10px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.content {
+  width: 100%;
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  gap: 15px;
+  box-sizing: border-box;
+}
+
+.left-side {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 20px 0;
+  border: 1px solid red;
+}
+
+.right-side {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 20px 0;
+  border: 1px solid blue;
+}
