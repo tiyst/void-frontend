@@ -1,12 +1,8 @@
 .base {
 	border-radius: 15px;
-	padding: 10px 20px;
-	background-color: #1c1c1c;
+	background-color: $background-dark;
 	color: #ffffff;
-	flex: 1;
 	display: flex;
-	flex-grow: 0;
-	align-items: center;
 	justify-content: center;
 
 	transition:

@@ -1,8 +1,8 @@
 import React from 'react';
 import './Base.scss';
 
-type BaseBlockProps = {
-	children: React.ReactNode;
+export type BaseBlockProps = {
+	children?: React.ReactNode;
 	className?: string;
 };
 

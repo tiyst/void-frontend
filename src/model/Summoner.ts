@@ -1,4 +1,4 @@
-export interface Summoner {
+export type Summoner = {
 	puuid: string;
 	accountId: string;
 	summonerId: string;
@@ -12,9 +12,8 @@ export interface Summoner {
 	masteries: ChampionMastery[];
 }
 
-export interface Rank {
+export type Rank = {
 	id: number;
-	summoner: Summoner;
 	leagueId: string;
 	queueType: string;
 	tier: string;
@@ -26,19 +25,18 @@ export interface Rank {
 	hotStreak: boolean;
 	veteran: boolean;
 	inactive: boolean;
-	rankSeries: RankSeries;
+	rankSeries: RankSeries | null;
 }
 
-export interface RankSeries {
+export type RankSeries = {
 	losses: number;
 	progress: string;
 	target: number;
 	wins: number;
 }
 
-export interface ChampionMastery {
+export type ChampionMastery = {
 	id: number;
-	summoner: Summoner;
 	championId: number;
 	championLevel: number;
 	championPoints: number;
@@ -52,7 +50,7 @@ export interface ChampionMastery {
 	masteryMilestone: MasteryMilestone;
 }
 
-export interface MasteryMilestone {
+export type MasteryMilestone = {
 	id: number;
 	requireGradeCounts: Map<string, number>;
 	rewardMarks: number;

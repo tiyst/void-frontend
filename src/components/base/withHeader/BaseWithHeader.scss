@@ -1,0 +1,12 @@
+
+.baseWithHeader {
+  flex-direction: column;
+}
+
+.baseHeader {
+  display: flex;
+  width: 100%;
+  border-radius: 15px;
+  background-color: $background-dark-2;
+  justify-content: center;
+}
