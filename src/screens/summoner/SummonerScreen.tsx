@@ -2,9 +2,10 @@ import TopBar from '../../components/topbar/TopBar.tsx';
 import './SummonerScreen.scss';
 import Base from '../../components/base/Base.tsx';
 import BaseInfo from "../../components/summoner/baseInfo/BaseInfo.tsx";
-import BaseWithHeader from "../../components/base/withHeader/BaseWithHeader.tsx";
 import RankComponent from "../../components/summoner/rank/RankComponent.tsx";
 import {mockRanks} from "../../../mocks/RankMock.ts";
+import MasteryComponent from "../../components/summoner/mastery/MasteryComponent.tsx";
+import {mockMasteries} from "../../../mocks/MasteryMock.ts";
 
 function SummonerScreen() {
 	return (
@@ -18,7 +19,7 @@ function SummonerScreen() {
 						summonerName="tiyst"
 						level="69"/>
 					<RankComponent ranks={mockRanks} />
-					<BaseWithHeader headerText="Mastery"/>
+					<MasteryComponent masteries={mockMasteries}/>
 				</div>
 				<div className="right-side">
 					<Base>Right 1</Base>

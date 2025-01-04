@@ -10,8 +10,9 @@ type RankComponentProps = BaseBlockProps & {
 
 const RankComponent: React.FC<RankComponentProps> = (data: RankComponentProps) => {
 	const {className = ''} = data;
+
 	return (
-		<BaseWithHeader headerText="ranks" className={`rankComponent ${className}`}>
+		<BaseWithHeader headerText="Ranks" className={`rankComponent ${className}`}>
 			{data.ranks.map((rank) => <RankFragment key={rank.id} {...rank}/>)}
 		</BaseWithHeader>
 	)

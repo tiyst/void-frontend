@@ -52,7 +52,7 @@ export type ChampionMastery = {
 
 export type MasteryMilestone = {
 	id: number;
-	requireGradeCounts: Map<string, number>;
+	requireGradeCounts: Record<string, number>;
 	rewardMarks: number;
 	bonus: boolean;
 	totalGamesRequires: number;
