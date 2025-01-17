@@ -1,5 +1,5 @@
-import Base, {BaseBlockProps} from "../../base/Base.tsx";
-import "./BaseInfo.scss"
+import Base, { BaseBlockProps } from '../../base/Base.tsx';
+import './BaseInfo.scss';
 
 type BaseInfoProps = BaseBlockProps & {
 	summonerName?: string;
@@ -7,8 +7,7 @@ type BaseInfoProps = BaseBlockProps & {
 	level?: string;
 };
 
-const BaseInfo: React.FC<BaseInfoProps> = ({summonerName, summonerIconUrl, level, children, className = ''}) => {
-
+const BaseInfo: React.FC<BaseInfoProps> = ({ summonerName, summonerIconUrl, level, children, className = '' }) => {
 	return (
 		<Base className={`baseInfo ${className}`}>
 			{summonerIconUrl && <img className="summonerIcon" src={summonerIconUrl} alt="Summoner Icon" />}

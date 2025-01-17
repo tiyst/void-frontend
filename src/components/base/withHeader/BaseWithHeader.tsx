@@ -1,12 +1,11 @@
-import Base, {BaseBlockProps} from "../Base.tsx";
-import "./BaseWithHeader.scss"
+import Base, { BaseBlockProps } from '../Base.tsx';
+import './BaseWithHeader.scss';
 
 export type BaseWithHeaderProps = BaseBlockProps & {
 	headerText: string;
 };
 
 const BaseWithHeader: React.FC<BaseWithHeaderProps> = (data: BaseWithHeaderProps) => {
-
 	return (
 		<Base className={`baseWithHeader ${data.className}`}>
 			<div className="baseHeader">

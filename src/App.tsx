@@ -4,7 +4,6 @@ import Homescreen from './screens/homescreen/Homescreen.tsx';
 import SummonerScreen from './screens/summoner/SummonerScreen.tsx';
 
 function App() {
-
 	return (
 		<Routes>
 			<Route path="/" element={<Homescreen />} />

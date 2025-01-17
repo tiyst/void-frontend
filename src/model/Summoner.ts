@@ -10,7 +10,7 @@ export type Summoner = {
 	level: number;
 	rank: Rank[];
 	masteries: ChampionMastery[];
-}
+};
 
 export type Rank = {
 	id: number;
@@ -26,14 +26,14 @@ export type Rank = {
 	veteran: boolean;
 	inactive: boolean;
 	rankSeries: RankSeries | null;
-}
+};
 
 export type RankSeries = {
 	losses: number;
 	progress: string;
 	target: number;
 	wins: number;
-}
+};
 
 export type ChampionMastery = {
 	id: number;
@@ -48,7 +48,7 @@ export type ChampionMastery = {
 	championSeasonMilestone: number;
 	milestoneGrades: string[];
 	masteryMilestone: MasteryMilestone;
-}
+};
 
 export type MasteryMilestone = {
 	id: number;
@@ -56,5 +56,4 @@ export type MasteryMilestone = {
 	rewardMarks: number;
 	bonus: boolean;
 	totalGamesRequires: number;
-}
-
+};

@@ -1,4 +1,4 @@
-import {ChampionMastery} from "../src/model/Summoner";
+import { ChampionMastery } from '../src/model/Summoner';
 
 export const mockMasteries: ChampionMastery[] = [
 	{
@@ -12,18 +12,18 @@ export const mockMasteries: ChampionMastery[] = [
 		markRequiredForNextLevel: 0,
 		tokensEarned: 3,
 		championSeasonMilestone: 4,
-		milestoneGrades: ["S", "A", "A+"],
+		milestoneGrades: ['S', 'A', 'A+'],
 		masteryMilestone: {
 			id: 1,
 			requireGradeCounts: {
-				"S": 5,
-				"A": 10,
-				"B": 20,
+				S: 5,
+				A: 10,
+				B: 20
 			},
 			rewardMarks: 2,
 			bonus: true,
-			totalGamesRequires: 50,
-		},
+			totalGamesRequires: 50
+		}
 	},
 	{
 		id: 2,
@@ -36,17 +36,17 @@ export const mockMasteries: ChampionMastery[] = [
 		markRequiredForNextLevel: 1,
 		tokensEarned: 2,
 		championSeasonMilestone: 3,
-		milestoneGrades: ["A", "B", "B+"],
+		milestoneGrades: ['A', 'B', 'B+'],
 		masteryMilestone: {
 			id: 2,
 			requireGradeCounts: {
-				"S": 3,
-				"A": 8,
-				"B": 15,
+				S: 3,
+				A: 8,
+				B: 15
 			},
 			rewardMarks: 1,
 			bonus: false,
-			totalGamesRequires: 40,
-		},
+			totalGamesRequires: 40
+		}
 	}
 ];
