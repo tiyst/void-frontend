@@ -1,6 +1,5 @@
 .page-container {
 	margin: 0;
-	padding: 0 10px;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
@@ -24,7 +23,6 @@
 	flex-direction: column;
 	gap: 15px;
 	padding: 20px 0 0 0;
-	border: 1px solid red;
 	height: auto;
 }
 
@@ -34,5 +32,4 @@
 	flex-direction: column;
 	gap: 15px;
 	padding: 20px 0;
-	border: 1px solid blue;
 }

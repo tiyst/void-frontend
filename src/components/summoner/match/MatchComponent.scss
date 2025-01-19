@@ -1,0 +1,41 @@
+.match {
+	display: flex;
+	flex-basis: 0;
+	padding: 10px;
+	flex-direction: row;
+	align-items: center;
+
+	img {
+		max-height: 100px;
+		object-fit: contain;
+		border-radius: 50%;
+	}
+
+	&.player-won {
+		box-shadow: 0 0 5px 2px $win;
+		background: linear-gradient(150deg, rgba($win, 1) 0%, transparent 40%);
+
+		&:hover {
+			box-shadow: 0 0 5px 5px $win;
+		}
+	}
+
+	&.player-lost {
+		box-shadow: 0 0 5px 2px $lose;
+		background: linear-gradient(150deg, rgba($lose, 1) 0%, transparent 40%);
+
+		&:hover {
+			box-shadow: 0 0 5px 5px $lose;
+		}
+	}
+}
+
+.team {
+	display: flex;
+	flex-direction: column;
+
+	h4 {
+		margin: 1px;
+		font-size: 1em;
+	}
+}
