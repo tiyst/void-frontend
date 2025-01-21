@@ -1,12 +1,14 @@
 import { ChampionMastery } from '../../../model/Summoner.ts';
 import './MasteryFragment.scss';
+import { getChampionIconUrl } from '../../../utils/ChampionIconUtils.ts';
 
 const MasteryFragment = (data: ChampionMastery) => {
+	const champIconUrl = getChampionIconUrl(data.championId);
+
 	return (
 		<div className="masteryFragment">
-			<img src="../../../../res/championPlaceholder.jpeg" alt="Champion icon" />
+			<img src={champIconUrl} alt="Champion icon" />
 			<div className="textDiv">
-				<h2>ID: {data.championId}</h2>
 				<h3>Level:{data.championLevel}</h3>
 				<h3>Points:{data.championPoints}</h3>
 			</div>

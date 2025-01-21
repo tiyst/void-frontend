@@ -10,7 +10,7 @@ import { createRandomMatch } from '../../utils/MatchUtils.ts';
 import { mockMatches } from '../../../mocks/MatchMock.ts';
 
 function SummonerScreen() {
-	const urlIcon = 'https://cdn.communitydragon.org/latest/profile-icon/6759';
+	const urlIcon = 'https://ddragon.leagueoflegends.com/cdn/15.1.1/img/profileicon/6759.png';
 	const playerName = 'Team1Top';
 
 	return (
