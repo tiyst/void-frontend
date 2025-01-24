@@ -5,9 +5,9 @@ import RankComponent from '../../components/summoner/rank/RankComponent.tsx';
 import { mockRanks } from '../../../mocks/RankMock.ts';
 import MasteryComponent from '../../components/summoner/mastery/MasteryComponent.tsx';
 import { mockMasteries } from '../../../mocks/MasteryMock.ts';
-import MatchComponent from '../../components/summoner/match/MatchComponent.tsx';
-import { createRandomMatch } from '../../utils/MatchUtils.ts';
+import { MatchComponent } from '../../components/summoner/match/MatchComponent.tsx';
 import { mockMatches } from '../../../mocks/MatchMock.ts';
+import { createRandomMatch } from '../../utils/MockUtils.ts';
 
 function SummonerScreen() {
 	const urlIcon = 'https://ddragon.leagueoflegends.com/cdn/15.1.1/img/profileicon/6759.png';

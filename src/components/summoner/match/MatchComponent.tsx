@@ -1,7 +1,14 @@
 import Base, { BaseBlockProps } from '../../base/Base.tsx';
-import { Match } from '../../../model/Match.ts';
+import { Match, Participant } from '../../../model/Match.ts';
 import './MatchComponent.scss';
-import { didPlayerWinMatch, findPlayer, getSummonerSpellIconUrl } from '../../../utils/MatchUtils.ts';
+import {
+	calculateKDA,
+	didPlayerWinMatch,
+	findPlayer, getMapUrlByMapId,
+	getSummonerSpellIconUrl,
+	unixDurationToMinutes,
+	unixTimestampToDuration
+} from '../../../utils/MatchUtils.ts';
 import { getChampionIconUrl, urlUnknownChampion } from '../../../utils/ChampionIconUtils.ts';
 import { getRoleIconUrl } from '../../../utils/RoleUtils.ts';
 import { replaceString } from '../../../utils/StringUtils.ts';
@@ -11,15 +18,16 @@ type MatchComponentProps = BaseBlockProps & {
 };
 
 const itemUrl = 'https://ddragon.leagueoflegends.com/cdn/15.1.1/img/item/{itemID}.png';
-const itemFields = ['item0', 'item1', 'item2', 'item3', 'item4', 'item5'];
 
-// TODO Add showPlayedMap, expandable fragment to show details, player names are links to their summoner pages
-const MatchComponent: React.FC<MatchComponentProps> = (data: MatchComponentProps) => {
+// TODO Add expandable fragment to show details, player names are links to their summoner pages
+//  red death text in KDA, display game mode name, KDA coloring based on performance
+export const MatchComponent: React.FC<MatchComponentProps> = (data: MatchComponentProps) => {
 	const { className = '' } = data;
 	const participants = data.match.participants;
 
 	const playerWon = didPlayerWinMatch(data.match, data.playerName ?? 'SummonerName');
 	const player = findPlayer(data.match, data.playerName ?? '');
+	const itemFields = Object.keys(player).filter((key) => /^item[0-5]$/.test(key)) as (keyof Participant)[];
 	const playedChampId = player.championId;
 	const champIconUrl = getChampionIconUrl(playedChampId);
 
@@ -27,6 +35,7 @@ const MatchComponent: React.FC<MatchComponentProps> = (data: MatchComponentProps
 	return (
 		<Base className={`match ${className} ${playerWon ? 'player-won' : 'player-lost'}`} playerName={data.playerName}>
 			<div className="image-container">
+				<img src={getMapUrlByMapId(data.match.mapId)} className="map-image" alt="Map icon" />
 				<img
 					src={champIconUrl}
 					alt="Champion icon"
@@ -34,6 +43,7 @@ const MatchComponent: React.FC<MatchComponentProps> = (data: MatchComponentProps
 						(e.target as HTMLImageElement).src = urlUnknownChampion;
 					}}
 				/>
+				<div className="level-badge">{player.champLevel}</div>
 				<img src={roleIconUrl} alt="Role Icon" className="role-image" />
 			</div>
 			<div className="summoner-spells">
@@ -45,7 +55,7 @@ const MatchComponent: React.FC<MatchComponentProps> = (data: MatchComponentProps
 				{itemFields.map((key) => (
 					<div key={key}>
 						<img
-							src={replaceString(itemUrl, 'itemID', player[key])}
+							src={replaceString(itemUrl, 'itemID', String(player[key]))}
 							alt={`${key}`}
 							className="item"
 							onError={(e) => {
@@ -54,6 +64,12 @@ const MatchComponent: React.FC<MatchComponentProps> = (data: MatchComponentProps
 						/>
 					</div>
 				))}
+			</div>
+			<div className="player-stats">
+				<h2>{`${player.kills} / ${player.deaths} / ${player.assists}`}</h2>
+				<h4>{`${calculateKDA(player.kills, player.assists, player.deaths)} KDA`}</h4>
+				<h4>{`${player.totalMinionsKilled}CS (${(player.totalMinionsKilled / unixDurationToMinutes(data.match.gameDuration)).toFixed(1)})`}</h4>
+				<h4>{unixTimestampToDuration(data.match.gameDuration)}</h4>
 			</div>
 			<div className="teams">
 				<div className="team leftTeam">
@@ -87,11 +103,6 @@ const MatchComponent: React.FC<MatchComponentProps> = (data: MatchComponentProps
 					))}
 				</div>
 			</div>
-			<div className="matchText">
-				<h2>Map ID: {data.match.mapId}</h2>
-			</div>
 		</Base>
 	);
 };
-
-export default MatchComponent;
