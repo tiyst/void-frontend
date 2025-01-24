@@ -1,5 +1,6 @@
 import { Match } from '../src/model/Match';
 
+// TODO Move to test resources as a json file
 export const mockMatches: Match = {
 	endOfGameResult: 'Win',
 	gameDuration: 1800000,
@@ -1341,10 +1342,6 @@ export const mockMatches: Match = {
 	],
 	platformId: 'NA1',
 	queueId: 420,
-	objectives: {
-		baron: { first: true, kills: 1 },
-		dragon: { first: false, kills: 2 }
-	},
 	teams: [
 		{
 			teamId: 100,
