@@ -81,6 +81,7 @@ export type Participant = {
 	onMyWayPings: number;
 	participantId: number;
 	pentaKills: number;
+	perks: Perks;
 	physicalDamageDealt: number;
 	physicalDamageDealtToChampions: number;
 	physicalDamageTaken: number;
@@ -283,4 +284,24 @@ export type Team = {
 	win: boolean;
 	objectives: Record<string, Objective>;
 	championBans: number[];
+};
+
+export type Perks = {
+	defense: number;
+	flex: number;
+	offense: number;
+	styles: PerksStyle[];
+};
+
+export type PerksStyle = {
+	description: string;
+	selections: PerksSelection[];
+	style: number;
+};
+
+export type PerksSelection = {
+	perk: number;
+	var1: number;
+	var2: number;
+	var3: number;
 };

@@ -78,6 +78,61 @@ export const mockMatches: Match = {
 			onMyWayPings: 2,
 			participantId: 1,
 			pentaKills: 0,
+			perks: {
+				defense: 5001,
+				flex: 5008,
+				offense: 5008,
+				styles: [
+					{
+						description: "primaryStyle",
+						selections: [
+							{
+								perk: 8128,
+								var1: 1397,
+								var2: 28,
+								var3: 0
+							},
+							{
+								perk: 8126,
+								var1: 312,
+								var2: 0,
+								var3: 0
+							},
+							{
+								perk: 8140,
+								var1: 25,
+								var2: 0,
+								var3: 0
+							},
+							{
+								perk: 8135,
+								var1: 450,
+								var2: 5,
+								var3: 0
+							}
+						],
+						style: 8100
+					},
+					{
+						description: "subStyle",
+						selections: [
+							{
+								perk: 8009,
+								var1: 2740,
+								var2: 0,
+								var3: 0
+							},
+							{
+								perk: 8014,
+								var1: 608,
+								var2: 0,
+								var3: 0
+							}
+						],
+						style: 8000
+					}
+				]
+			},
 			physicalDamageDealt: 2000,
 			physicalDamageDealtToChampions: 1000,
 			physicalDamageTaken: 3000,
@@ -211,6 +266,61 @@ export const mockMatches: Match = {
 			onMyWayPings: 2,
 			participantId: 1,
 			pentaKills: 0,
+			perks: {
+				defense: 5001,
+				flex: 5008,
+				offense: 5008,
+				styles: [
+					{
+						description: "primaryStyle",
+						selections: [
+							{
+								perk: 8128,
+								var1: 1397,
+								var2: 28,
+								var3: 0
+							},
+							{
+								perk: 8126,
+								var1: 312,
+								var2: 0,
+								var3: 0
+							},
+							{
+								perk: 8140,
+								var1: 25,
+								var2: 0,
+								var3: 0
+							},
+							{
+								perk: 8135,
+								var1: 450,
+								var2: 5,
+								var3: 0
+							}
+						],
+						style: 8100
+					},
+					{
+						description: "subStyle",
+						selections: [
+							{
+								perk: 8009,
+								var1: 2740,
+								var2: 0,
+								var3: 0
+							},
+							{
+								perk: 8014,
+								var1: 608,
+								var2: 0,
+								var3: 0
+							}
+						],
+						style: 8000
+					}
+				]
+			},
 			physicalDamageDealt: 2000,
 			physicalDamageDealtToChampions: 1000,
 			physicalDamageTaken: 3000,
@@ -344,6 +454,61 @@ export const mockMatches: Match = {
 			onMyWayPings: 2,
 			participantId: 1,
 			pentaKills: 0,
+			perks: {
+				defense: 5001,
+				flex: 5008,
+				offense: 5008,
+				styles: [
+					{
+						description: "primaryStyle",
+						selections: [
+							{
+								perk: 8128,
+								var1: 1397,
+								var2: 28,
+								var3: 0
+							},
+							{
+								perk: 8126,
+								var1: 312,
+								var2: 0,
+								var3: 0
+							},
+							{
+								perk: 8140,
+								var1: 25,
+								var2: 0,
+								var3: 0
+							},
+							{
+								perk: 8135,
+								var1: 450,
+								var2: 5,
+								var3: 0
+							}
+						],
+						style: 8100
+					},
+					{
+						description: "subStyle",
+						selections: [
+							{
+								perk: 8009,
+								var1: 2740,
+								var2: 0,
+								var3: 0
+							},
+							{
+								perk: 8014,
+								var1: 608,
+								var2: 0,
+								var3: 0
+							}
+						],
+						style: 8000
+					}
+				]
+			},
 			physicalDamageDealt: 2000,
 			physicalDamageDealtToChampions: 1000,
 			physicalDamageTaken: 3000,
@@ -477,6 +642,61 @@ export const mockMatches: Match = {
 			onMyWayPings: 2,
 			participantId: 1,
 			pentaKills: 0,
+			perks: {
+				defense: 5001,
+				flex: 5008,
+				offense: 5008,
+				styles: [
+					{
+						description: "primaryStyle",
+						selections: [
+							{
+								perk: 8128,
+								var1: 1397,
+								var2: 28,
+								var3: 0
+							},
+							{
+								perk: 8126,
+								var1: 312,
+								var2: 0,
+								var3: 0
+							},
+							{
+								perk: 8140,
+								var1: 25,
+								var2: 0,
+								var3: 0
+							},
+							{
+								perk: 8135,
+								var1: 450,
+								var2: 5,
+								var3: 0
+							}
+						],
+						style: 8100
+					},
+					{
+						description: "subStyle",
+						selections: [
+							{
+								perk: 8009,
+								var1: 2740,
+								var2: 0,
+								var3: 0
+							},
+							{
+								perk: 8014,
+								var1: 608,
+								var2: 0,
+								var3: 0
+							}
+						],
+						style: 8000
+					}
+				]
+			},
 			physicalDamageDealt: 2000,
 			physicalDamageDealtToChampions: 1000,
 			physicalDamageTaken: 3000,
@@ -610,6 +830,61 @@ export const mockMatches: Match = {
 			onMyWayPings: 2,
 			participantId: 1,
 			pentaKills: 0,
+			perks: {
+				defense: 5001,
+				flex: 5008,
+				offense: 5008,
+				styles: [
+					{
+						description: "primaryStyle",
+						selections: [
+							{
+								perk: 8128,
+								var1: 1397,
+								var2: 28,
+								var3: 0
+							},
+							{
+								perk: 8126,
+								var1: 312,
+								var2: 0,
+								var3: 0
+							},
+							{
+								perk: 8140,
+								var1: 25,
+								var2: 0,
+								var3: 0
+							},
+							{
+								perk: 8135,
+								var1: 450,
+								var2: 5,
+								var3: 0
+							}
+						],
+						style: 8100
+					},
+					{
+						description: "subStyle",
+						selections: [
+							{
+								perk: 8009,
+								var1: 2740,
+								var2: 0,
+								var3: 0
+							},
+							{
+								perk: 8014,
+								var1: 608,
+								var2: 0,
+								var3: 0
+							}
+						],
+						style: 8000
+					}
+				]
+			},
 			physicalDamageDealt: 2000,
 			physicalDamageDealtToChampions: 1000,
 			physicalDamageTaken: 3000,
@@ -743,6 +1018,61 @@ export const mockMatches: Match = {
 			onMyWayPings: 2,
 			participantId: 1,
 			pentaKills: 0,
+			perks: {
+				defense: 5001,
+				flex: 5008,
+				offense: 5008,
+				styles: [
+					{
+						description: "primaryStyle",
+						selections: [
+							{
+								perk: 8128,
+								var1: 1397,
+								var2: 28,
+								var3: 0
+							},
+							{
+								perk: 8126,
+								var1: 312,
+								var2: 0,
+								var3: 0
+							},
+							{
+								perk: 8140,
+								var1: 25,
+								var2: 0,
+								var3: 0
+							},
+							{
+								perk: 8135,
+								var1: 450,
+								var2: 5,
+								var3: 0
+							}
+						],
+						style: 8100
+					},
+					{
+						description: "subStyle",
+						selections: [
+							{
+								perk: 8009,
+								var1: 2740,
+								var2: 0,
+								var3: 0
+							},
+							{
+								perk: 8014,
+								var1: 608,
+								var2: 0,
+								var3: 0
+							}
+						],
+						style: 8000
+					}
+				]
+			},
 			physicalDamageDealt: 2000,
 			physicalDamageDealtToChampions: 1000,
 			physicalDamageTaken: 3000,
@@ -876,6 +1206,61 @@ export const mockMatches: Match = {
 			onMyWayPings: 2,
 			participantId: 1,
 			pentaKills: 0,
+			perks: {
+				defense: 5001,
+				flex: 5008,
+				offense: 5008,
+				styles: [
+					{
+						description: "primaryStyle",
+						selections: [
+							{
+								perk: 8128,
+								var1: 1397,
+								var2: 28,
+								var3: 0
+							},
+							{
+								perk: 8126,
+								var1: 312,
+								var2: 0,
+								var3: 0
+							},
+							{
+								perk: 8140,
+								var1: 25,
+								var2: 0,
+								var3: 0
+							},
+							{
+								perk: 8135,
+								var1: 450,
+								var2: 5,
+								var3: 0
+							}
+						],
+						style: 8100
+					},
+					{
+						description: "subStyle",
+						selections: [
+							{
+								perk: 8009,
+								var1: 2740,
+								var2: 0,
+								var3: 0
+							},
+							{
+								perk: 8014,
+								var1: 608,
+								var2: 0,
+								var3: 0
+							}
+						],
+						style: 8000
+					}
+				]
+			},
 			physicalDamageDealt: 2000,
 			physicalDamageDealtToChampions: 1000,
 			physicalDamageTaken: 3000,
@@ -1009,6 +1394,61 @@ export const mockMatches: Match = {
 			onMyWayPings: 2,
 			participantId: 1,
 			pentaKills: 0,
+			perks: {
+				defense: 5001,
+				flex: 5008,
+				offense: 5008,
+				styles: [
+					{
+						description: "primaryStyle",
+						selections: [
+							{
+								perk: 8128,
+								var1: 1397,
+								var2: 28,
+								var3: 0
+							},
+							{
+								perk: 8126,
+								var1: 312,
+								var2: 0,
+								var3: 0
+							},
+							{
+								perk: 8140,
+								var1: 25,
+								var2: 0,
+								var3: 0
+							},
+							{
+								perk: 8135,
+								var1: 450,
+								var2: 5,
+								var3: 0
+							}
+						],
+						style: 8100
+					},
+					{
+						description: "subStyle",
+						selections: [
+							{
+								perk: 8009,
+								var1: 2740,
+								var2: 0,
+								var3: 0
+							},
+							{
+								perk: 8014,
+								var1: 608,
+								var2: 0,
+								var3: 0
+							}
+						],
+						style: 8000
+					}
+				]
+			},
 			physicalDamageDealt: 2000,
 			physicalDamageDealtToChampions: 1000,
 			physicalDamageTaken: 3000,
@@ -1142,6 +1582,61 @@ export const mockMatches: Match = {
 			onMyWayPings: 2,
 			participantId: 1,
 			pentaKills: 0,
+			perks: {
+				defense: 5001,
+				flex: 5008,
+				offense: 5008,
+				styles: [
+					{
+						description: "primaryStyle",
+						selections: [
+							{
+								perk: 8128,
+								var1: 1397,
+								var2: 28,
+								var3: 0
+							},
+							{
+								perk: 8126,
+								var1: 312,
+								var2: 0,
+								var3: 0
+							},
+							{
+								perk: 8140,
+								var1: 25,
+								var2: 0,
+								var3: 0
+							},
+							{
+								perk: 8135,
+								var1: 450,
+								var2: 5,
+								var3: 0
+							}
+						],
+						style: 8100
+					},
+					{
+						description: "subStyle",
+						selections: [
+							{
+								perk: 8009,
+								var1: 2740,
+								var2: 0,
+								var3: 0
+							},
+							{
+								perk: 8014,
+								var1: 608,
+								var2: 0,
+								var3: 0
+							}
+						],
+						style: 8000
+					}
+				]
+			},
 			physicalDamageDealt: 2000,
 			physicalDamageDealtToChampions: 1000,
 			physicalDamageTaken: 3000,
@@ -1275,6 +1770,61 @@ export const mockMatches: Match = {
 			onMyWayPings: 2,
 			participantId: 1,
 			pentaKills: 0,
+			perks: {
+				defense: 5001,
+				flex: 5008,
+				offense: 5008,
+				styles: [
+					{
+						description: "primaryStyle",
+						selections: [
+							{
+								perk: 8128,
+								var1: 1397,
+								var2: 28,
+								var3: 0
+							},
+							{
+								perk: 8126,
+								var1: 312,
+								var2: 0,
+								var3: 0
+							},
+							{
+								perk: 8140,
+								var1: 25,
+								var2: 0,
+								var3: 0
+							},
+							{
+								perk: 8135,
+								var1: 450,
+								var2: 5,
+								var3: 0
+							}
+						],
+						style: 8100
+					},
+					{
+						description: "subStyle",
+						selections: [
+							{
+								perk: 8009,
+								var1: 2740,
+								var2: 0,
+								var3: 0
+							},
+							{
+								perk: 8014,
+								var1: 608,
+								var2: 0,
+								var3: 0
+							}
+						],
+						style: 8000
+					}
+				]
+			},
 			physicalDamageDealt: 2000,
 			physicalDamageDealtToChampions: 1000,
 			physicalDamageTaken: 3000,
@@ -1338,7 +1888,6 @@ export const mockMatches: Match = {
 			wardsPlaced: 10,
 			win: true
 		}
-		// 9 more participants...
 	],
 	platformId: 'NA1',
 	queueId: 420,

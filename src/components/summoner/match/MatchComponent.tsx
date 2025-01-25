@@ -11,7 +11,8 @@ import {
 } from '../../../utils/MatchUtils.ts';
 import { getChampionIconUrl, urlUnknownChampion } from '../../../utils/ChampionIconUtils.ts';
 import { getRoleIconUrl } from '../../../utils/RoleUtils.ts';
-import { replaceString } from '../../../utils/StringUtils.ts';
+import { replaceString, truncatePlayerName } from '../../../utils/StringUtils.ts';
+import { constructPrimaryRuneIconUrl, constructSecondaryRuneClassUrl, fallbackRuneIconUrl } from '../../../utils/RuneUtils.ts';
 
 type MatchComponentProps = BaseBlockProps & {
 	match: Match;
@@ -20,7 +21,7 @@ type MatchComponentProps = BaseBlockProps & {
 const itemUrl = 'https://ddragon.leagueoflegends.com/cdn/15.1.1/img/item/{itemID}.png';
 
 // TODO Add expandable fragment to show details, player names are links to their summoner pages
-//  red death text in KDA, display game mode name, KDA coloring based on performance
+//  red death text in KDA, display game mode name, KDA coloring based on performance, no item as an empty div
 export const MatchComponent: React.FC<MatchComponentProps> = (data: MatchComponentProps) => {
 	const { className = '' } = data;
 	const participants = data.match.participants;
@@ -51,6 +52,22 @@ export const MatchComponent: React.FC<MatchComponentProps> = (data: MatchCompone
 					<img key={id + index} src={getSummonerSpellIconUrl(id)} alt={`Summoner icon ${id}`} />
 				))}
 			</div>
+			<div className="runes">
+				<img
+					src={constructPrimaryRuneIconUrl(player.perks.styles)}
+					alt="Keystone rune"
+					onError={(e) => {
+						(e.target as HTMLImageElement).src = fallbackRuneIconUrl;
+					}}
+				/>
+				<img
+					src={constructSecondaryRuneClassUrl(player.perks.styles)}
+					alt="Secondary rune"
+					onError={(e) => {
+						(e.target as HTMLImageElement).src = fallbackRuneIconUrl;
+					}}
+				/>
+			</div>
 			<div className="items">
 				{itemFields.map((key) => (
 					<div key={key}>
@@ -75,7 +92,7 @@ export const MatchComponent: React.FC<MatchComponentProps> = (data: MatchCompone
 				<div className="team leftTeam">
 					{participants.slice(0, participants.length / 2).map((participant, index) => (
 						<h4 key={participant.riotIdGameName + index}>
-							{participant.riotIdGameName}
+							{truncatePlayerName(participant.riotIdGameName)}
 							<img
 								key={participant.championId + index}
 								src={getChampionIconUrl(participant.championId)}
@@ -98,7 +115,7 @@ export const MatchComponent: React.FC<MatchComponentProps> = (data: MatchCompone
 									(e.target as HTMLImageElement).src = urlUnknownChampion;
 								}}
 							/>
-							{participant.riotIdGameName}
+							{truncatePlayerName(participant.riotIdGameName)}
 						</h4>
 					))}
 				</div>

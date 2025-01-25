@@ -1,4 +1,5 @@
-import { Match, Participant, Team } from '../model/Match.ts';
+import { Match, Participant, Perks, PerksSelection, PerksStyle, Team } from '../model/Match.ts';
+import { runeKeystonesByStyle, runeSecondaryByStyle } from './RuneUtils.ts';
 
 export const championIds = [
 	266, 103, 84, 166, 12, 799, 32, 34, 1, 523, 22, 136, 893, 268, 432, 200, 53, 63, 201, 233, 51, 164, 69, 31, 42, 122,
@@ -126,6 +127,7 @@ export const createRandomMatch = (): Match => {
 		onMyWayPings: randomInt(0, 5),
 		participantId: randomInt(1, 10),
 		pentaKills: randomInt(0, 1),
+		perks: randomPerks(),
 		physicalDamageDealt: randomInt(1000, 20000),
 		physicalDamageDealtToChampions: randomInt(1000, 15000),
 		physicalDamageTaken: randomInt(1000, 10000),
@@ -141,7 +143,7 @@ export const createRandomMatch = (): Match => {
 		pushPings: randomInt(0, 5),
 		puuid: `puuid-${randomInt(1000, 9999)}`,
 		quadraKills: randomInt(0, 1),
-		riotIdGameName: `Player${randomInt(1, 100)}`,
+		riotIdGameName: `Player${randomInt(1, 100)}${Math.random() < 0.2 ? 'ExtendedName' : ''}`,
 		riotIdTagline: `${randomInt(1000, 9999)}`,
 		role: ['Top', 'Jungle', 'Mid', 'BOT', 'Support'][randomInt(0, 4)],
 		sightWardsBoughtInGame: randomInt(0, 3),
@@ -190,6 +192,45 @@ export const createRandomMatch = (): Match => {
 		win: randomBoolean()
 	});
 
+	const randomPerks = (): Perks => ({
+		defense: 1,
+		flex: 1,
+		offense: 1,
+		styles: randomStyles()
+	});
+
+	const randomStyles = (): PerksStyle[] => {
+		const styleIds = [8000, 8100, 8200, 8300, 8400];
+		return [generatePerkStyle(styleIds[randomInt(0, 4)], true),
+			generatePerkStyle(styleIds[randomInt(0, 2)], false)];
+	};
+
+	const generatePerkStyle = (style: number, isPrimary: boolean) => {
+		return {
+			description: isPrimary ? 'primaryStyle' : 'subStyle',
+			selections: randomPerksSelection(isPrimary ? 4 : 2, style),
+			style: style
+		};
+	};
+
+	const randomPerksSelection = (repetitions: number, style: number): PerksSelection[] => {
+		return Array.from({ length: repetitions }, (_, index) =>
+			createPerkSelection(index === 0 && repetitions === 4
+				? runeKeystonesByStyle[style][Math.floor(Math.random() * runeKeystonesByStyle[style].length)]
+				: runeSecondaryByStyle[style][Math.floor(Math.random() * runeSecondaryByStyle[style].length)]
+			)
+		);
+	};
+
+	const createPerkSelection = (perkId: number): PerksSelection => {
+		return {
+			perk: perkId,
+			var1: 0,
+			var2: 0,
+			var3: 0
+		};
+	};
+
 	const randomTeam = (teamId: number): Team => ({
 		teamId,
 		win: randomBoolean(),
@@ -198,8 +239,8 @@ export const createRandomMatch = (): Match => {
 			dragon: { first: randomBoolean(), kills: randomInt(0, 4) }
 		},
 		championBans: Array(5)
-			.fill(null)
-			.map(() => randomInt(1, 160))
+		.fill(null)
+		.map(() => randomInt(1, 160))
 	});
 
 	const game = {
@@ -210,11 +251,11 @@ export const createRandomMatch = (): Match => {
 		mapId: 11,
 		participants: [
 			...Array(5)
-				.fill(null)
-				.map(() => randomParticipant(100)),
+			.fill(null)
+			.map(() => randomParticipant(100)),
 			...Array(5)
-				.fill(null)
-				.map(() => randomParticipant(200))
+			.fill(null)
+			.map(() => randomParticipant(200))
 		],
 		platformId: 'NA1',
 		queueId: 420,
