@@ -9,7 +9,7 @@ import { MatchComponent } from '../../components/summoner/match/MatchComponent.t
 import { mockMatches } from '../../../mocks/MatchMock.ts';
 import { createRandomMatch } from '../../utils/MockUtils.ts';
 
-function SummonerScreen() {
+export const SummonerScreen= () => {
 	const urlIcon = 'https://ddragon.leagueoflegends.com/cdn/15.1.1/img/profileicon/6759.png';
 	const playerName = 'Team1Top';
 
@@ -32,5 +32,3 @@ function SummonerScreen() {
 		</div>
 	);
 }
-
-export default SummonerScreen;

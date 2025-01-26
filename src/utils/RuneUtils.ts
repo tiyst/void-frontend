@@ -21,7 +21,7 @@ export function constructPrimaryRuneIconUrl(perks: PerksStyle[]): string {
 }
 
 export function constructSecondaryRuneClassUrl(perks: PerksStyle[]): string {
-	const style = perks.find((perk) => perk.description === 'primaryStyle');
+	const style = perks.find((perk) => perk.description !== 'primaryStyle');
 
 	if (!style) {
 		return fallbackRuneIconUrl;

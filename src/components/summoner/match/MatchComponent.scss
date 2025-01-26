@@ -1,163 +1,178 @@
 .match {
-	display: flex;
-	justify-content: space-between;
-	flex-basis: 0;
-	padding: 10px;
-	flex-direction: row;
-	align-items: center;
+  display: flex;
+  justify-content: space-between;
+  flex-basis: 0;
+  padding: 10px;
+  flex-direction: row;
+  align-items: center;
+  height: 130px;
+  max-height: 130px;
 
-	img {
-		max-height: 100px;
-		object-fit: contain;
-		border-radius: 50%;
-	}
+  img {
+    max-height: 100px;
+    object-fit: contain;
+    border-radius: 50%;
+  }
 
-	.image-container {
-		position: relative;
-		display: inline-block;
-	}
+  .image-container {
+    position: relative;
+    display: inline-block;
+  }
 
-	.map-image {
-		position: absolute;
-		top: -5px;
-		left: -5px;
-		width: 40px;
-		height: 40px;
-	}
+  .map-image {
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    width: 40px;
+    height: 40px;
+  }
 
-	.level-badge {
-		position: absolute;
-		bottom: -3px;
-		left: 0;
-		width: 35px;
-		height: 35px;
-		background-color: black;
-		color: white;
-		border-radius: 50%;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		font-size: 18px;
-	}
+  .level-badge {
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 35px;
+    height: 35px;
+    background-color: black;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+  }
 
-	.role-image {
-		position: absolute;
-		bottom: -5px;
-		right: -5px;
-		width: 40px;
-		height: 40px;
-	}
+  .role-image {
+    position: absolute;
+    bottom: -5px;
+    right: -5px;
+    width: 40px;
+  }
 
-	&.player-won {
-		box-shadow: 0 0 5px 2px $win;
-		background: linear-gradient(150deg, rgba($win, 1) 0%, transparent 40%);
+  &.player-won {
+    box-shadow: 0 0 5px 2px $win;
+    background: linear-gradient(150deg, rgba($win, 1) 0%, transparent 40%);
 
-		&:hover {
-			box-shadow: 0 0 5px 5px $win;
-		}
-	}
+    &:hover {
+      box-shadow: 0 0 5px 5px $win;
+    }
+  }
 
-	&.player-lost {
-		box-shadow: 0 0 5px 2px $lose;
-		background: linear-gradient(150deg, rgba($lose, 1) 0%, transparent 40%);
+  &.player-lost {
+    box-shadow: 0 0 5px 2px $lose;
+    background: linear-gradient(150deg, rgba($lose, 1) 0%, transparent 40%);
 
-		&:hover {
-			box-shadow: 0 0 5px 5px $lose;
-		}
-	}
+    &:hover {
+      box-shadow: 0 0 5px 5px $lose;
+    }
+  }
 }
 
-.summoner-spells {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	gap: 8px;
-	max-height: 100%;
+.queue-type {
+  margin: 1px;
+  writing-mode: sideways-lr;
+  font-size: 1.2em;
+}
 
-	img {
-		border-radius: 25%;
-		max-height: 50px;
-	}
+.pre-game-choose {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 5px;
+  justify-items: center;
+  align-items: center;
+  max-height: 100%;
+  grid-auto-flow: column; // Items will flow row by row
+
+  img {
+    border-radius: 25%;
+    max-height: 50px;
+  }
 }
 
 .runes {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	gap: 8px;
-	max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  max-height: 100%;
 
-	img {
-		max-height: 50px;
-	}
+  img {
+    max-height: 50px;
+  }
 }
 
 .items {
-	display: grid;
-	grid-template-columns: repeat(2, 1fr);
-	grid-template-rows: repeat(3, 1fr);
-	gap: 5px;
-	justify-items: center;
-	align-items: center;
-	max-height: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 5px;
+  justify-items: center;
+  align-items: center;
+  max-height: 100%;
 
-	.item {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		object-fit: contain;
-		max-height: 40px;
-		border-radius: 25%;
+  .item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    object-fit: contain;
+    max-height: 40px;
+    border-radius: 25%;
 
-		img {
-			max-height: inherit;
-			border-radius: 0;
-		}
-	}
+    img {
+      max-height: inherit;
+      border-radius: 0;
+    }
+  }
 }
 
 .player-stats {
-	max-height: 100%;
-	display: flex;
-	flex-direction: column;
-	align-self: revert;
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-self: revert;
 
-	h2,
-	h3,
-	h4 {
-		margin: 0;
-	}
+  h2 {
+    margin: 0;
+  }
+
+  h3,
+  h4 {
+    margin: 0;
+    font-weight: lighter;
+  }
 }
 
 .teams {
-	display: flex;
-	flex-direction: row;
-	gap: 10px;
-	justify-content: center;
-	width: 35%;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  justify-content: center;
+  width: 35%;
 
-	.team {
-		display: flex;
-		flex-direction: column;
+  .team {
+    display: flex;
+    flex-direction: column;
 
-		h4 {
-			margin: 1px;
-			font-size: 1em;
-		}
-		img {
-			max-height: 20px;
-			border-radius: 30%;
-			flex-direction: column;
-			align-items: center;
-		}
-	}
+    h4 {
+      margin: 1px;
+      font-size: 1em;
+    }
 
-	.leftTeam {
-		text-align: right;
-		align-items: end;
-	}
+    img {
+      max-height: 20px;
+      border-radius: 30%;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
 
-	.rightTeam {
-		text-align: left;
-	}
+  .leftTeam {
+    text-align: right;
+    align-items: end;
+  }
+
+  .rightTeam {
+    text-align: left;
+  }
 }

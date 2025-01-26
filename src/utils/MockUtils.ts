@@ -55,8 +55,6 @@ export const createRandomMatch = (): Match => {
 
 	const randomBoolean = (): boolean => Math.random() < 0.5;
 
-	const championId = randomInt(1, 160);
-	console.log(`Random champ ID ${championId}`);
 	const randomParticipant = (teamId: number): Participant => ({
 		allInPings: randomInt(0, 10),
 		assistMePings: randomInt(0, 10),
@@ -98,13 +96,13 @@ export const createRandomMatch = (): Match => {
 		inhibitorKills: randomInt(0, 2),
 		inhibitorTakedowns: randomInt(0, 2),
 		inhibitorsLost: randomInt(0, 2),
-		item0: itemIds[randomInt(0, 602)],
-		item1: itemIds[randomInt(0, 602)],
-		item2: itemIds[randomInt(0, 602)],
-		item3: itemIds[randomInt(0, 602)],
-		item4: itemIds[randomInt(0, 602)],
-		item5: itemIds[randomInt(0, 602)],
-		item6: itemIds[randomInt(0, 602)],
+		item0: Math.random() < 0.15 ? 0 : itemIds[randomInt(0, 602)],
+		item1: Math.random() < 0.15 ? 0 : itemIds[randomInt(0, 602)],
+		item2: Math.random() < 0.15 ? 0 : itemIds[randomInt(0, 602)],
+		item3: Math.random() < 0.15 ? 0 : itemIds[randomInt(0, 602)],
+		item4: Math.random() < 0.15 ? 0 : itemIds[randomInt(0, 602)],
+		item5: Math.random() < 0.15 ? 0 : itemIds[randomInt(0, 602)],
+		item6: Math.random() < 0.15 ? 0 : itemIds[randomInt(0, 602)],
 		itemsPurchased: randomInt(0, 15),
 		killingSprees: randomInt(0, 3),
 		kills: randomInt(0, 20),
@@ -202,7 +200,7 @@ export const createRandomMatch = (): Match => {
 	const randomStyles = (): PerksStyle[] => {
 		const styleIds = [8000, 8100, 8200, 8300, 8400];
 		return [generatePerkStyle(styleIds[randomInt(0, 4)], true),
-			generatePerkStyle(styleIds[randomInt(0, 2)], false)];
+			generatePerkStyle(styleIds[randomInt(0, 4)], false)];
 	};
 
 	const generatePerkStyle = (style: number, isPrimary: boolean) => {
@@ -258,7 +256,7 @@ export const createRandomMatch = (): Match => {
 			.map(() => randomParticipant(200))
 		],
 		platformId: 'NA1',
-		queueId: 420,
+		queueId: [450, 1710, 420, 440, 400, 430][randomInt(0, 5)],
 		objectives: {
 			baron: { first: randomBoolean(), kills: randomInt(0, 2) },
 			dragon: { first: randomBoolean(), kills: randomInt(0, 4) }

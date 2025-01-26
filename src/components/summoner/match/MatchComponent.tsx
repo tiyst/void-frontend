@@ -5,7 +5,7 @@ import {
 	calculateKDA,
 	didPlayerWinMatch,
 	findPlayer, getMapUrlByMapId,
-	getSummonerSpellIconUrl,
+	getSummonerSpellIconUrl, queueTypeTranslations,
 	unixDurationToMinutes,
 	unixTimestampToDuration
 } from '../../../utils/MatchUtils.ts';
@@ -35,6 +35,7 @@ export const MatchComponent: React.FC<MatchComponentProps> = (data: MatchCompone
 	const roleIconUrl = getRoleIconUrl(player.teamPosition);
 	return (
 		<Base className={`match ${className} ${playerWon ? 'player-won' : 'player-lost'}`} playerName={data.playerName}>
+			<h2 className="queue-type">{queueTypeTranslations[data.match.queueId]}</h2>
 			<div className="image-container">
 				<img src={getMapUrlByMapId(data.match.mapId)} className="map-image" alt="Map icon" />
 				<img
@@ -47,12 +48,10 @@ export const MatchComponent: React.FC<MatchComponentProps> = (data: MatchCompone
 				<div className="level-badge">{player.champLevel}</div>
 				<img src={roleIconUrl} alt="Role Icon" className="role-image" />
 			</div>
-			<div className="summoner-spells">
+			<div className="pre-game-choose">
 				{[player.summoner1Id, player.summoner2Id].map((id, index) => (
-					<img key={id + index} src={getSummonerSpellIconUrl(id)} alt={`Summoner icon ${id}`} />
+					<img key={id + index} src={getSummonerSpellIconUrl(id)} alt={`Summoner spell ${id}`} />
 				))}
-			</div>
-			<div className="runes">
 				<img
 					src={constructPrimaryRuneIconUrl(player.perks.styles)}
 					alt="Keystone rune"
@@ -68,6 +67,12 @@ export const MatchComponent: React.FC<MatchComponentProps> = (data: MatchCompone
 					}}
 				/>
 			</div>
+			<div className="player-stats">
+				<h2>{`${player.kills} / ${player.deaths} / ${player.assists}`}</h2>
+				<h4>{`${calculateKDA(player.kills, player.assists, player.deaths)} KDA`}</h4>
+				<h4>{`${player.totalMinionsKilled}CS (${(player.totalMinionsKilled / unixDurationToMinutes(data.match.gameDuration)).toFixed(1)})`}</h4>
+				<h4>{unixTimestampToDuration(data.match.gameDuration)}</h4>
+			</div>
 			<div className="items">
 				{itemFields.map((key) => (
 					<div key={key}>
@@ -81,12 +86,6 @@ export const MatchComponent: React.FC<MatchComponentProps> = (data: MatchCompone
 						/>
 					</div>
 				))}
-			</div>
-			<div className="player-stats">
-				<h2>{`${player.kills} / ${player.deaths} / ${player.assists}`}</h2>
-				<h4>{`${calculateKDA(player.kills, player.assists, player.deaths)} KDA`}</h4>
-				<h4>{`${player.totalMinionsKilled}CS (${(player.totalMinionsKilled / unixDurationToMinutes(data.match.gameDuration)).toFixed(1)})`}</h4>
-				<h4>{unixTimestampToDuration(data.match.gameDuration)}</h4>
 			</div>
 			<div className="teams">
 				<div className="team leftTeam">
