@@ -1,4 +1,5 @@
-import { ChampionMastery } from '../src/model/Summoner';
+import { ChampionMastery, Summoner } from '../src/model/Summoner';
+import { mockRanks } from './RankMock.ts';
 
 export const mockMasteries: ChampionMastery[] = [
 	{
@@ -50,3 +51,17 @@ export const mockMasteries: ChampionMastery[] = [
 		}
 	}
 ];
+
+export const mockSummoner: Summoner = {
+	puuid: 'Kpau47EE1_pY85Vw-nTiU1EUVWDRE9csOE9fO0ajsh7b68vpgTWguXUe6nMGPzb31aZLQzPH7RnZHg',
+	accountId: 'FoU3ejvTePMuDGc-77H1R3lhoC3r2KizRyL78Lbmjo3I2kY',
+	summonerId: 'sQNO_q3Y79bOFVyubY1lGzagygTBOqgrUf-bEsR56vRl7qE',
+	lastUpdated: 1721304336222,
+	gameName: '새별비',
+	tagLine: '#tiyst',
+	server: 'EUN1',
+	profileIcon: 6759,
+	level: 453,
+	rank: mockRanks,
+	masteries: mockMasteries
+};

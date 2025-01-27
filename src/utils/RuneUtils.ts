@@ -14,10 +14,7 @@ export function constructPrimaryRuneIconUrl(perks: PerksStyle[]): string {
 	const runeStyle = style.style;
 	const runeId = style.selections[0].perk;
 	const urlWithStyle = replaceString(baseRuneUrl, 'class', runeClassTranslation[runeStyle]);
-	const result = replaceString(urlWithStyle, 'rune', runeTranslation[runeId]);
-
-	console.log(result);
-	return result;
+	return replaceString(urlWithStyle, 'rune', runeTranslation[runeId]);
 }
 
 export function constructSecondaryRuneClassUrl(perks: PerksStyle[]): string {
@@ -27,10 +24,7 @@ export function constructSecondaryRuneClassUrl(perks: PerksStyle[]): string {
 		return fallbackRuneIconUrl;
 	}
 	const runeStyle = style.style;
-	const url = replaceString(baseRuneStyleUrl, 'class', runeStylIconTranslations[runeStyle]);
-
-	console.log(url);
-	return url;
+	return replaceString(baseRuneStyleUrl, 'class', runeStylIconTranslations[runeStyle]);
 }
 
 

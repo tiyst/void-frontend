@@ -1,19 +1,20 @@
-import Base, { BaseBlockProps } from '../../base/Base.tsx';
+import Base from '../../base/Base.tsx';
 import './BaseInfo.scss';
+import { replaceString } from '../../../utils/StringUtils.ts';
+import { Summoner } from '../../../model/Summoner.ts';
 
-type BaseInfoProps = BaseBlockProps & {
-	summonerName?: string;
-	summonerIconUrl?: string;
-	level?: string;
-};
+const urlIcon = 'https://ddragon.leagueoflegends.com/cdn/15.1.1/img/profileicon/{iconId}.png';
 
-const BaseInfo: React.FC<BaseInfoProps> = ({ summonerName, summonerIconUrl, level, children, className = '' }) => {
+
+const BaseInfo = (summoner: Summoner) => {
 	return (
-		<Base className={`baseInfo ${className}`}>
-			{summonerIconUrl && <img className="summonerIcon" src={summonerIconUrl} alt="Summoner Icon" />}
-			{summonerName && <h2 className="summonerName">{summonerName}</h2>}
-			{level && <h3 className="level">{level}</h3>}
-			{children}
+		<Base className={`baseInfo`}>
+			<img className="summonerIcon"
+				 src={replaceString(urlIcon, 'iconId', String(summoner.profileIcon))}
+				 alt="Summoner Icon" />
+			<h1>{summoner.gameName}</h1>
+			<h2>{summoner.tagLine}</h2>
+			<h3>{summoner.level} level</h3>
 		</Base>
 	);
 };

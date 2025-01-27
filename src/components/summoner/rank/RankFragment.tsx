@@ -1,15 +1,22 @@
 import { Rank } from '../../../model/Summoner.ts';
 import './RankFragment.scss';
-import { replaceString } from '../../../utils/StringUtils.ts';
+import { getRankUrl } from '../../../utils/RankUtils.ts';
 
-const rankUrl = 'https://ddragon.leagueoflegends.com/cdn/15.1.1/img/ranked/{rank}.png';
-
-const RankFragment = (data: Rank) => {
+const RankFragment = (queueType:string, data: Rank) => {
 	return (
 		<div className="rankFragment">
-			<img src={replaceString(rankUrl, 'rank', data.tier.toLowerCase())} alt="Rank icon" />
-			<h2>{data.division}</h2>
-			<h3>{data.queueType}</h3>
+			<img src={getRankUrl(data?.tier?.toLowerCase() || 'unranked')} alt="Rank icon" />
+
+			<div className="rankText">
+				<h2>{queueType}</h2>
+				{data?.tier ?
+					<>
+						<h3>{data.tier} {data.division}	{data.leaguePoints} LP</h3>
+						<h4>{data.wins}W / {data.losses}L</h4>
+					</>
+				:	<h3>Unranked</h3>
+				}
+			</div>
 		</div>
 	);
 };

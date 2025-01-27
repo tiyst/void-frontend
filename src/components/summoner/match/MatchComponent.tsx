@@ -20,7 +20,7 @@ type MatchComponentProps = BaseBlockProps & {
 
 const itemUrl = 'https://ddragon.leagueoflegends.com/cdn/15.1.1/img/item/{itemID}.png';
 
-// TODO Add expandable fragment to show details, player names are links to their summoner pages
+// TODO Add expandable fragment to show details, player names are links to their summoner pages, show lane only when necessary
 //  red death text in KDA, display game mode name, KDA coloring based on performance, no item as an empty div
 export const MatchComponent: React.FC<MatchComponentProps> = (data: MatchComponentProps) => {
 	const { className = '' } = data;
