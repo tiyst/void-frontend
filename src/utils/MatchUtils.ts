@@ -85,22 +85,6 @@ export const fallbackSummonerSpellIconUrl = "https://tiy.st/summoner-icons/fallb
 export function getSummonerIconUrl(iconId: number) {
 	return replaceString(summonerSpellIconUrl, "iconId", String(iconId));
 }
-const summonerSpellIconUrlTranslations: { [key: number]: string } = {
-	21: 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/data/spells/icons2d/summonerbarrier.png',
-	1: 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/data/spells/icons2d/summoner_boost.png',
-	14: 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/data/spells/icons2d/summonerignite.png',
-	3: 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/data/spells/icons2d/summoner_exhaust.png',
-	4: 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/data/spells/icons2d/summoner_flash.png',
-	6: 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/data/spells/icons2d/summoner_haste.png',
-	7: 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/data/spells/icons2d/summoner_heal.png',
-	13: 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/data/spells/icons2d/summonermana.png',
-	31: 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/data/spells/icons2d/summoner_mark.png',
-	11: 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/data/spells/icons2d/summoner_smite.png',
-	39: 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/data/spells/icons2d/summoner_mark.png'
-	// "30": "SummonerPoroRecall",
-	// "2202": "SummonerCherryFlash",
-	// "2201": "SummonerCherryHold",
-};
 
 export const queueTypeTranslations: { [key: number]: string } = {
 	0: 'None',
