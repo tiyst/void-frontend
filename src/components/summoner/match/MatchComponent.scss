@@ -111,6 +111,14 @@
   align-items: center;
   max-height: 100%;
 
+
+  .item-container {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border-radius: 25%;
+  }
+
   .item {
     display: flex;
     justify-content: center;
@@ -131,6 +139,7 @@
   display: flex;
   flex-direction: column;
   align-self: revert;
+  width: 20%;
 
   h2 {
     margin: 0;
@@ -153,10 +162,13 @@
   .team {
     display: flex;
     flex-direction: column;
+    width: 50%;
 
-    h4 {
+    .name, h4 {
       margin: 1px;
       font-size: 1em;
+      font-weight: lighter;
+      color: white;
     }
 
     img {

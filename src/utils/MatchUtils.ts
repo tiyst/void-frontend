@@ -1,4 +1,5 @@
 import { Match } from '../model/Match.ts';
+import { replaceString } from './StringUtils.ts';
 
 export function didPlayerWinMatch(match: Match, playerName: string): boolean {
 	const playerParticipant = match.participants.find((participant) => participant.riotIdGameName === playerName);
@@ -9,32 +10,47 @@ export function didPlayerWinMatch(match: Match, playerName: string): boolean {
 }
 
 export function getSummonerSpellIconUrl(summoneSpellId: number): string {
-	return summonerSpellIconUrlTranslations[summoneSpellId] || emptySummonerSpellIconUrl;
+	return getSummonerIconUrl(summoneSpellId);
 }
 
 export function getMapUrlByMapId(mapId: number): string {
 	return mapIconUrls[mapId] || rotatingGameModeIconUrl;
 }
 
-export function calculateKDA(kills: number, assists: number, deaths: number) {
-	return deaths === 0 ? 'Perfect' : ((kills + assists) / deaths).toFixed(1);
+export function calculateKDA(kills: number, deaths: number, assists: number): number {
+	return deaths === 0 ? kills + assists : Math.round(((kills + assists) / deaths) * 10) / 10;
+}
+
+export function calculateKdaColor(kda: number): string {
+	if (kda >= 12) {
+		return '#ff8000';
+	} else if (kda >= 8) {
+		return '#a335ee';
+	} else if (kda >= 5) {
+		return '#0070dd';
+	} else if (kda >= 3) {
+		return '#1eff00';
+	} else if (kda >= 1.5) {
+		return '#ffffff';
+	} else {
+		return '#9d9d9d';
+	}
 }
 
 export function unixDurationToMinutes(unixDurationInMillis: number) {
-	return unixDurationInMillis / 60000;
+	return unixDurationInMillis / 60;
 }
 
-export function unixTimestampToDuration(unixDurationInMillis: number) {
-	const durationInSeconds = unixDurationInMillis / 1000;
-	const seconds = Math.floor(durationInSeconds % 60);
-	const minutes = Math.floor((durationInSeconds / 60) % 60);
-	const hours = Math.floor(durationInSeconds / 3600);
+export function unixTimestampToDuration(unixDurationInSeconds: number) {
+	const seconds = Math.floor(unixDurationInSeconds % 60);
+	const minutes = Math.floor((unixDurationInSeconds / 60) % 60);
+	const hours = Math.floor(unixDurationInSeconds / 3600);
 
 	return [hours > 0 ? `${hours}h` : '', minutes > 0 ? `${minutes}m` : '', `${seconds}s`].filter(Boolean).join(' ');
 }
 
 export function findPlayer(match: Match, playerName: string) {
-	const player = match.participants.find((p) => p.riotIdGameName === playerName);
+	const player = match.participants.find((p) => p.riotIdGameName.toLowerCase() === playerName.toLowerCase());
 	if (!player) {
 		throw new Error(`Player with name "${playerName}" not found`);
 	}
@@ -63,11 +79,12 @@ const mapIconUrls: { [key: number]: string } = {
 	30: rotatingGameModeIconUrl
 };
 
-// Sources:
-// https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/data/spells/icons2d/
-// https://ddragon.leagueoflegends.com/cdn/15.1.1/data/en_US/summoner.json
-const emptySummonerSpellIconUrl =
-	'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/data/spells/icons2d/summoner_empty.png';
+const summonerSpellIconUrl = 'https://tiy.st/summoner-icons/{iconId}.png'
+export const fallbackSummonerSpellIconUrl = "https://tiy.st/summoner-icons/fallbackSummoner.png"
+
+export function getSummonerIconUrl(iconId: number) {
+	return replaceString(summonerSpellIconUrl, "iconId", String(iconId));
+}
 const summonerSpellIconUrlTranslations: { [key: number]: string } = {
 	21: 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/data/spells/icons2d/summonerbarrier.png',
 	1: 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/data/spells/icons2d/summoner_boost.png',
@@ -85,7 +102,7 @@ const summonerSpellIconUrlTranslations: { [key: number]: string } = {
 	// "2201": "SummonerCherryHold",
 };
 
-export const queueTypeTranslations: { [key: number]: string }  = {
+export const queueTypeTranslations: { [key: number]: string } = {
 	0: 'None',
 	72: '1v1 Snowdown',
 	73: '2v2 Snowdown',

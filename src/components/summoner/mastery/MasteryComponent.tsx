@@ -13,7 +13,7 @@ const MasteryComponent: React.FC<MasteryComponentProps> = (data: MasteryComponen
 
 	return (
 		<BaseWithHeader headerText="Masteries" className={`masteryComponent ${className}`}>
-			{data.masteries.map((mastery) => (
+			{data.masteries.slice(0,4).map((mastery) => (
 				<MasteryFragment key={mastery.id} {...mastery} />
 			))}
 		</BaseWithHeader>

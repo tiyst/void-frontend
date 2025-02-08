@@ -1,113 +1,32 @@
 import { replaceString } from './StringUtils.ts';
 import { PerksStyle } from '../model/Match.ts';
 
-export const fallbackRuneIconUrl = 'https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/RunesIcon.png';
-const baseRuneUrl = 'https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/{class}/{rune}/{rune}.png';
-const baseRuneStyleUrl = 'https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/{class}.png';
+const runeUrl = 'https://tiy.st/runes/{rune}.png';
+export const runeUrlFallback = 'https://tiy.st/runes/fallbackIcon.png';
 
-export function constructPrimaryRuneIconUrl(perks: PerksStyle[]): string {
+export function constructRuneIconUrl(perks: PerksStyle[]): string {
 	const style = perks.find((perk) => perk.description === 'primaryStyle');
 
 	if (!style) {
-		return fallbackRuneIconUrl;
+		console.log("No style found");
+		return runeUrlFallback;
 	}
-	const runeStyle = style.style;
 	const runeId = style.selections[0].perk;
-	const urlWithStyle = replaceString(baseRuneUrl, 'class', runeClassTranslation[runeStyle]);
-	return replaceString(urlWithStyle, 'rune', runeTranslation[runeId]);
+	return replaceString(runeUrl, 'rune', String(runeId));
 }
 
-export function constructSecondaryRuneClassUrl(perks: PerksStyle[]): string {
+export function constructRuneClassUrl(perks: PerksStyle[]): string {
 	const style = perks.find((perk) => perk.description !== 'primaryStyle');
 
 	if (!style) {
-		return fallbackRuneIconUrl;
+		console.log("No style class found");
+		return runeUrlFallback;
 	}
+
 	const runeStyle = style.style;
-	return replaceString(baseRuneStyleUrl, 'class', runeStylIconTranslations[runeStyle]);
+
+	return replaceString(runeUrl, 'rune', String(runeStyle));
 }
-
-
-const runeClassTranslation: { [key: string]: string } = {
-	'8000': 'Precision',
-	'8100': 'Domination',
-	'8200': 'Sorcery',
-	'8300': 'Inspiration',
-	'8400': 'Resolve'
-};
-
-const runeTranslation: { [key: string]: string } = {
-	'8112': 'Electrocute',
-	'8128': 'DarkHarvest',
-	'9923': 'HailOfBlades',
-	'8126': 'CheapShot',
-	'8139': 'TasteOfBlood',
-	'8143': 'SuddenImpact',
-	'8136': 'ZombieWard',
-	'8120': 'GhostPoro',
-	'8138': 'EyeballCollection',
-	'8135': 'TreasureHunter',
-	'8105': 'RelentlessHunter',
-	'8106': 'UltimateHunter',
-	'8351': 'GlacialAugment',
-	'8360': 'UnsealedSpellbook',
-	'8369': 'FirstStrike',
-	'8306': 'HextechFlashtraption',
-	'8304': 'MagicalFootwear',
-	'8321': 'CashBack',
-	'8313': 'PerfectTiming',
-	'8352': 'TimeWarpTonic',
-	'8345': 'BiscuitDelivery',
-	'8347': 'CosmicInsight',
-	'8410': 'ApproachVelocity',
-	'8316': 'JackOfAllTrades',
-	'8005': 'PressTheAttack',
-	'8008': 'LethalTempo',
-	'8021': 'FleetFootwork',
-	'8010': 'Conqueror',
-	'9101': 'AbsorbLife',
-	'9111': 'Triumph',
-	'8009': 'PresenceOfMind',
-	'9104': 'LegendAlacrity',
-	'9105': 'LegendHaste',
-	'9103': 'LegendBloodline',
-	'8014': 'CoupDeGrace',
-	'8017': 'CutDown',
-	'8299': 'LastStand',
-	'8437': 'GraspOfTheUndying',
-	'8439': 'Aftershock',
-	'8465': 'Guardian',
-	'8446': 'Demolish',
-	'8463': 'FontOfLife',
-	'8401': 'ShieldBash',
-	'8429': 'Conditioning',
-	'8444': 'SecondWind',
-	'8473': 'BonePlating',
-	'8451': 'Overgrowth',
-	'8453': 'Revitalize',
-	'8242': 'Unflinching',
-	'8214': 'SummonAery',
-	'8229': 'ArcaneComet',
-	'8230': 'PhaseRush',
-	'8224': 'NullifyingOrb',
-	'8226': 'ManaflowBand',
-	'8275': 'NimbusCloak',
-	'8210': 'Transcendence',
-	'8234': 'Celerity',
-	'8233': 'AbsoluteFocus',
-	'8237': 'Scorch',
-	'8232': 'Waterwalking',
-	'8236': 'GatheringStorm'
-};
-
-//Used to pull rune class icons such as 'precision'
-const runeStylIconTranslations: { [key: string]: string } = {
-	'8000': '7201_Precision',
-	'8100': '7200_Domination',
-	'8200': '7202_Sorcery',
-	'8300': '7203_Whimsy',
-	'8400': '7204_Resolve'
-};
 
 export const runeKeystonesByStyle: { [key: number]: number[] } = {
 	8000: [8005, 8008, 8021, 8010],

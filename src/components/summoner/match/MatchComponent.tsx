@@ -2,8 +2,8 @@ import Base, { BaseBlockProps } from '../../base/Base.tsx';
 import { Match, Participant } from '../../../model/Match.ts';
 import './MatchComponent.scss';
 import {
-	calculateKDA,
-	didPlayerWinMatch,
+	calculateKDA, calculateKdaColor,
+	didPlayerWinMatch, fallbackSummonerSpellIconUrl,
 	findPlayer, getMapUrlByMapId,
 	getSummonerSpellIconUrl, queueTypeTranslations,
 	unixDurationToMinutes,
@@ -12,7 +12,8 @@ import {
 import { getChampionIconUrl, urlUnknownChampion } from '../../../utils/ChampionIconUtils.ts';
 import { getRoleIconUrl } from '../../../utils/RoleUtils.ts';
 import { replaceString, truncatePlayerName } from '../../../utils/StringUtils.ts';
-import { constructPrimaryRuneIconUrl, constructSecondaryRuneClassUrl, fallbackRuneIconUrl } from '../../../utils/RuneUtils.ts';
+import { constructRuneIconUrl, constructRuneClassUrl, runeUrlFallback } from '../../../utils/RuneUtils.ts';
+import { Link, useParams } from 'react-router-dom';
 
 type MatchComponentProps = BaseBlockProps & {
 	match: Match;
@@ -20,19 +21,22 @@ type MatchComponentProps = BaseBlockProps & {
 
 const itemUrl = 'https://ddragon.leagueoflegends.com/cdn/15.1.1/img/item/{itemID}.png';
 
-// TODO Add expandable fragment to show details, player names are links to their summoner pages, show lane only when necessary
-//  red death text in KDA, display game mode name, KDA coloring based on performance, no item as an empty div
+// FIXME Without reloading document on <Link> makes rerender fail
+
+// TODO Add expandable fragment to show details change map based on which played, when was the match played
 export const MatchComponent: React.FC<MatchComponentProps> = (data: MatchComponentProps) => {
 	const { className = '' } = data;
+	const { server } = useParams();
 	const participants = data.match.participants;
-
 	const playerWon = didPlayerWinMatch(data.match, data.playerName ?? 'SummonerName');
 	const player = findPlayer(data.match, data.playerName ?? '');
+
 	const itemFields = Object.keys(player).filter((key) => /^item[0-5]$/.test(key)) as (keyof Participant)[];
 	const playedChampId = player.championId;
 	const champIconUrl = getChampionIconUrl(playedChampId);
+	const kda = calculateKDA(player.kills, player.deaths, player.assists);
+	const kdaColor = calculateKdaColor(kda);
 
-	const roleIconUrl = getRoleIconUrl(player.teamPosition);
 	return (
 		<Base className={`match ${className} ${playerWon ? 'player-won' : 'player-lost'}`} playerName={data.playerName}>
 			<h2 className="queue-type">{queueTypeTranslations[data.match.queueId]}</h2>
@@ -46,42 +50,59 @@ export const MatchComponent: React.FC<MatchComponentProps> = (data: MatchCompone
 					}}
 				/>
 				<div className="level-badge">{player.champLevel}</div>
-				<img src={roleIconUrl} alt="Role Icon" className="role-image" />
+				{player.teamPosition !== '' &&
+					<img src={getRoleIconUrl(player.teamPosition)} alt="Role Icon" className="role-image" />}
 			</div>
 			<div className="pre-game-choose">
 				{[player.summoner1Id, player.summoner2Id].map((id, index) => (
-					<img key={id + index} src={getSummonerSpellIconUrl(id)} alt={`Summoner spell ${id}`} />
+					<img key={id ?? 'unknownSummonerId' + index} src={getSummonerSpellIconUrl(id)} alt={`Summoner spell ${id}`}
+
+						 onError={(e) => {
+							 (e.target as HTMLImageElement).src = fallbackSummonerSpellIconUrl;
+						 }}
+					/>
 				))}
 				<img
-					src={constructPrimaryRuneIconUrl(player.perks.styles)}
+					src={constructRuneIconUrl(player.perks.styles)}
 					alt="Keystone rune"
 					onError={(e) => {
-						(e.target as HTMLImageElement).src = fallbackRuneIconUrl;
+						(e.target as HTMLImageElement).src = runeUrlFallback;
 					}}
 				/>
 				<img
-					src={constructSecondaryRuneClassUrl(player.perks.styles)}
+					src={constructRuneClassUrl(player.perks.styles)}
 					alt="Secondary rune"
 					onError={(e) => {
-						(e.target as HTMLImageElement).src = fallbackRuneIconUrl;
+						(e.target as HTMLImageElement).src = runeUrlFallback;
 					}}
 				/>
 			</div>
 			<div className="player-stats">
-				<h2>{`${player.kills} / ${player.deaths} / ${player.assists}`}</h2>
-				<h4>{`${calculateKDA(player.kills, player.assists, player.deaths)} KDA`}</h4>
+				<h2>
+					<span>{player.kills}</span> /<span
+					style={{ color: '#F47174' }}>{player.deaths}</span> / <span>{player.assists}</span>
+				</h2>
+				<h4>
+					<span style={{ fontSize: '22px', fontWeight: 'bold', color: kdaColor }}>{kda}</span> KDA
+				</h4>
 				<h4>{`${player.totalMinionsKilled}CS (${(player.totalMinionsKilled / unixDurationToMinutes(data.match.gameDuration)).toFixed(1)})`}</h4>
 				<h4>{unixTimestampToDuration(data.match.gameDuration)}</h4>
 			</div>
 			<div className="items">
-				{itemFields.map((key) => (
-					<div key={key}>
+				{itemFields.map((key, index) => (
+					<div key={key ?? 'unknownItemField' + index} className="item-container">
 						<img
 							src={replaceString(itemUrl, 'itemID', String(player[key]))}
 							alt={`${key}`}
 							className="item"
 							onError={(e) => {
-								(e.target as HTMLImageElement).src = urlUnknownChampion;
+								const target = e.target as HTMLImageElement;
+								target.style.opacity = '0';
+								const parent = target.parentElement;
+								if (parent) {
+									target.parentElement.style.opacity = '0.2';
+									target.parentElement.style.backgroundColor = 'rgb(193, 155, 230)';
+								}
 							}}
 						/>
 					</div>
@@ -90,24 +111,40 @@ export const MatchComponent: React.FC<MatchComponentProps> = (data: MatchCompone
 			<div className="teams">
 				<div className="team leftTeam">
 					{participants.slice(0, participants.length / 2).map((participant, index) => (
-						<h4 key={participant.riotIdGameName + index}>
+						<Link reloadDocument
+							  className="name"
+							  key={participant.riotIdGameName ?? 'unknownParticipantId' + index}
+							  to={`/summoner/${server}/${participant.riotIdGameName}/${participant.riotIdTagline}`}
+							  style={{
+								  textDecoration: 'none',
+								  fontWeight: participant.riotIdGameName === player.riotIdGameName ? 'bold' : 'normal'
+							  }}
+						>
 							{truncatePlayerName(participant.riotIdGameName)}
 							<img
-								key={participant.championId + index}
+								key={participant.championId ?? 'unknownChampionId' + index}
 								src={getChampionIconUrl(participant.championId)}
 								alt={'Participant champion icon'}
 								onError={(e) => {
 									(e.target as HTMLImageElement).src = urlUnknownChampion;
 								}}
 							/>
-						</h4>
+						</Link>
 					))}
 				</div>
 				<div className="team rightTeam">
 					{participants.slice(participants.length / 2).map((participant, index) => (
-						<h4 key={participant.riotIdGameName + index}>
+						<Link reloadDocument
+							  className="name"
+							  key={participant.riotIdGameName ?? 'unknownParticipantId' + index}
+							  to={`/summoner/${server}/${participant.riotIdGameName}/${participant.riotIdTagline}`}
+							  style={{
+								  textDecoration: 'none',
+								  fontWeight: participant.riotIdGameName === player.riotIdGameName ? 'bold' : 'normal'
+							  }}
+						>
 							<img
-								key={participant.championId + index}
+								key={participant.championId ?? 'unknownChampIconId' + index}
 								src={getChampionIconUrl(participant.championId)}
 								alt={'Participant champion icon'}
 								onError={(e) => {
@@ -115,7 +152,7 @@ export const MatchComponent: React.FC<MatchComponentProps> = (data: MatchCompone
 								}}
 							/>
 							{truncatePlayerName(participant.riotIdGameName)}
-						</h4>
+						</Link>
 					))}
 				</div>
 			</div>
