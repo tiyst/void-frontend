@@ -1,3 +1,5 @@
+import { Match } from './Match.ts';
+
 export type Summoner = {
 	puuid: string;
 	accountId: string;
@@ -10,6 +12,7 @@ export type Summoner = {
 	level: number;
 	rank: Rank[];
 	masteries: ChampionMastery[];
+	matches: Match[];
 };
 
 export type Rank = {
