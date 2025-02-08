@@ -23,12 +23,20 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Run Linter
+        id: lint
+        continue-on-error: true
         run: yarn lint
 
       - name: Notify Discord on Failure
         if: failure()
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
         run: |
+          message="🚨 CI Checks Failed in Repository: ${{ github.repository }} on Branch: ${{ github.ref }}"
+          if [ "${{ steps.lint.outcome }}" == "failure" ]; then
+            message="$message\n❌ Linting failed."
+          fi
           curl -H "Content-Type: application/json" \
-          -X POST \
-          -d '{"username": "GitHub Actions", "content": "🚨 CI Checks Failed in Repository: ${{ github.repository }} on Branch: ${{ github.ref }}"}' \
-          ${{ secrets.DISCORD_WEBHOOK_URL }}
+               -X POST \
+               -d "{\"username\": \"GitHub Actions\", \"content\": \"$message\"}" \
+               $DISCORD_WEBHOOK_URL
