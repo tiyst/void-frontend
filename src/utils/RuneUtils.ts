@@ -1,8 +1,8 @@
 import { replaceString } from './StringUtils.ts';
 import { PerksStyle } from '../model/Match.ts';
 
-const runeUrl = 'https://tiy.st/runes/{rune}.png';
-export const runeUrlFallback = 'https://tiy.st/runes/fallbackIcon.png';
+const runeUrl = 'https://cdn.tiy.st/runes/{rune}.png';
+export const runeUrlFallback = 'https://cdn.tiy.st/runes/fallbackIcon.png';
 
 export function constructRuneIconUrl(perks: PerksStyle[]): string {
 	const style = perks.find((perk) => perk.description === 'primaryStyle');

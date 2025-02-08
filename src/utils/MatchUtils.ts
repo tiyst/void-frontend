@@ -79,8 +79,8 @@ const mapIconUrls: { [key: number]: string } = {
 	30: rotatingGameModeIconUrl
 };
 
-const summonerSpellIconUrl = 'https://tiy.st/summoner-icons/{iconId}.png'
-export const fallbackSummonerSpellIconUrl = "https://tiy.st/summoner-icons/fallbackSummoner.png"
+const summonerSpellIconUrl = 'https://cdn.tiy.st/summoner-icons/{iconId}.png'
+export const fallbackSummonerSpellIconUrl = "https://cdn.tiy.st/summoner-icons/fallbackSummoner.png"
 
 export function getSummonerIconUrl(iconId: number) {
 	return replaceString(summonerSpellIconUrl, "iconId", String(iconId));

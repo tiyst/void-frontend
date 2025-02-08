@@ -3,7 +3,7 @@ import { replaceString } from './StringUtils.ts';
 
 const miniRankUrl =
 	'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/ux/fonts/texticons/lol/ranks/rank{rank}.png';
-const rankUrl = 'https://tiy.st/rank-icons/{rank}.png';
+const rankUrl = 'https://cdn.tiy.st/rank-icons/{rank}.png';
 
 export function getRankMiniUrl(rank: string) {
 	return replaceString(miniRankUrl, 'rank', rank);
