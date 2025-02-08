@@ -1,4 +1,4 @@
-.page-container {
+.summoner-screen-container {
 	margin: 0;
 	display: flex;
 	flex-direction: column;
@@ -32,4 +32,15 @@
 	flex-direction: column;
 	gap: 15px;
 	padding: 20px 0;
+}
+
+@media (max-width: 768px) {
+	.content {
+		flex-direction: column;
+		padding: 10px;
+	}
+
+	.left-side {
+		width: 100%;
+	}
 }

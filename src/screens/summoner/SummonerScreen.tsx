@@ -4,33 +4,67 @@ import BaseInfo from '../../components/summoner/baseInfo/BaseInfo.tsx';
 import RankComponent from '../../components/summoner/rank/RankComponent.tsx';
 import MasteryComponent from '../../components/summoner/mastery/MasteryComponent.tsx';
 import { MatchComponent } from '../../components/summoner/match/MatchComponent.tsx';
-import { mockMatches } from '../../../mocks/MatchMock.ts';
-import { createRandomMatch } from '../../utils/MockUtils.ts';
 import { Summoner } from '../../model/Summoner.ts';
+import { useParams } from 'react-router-dom';
+import { useEffect, useRef, useState } from 'react';
+import { Match } from '../../model/Match.ts';
+import { LoadingSpinner } from '../../components/base/LoadingSpinner.tsx';
 
-type SummonerScreenProps = {
-	summoner: Summoner;
-};
+// TODO ensure summoner is not undefined
+export const SummonerScreen = () => {
+	const [summoner, setSummoner] = useState<Summoner>();
+	const [loading, setLoading] = useState<boolean>(true);
 
-export const SummonerScreen= (data: SummonerScreenProps) => {
-	const playerName = 'Team1Top';
+	const { server, gameName, tagLine } = useParams();
+
+	const firstRender = useRef(false); //react dev build runs twice (WTF)
+
+	useEffect(() => {
+		if (firstRender.current) {
+			firstRender.current = false;
+			return;
+		} // Prevent second call
+
+		firstRender.current = true;
+		const fetchData = async () => {
+			try {
+				const response = await fetch(`/api/summoner/${server}/${gameName}/${tagLine}/update`);
+				if (!response.ok) {
+					throw new Error(`HTTP error! Status: ${response.status}`);
+				}
+
+				const result: Summoner = await response.json();
+				console.log(`result ${result.gameName}`);
+				setSummoner(result);
+			} catch (err: Error) {
+				console.log(err.message);
+			} finally {
+				setLoading(false);
+			}
+		};
+
+		fetchData();
+	}, [server, gameName, tagLine]);
+
+	if (loading) {
+		return <LoadingSpinner/>;
+	}
 
 	return (
-		<div className="page-container">
+		<div className="summoner-screen-container">
 			<TopBar />
 			<div className="content">
 				<div className="left-side">
-					<BaseInfo {...data.summoner} />
-					<RankComponent ranks={data.summoner.rank} />
-					<MasteryComponent masteries={data.summoner.masteries} />
+					<BaseInfo {...summoner} />
+					<RankComponent ranks={summoner.rank} />
+					<MasteryComponent masteries={summoner.masteries} />
 				</div>
 				<div className="right-side">
-					<MatchComponent playerName={playerName} match={mockMatches} />
-					<MatchComponent playerName={playerName} match={createRandomMatch()} />
-					<MatchComponent playerName={playerName} match={createRandomMatch()} />
-					<MatchComponent playerName={playerName} match={createRandomMatch()} />
+					{summoner.matches.map((match: Match, index: number) => (
+						<MatchComponent key={match.retrievedDate + index} playerName={gameName} match={match} />
+					))}
 				</div>
 			</div>
 		</div>
 	);
-}
+};
