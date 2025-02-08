@@ -12,7 +12,7 @@ const BaseInfo = (summoner: Summoner) => {
 			<img className="summonerIcon"
 				 src={replaceString(urlIcon, 'iconId', String(summoner.profileIcon))}
 				 alt="Summoner Icon" />
-			<h1>{summoner.gameName}</h1>
+			<h1 className="responsive-text">{summoner.gameName}</h1>
 			<h2>{summoner.tagLine}</h2>
 			<h3>{summoner.level} level</h3>
 		</Base>

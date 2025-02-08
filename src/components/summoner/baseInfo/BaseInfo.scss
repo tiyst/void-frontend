@@ -14,11 +14,23 @@
 	justify-content: space-evenly;
 	overflow: hidden;
 
+	.responsive-text {
+    font-size: min(4vw, 2rem);
+    max-width: fit-content;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		line-height: 1.2;
+		margin: 0;
+		padding: 0;
+	}
+
 	h1, h2, h3 {
 		position: relative;
 		z-index: 1;
 		margin: 0
 	}
+
 	h2 {
 		font-weight: normal;
 	}
