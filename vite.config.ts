@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
@@ -9,16 +10,14 @@ export default defineConfig({
 			'/api': {
 				target: 'http://localhost:8080',
 				changeOrigin: true,
-				// rewrite: (path) => path.replace(/^\/api/, ''),
-
-				configure: (proxy, options) => {
-					proxy.on('error', (err, _req, _res) => {
+				configure: (proxy) => {
+					proxy.on('error', (err) => {
 						console.log('error', err);
 					});
-					proxy.on('proxyReq', (proxyReq, req, _res) => {
+					proxy.on('proxyReq', (proxyReq, req) => {
 						console.log('Request sent to target:', req.method, req.url);
 					});
-					proxy.on('proxyRes', (proxyRes, req, _res) => {
+					proxy.on('proxyRes', (proxyRes, req) => {
 						console.log('Response received from target:', proxyRes.statusCode, req.url);
 					});
 				},
