@@ -10,7 +10,6 @@ import { useEffect, useRef, useState } from 'react';
 import { Match } from '../../model/Match.ts';
 import { LoadingSpinner } from '../../components/base/LoadingSpinner.tsx';
 
-// TODO ensure summoner is not undefined
 export const SummonerScreen = () => {
 	const [summoner, setSummoner] = useState<Summoner>();
 	const [loading, setLoading] = useState<boolean>(true);
@@ -36,8 +35,8 @@ export const SummonerScreen = () => {
 				const result: Summoner = await response.json();
 				console.log(`result ${result.gameName}`);
 				setSummoner(result);
-			} catch (err: Error) {
-				console.log(err.message);
+			} catch (err) {
+				console.log(err instanceof Error ? err.message : err);
 			} finally {
 				setLoading(false);
 			}
@@ -55,12 +54,16 @@ export const SummonerScreen = () => {
 			<TopBar />
 			<div className="content">
 				<div className="left-side">
-					<BaseInfo {...summoner} />
-					<RankComponent ranks={summoner.rank} />
-					<MasteryComponent masteries={summoner.masteries} />
+					{summoner && (
+						<>
+							<BaseInfo {...summoner} />
+							<RankComponent ranks={summoner.rank} />
+							<MasteryComponent masteries={summoner.masteries} />
+						</>
+					)}
 				</div>
 				<div className="right-side">
-					{summoner.matches.map((match: Match, index: number) => (
+					{summoner?.matches.map((match: Match, index: number) => (
 						<MatchComponent key={match.retrievedDate + index} playerName={gameName} match={match} />
 					))}
 				</div>

@@ -28,7 +28,7 @@ export const Search = () => {
 	const [query, setQuery] = useState<string>('');
 	const [suggestions, setSuggestions] = useState<string[]>([]);
 	const navigate = useNavigate();
-	const wrapperRef = useRef(null);
+	const wrapperRef = useRef<HTMLDivElement | null>(null);
 
 	const handleSearch = () => {
 		const { gameName, tagLine } = separateGameName(query);
@@ -52,7 +52,9 @@ export const Search = () => {
 
 	// Hide suggestion when clicked outside or "escape" pressed
 	const handleClickOutside = (event: MouseEvent) => {
-		if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+		if (!wrapperRef.current || !(event.target instanceof HTMLElement)) return;
+
+		if (!wrapperRef.current.contains(event.target)) {
 			setSuggestions([]);
 		}
 	};
