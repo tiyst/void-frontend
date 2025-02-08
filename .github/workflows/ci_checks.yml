@@ -1,0 +1,37 @@
+name: CI Checks
+
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Linter
+        run: npm run lint
+
+      - name: Run Tests
+        run: npm test
+
+      - name: Notify Discord on Failure
+        if: failure()
+        run: |
+          curl -H "Content-Type: application/json" \
+          -X POST \
+          -d '{"username": "GitHub Actions", "content": "🚨 CI Checks Failed in Repository: ${{ github.repository }} on Branch: ${{ github.ref }}"}' \
+          ${{ secrets.DISCORD_WEBHOOK_URL }}
