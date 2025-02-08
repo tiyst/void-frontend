@@ -5,6 +5,8 @@ Project uses React & Sass + prettier.
 Vite config preconfigured to include color palette in all scss files.
 Run format script before commiting (precommit hook not implemented)
 
+Uses _config_, change environment properties in _/config/x.json_
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.

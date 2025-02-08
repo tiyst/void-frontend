@@ -79,7 +79,7 @@ export const MatchComponent: React.FC<MatchComponentProps> = (data: MatchCompone
 			</div>
 			<div className="player-stats">
 				<h2>
-					<span>{player.kills}</span> /<span
+ 					<span>{player.kills}</span> / <span
 					style={{ color: '#F47174' }}>{player.deaths}</span> / <span>{player.assists}</span>
 				</h2>
 				<h4>
