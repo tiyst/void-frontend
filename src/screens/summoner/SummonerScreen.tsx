@@ -10,32 +10,36 @@ import { useEffect, useRef, useState } from 'react';
 import { Match } from '../../model/Match.ts';
 import { LoadingSpinner } from '../../components/base/LoadingSpinner.tsx';
 
-
 export const SummonerScreen = () => {
 	const [summoner, setSummoner] = useState<Summoner>();
 	const [loading, setLoading] = useState<boolean>(true);
+	const [nonExistingSummoner, setNonExistingSummoner] = useState<boolean>(false);
 
 	const { server, gameName, tagLine } = useParams();
 
 	const firstRender = useRef(false); //react dev build runs twice (WTF)
 
 	const fetchNewData = async () => {
-		const backendUrl = import.meta.env.VITE_BACKEND_URL
-		await pullData(`${backendUrl}/api/summoner/${server}/${gameName}/${tagLine}/update`)
-
-	}
+		const backendUrl = import.meta.env.VITE_BACKEND_URL;
+		await pullData(`${backendUrl}/api/summoner/${server}/${gameName}/${tagLine}/update`);
+		setNonExistingSummoner(false)
+	};
 
 	const fetchData = async () => {
-		const backendUrl = import.meta.env.VITE_BACKEND_URL
-		await pullData(`${backendUrl}/api/summoner/${server}/${gameName}/${tagLine}`)
-	}
+		const backendUrl = import.meta.env.VITE_BACKEND_URL;
+		await pullData(`${backendUrl}/api/summoner/${server}/${gameName}/${tagLine}`);
+	};
 
 	const pullData = async (url: string) => {
 		try {
-			const backendUrl = import.meta.env.VITE_BACKEND_URL
+			const backendUrl = import.meta.env.VITE_BACKEND_URL;
 			console.log('backendUrl', backendUrl);
 			const response = await fetch(`${url}`, { mode: 'cors' });
 			if (!response.ok) {
+				if (response.status === 400) {
+					setNonExistingSummoner(true);
+					return;
+				}
 				throw new Error(`HTTP error! Status: ${response.status}`);
 			}
 
@@ -47,7 +51,7 @@ export const SummonerScreen = () => {
 		} finally {
 			setLoading(false);
 		}
-	}
+	};
 
 	useEffect(() => {
 		if (firstRender.current) {
@@ -61,7 +65,24 @@ export const SummonerScreen = () => {
 	}, [server, gameName, tagLine]);
 
 	if (loading) {
-		return <LoadingSpinner/>;
+		return <LoadingSpinner />;
+	}
+
+	if (nonExistingSummoner) {
+		const summoner = {
+			profileIcon: 29,
+			gameName: 'Summoner not found',
+			tagLine: 'click update to retrieve',
+			level: 0
+		};
+
+		// TODO create a  new component to return when summoner is not found
+		return (
+			<>
+				<TopBar/>
+				<BaseInfo summoner={summoner} buttonCallback={() => fetchNewData()} />
+			</>
+		);
 	}
 
 	return (
