@@ -10,6 +10,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Match } from '../../model/Match.ts';
 import { LoadingSpinner } from '../../components/base/LoadingSpinner.tsx';
 
+
 export const SummonerScreen = () => {
 	const [summoner, setSummoner] = useState<Summoner>();
 	const [loading, setLoading] = useState<boolean>(true);
@@ -27,7 +28,9 @@ export const SummonerScreen = () => {
 		firstRender.current = true;
 		const fetchData = async () => {
 			try {
-				const response = await fetch(`/api/summoner/${server}/${gameName}/${tagLine}/update`);
+				const backendUrl = import.meta.env.VITE_BACKEND_URL
+				console.log('backendUrl', backendUrl);
+				const response = await fetch(`${backendUrl}/api/summoner/${server}/${gameName}/${tagLine}/update`);
 				if (!response.ok) {
 					throw new Error(`HTTP error! Status: ${response.status}`);
 				}
