@@ -30,7 +30,7 @@ export const SummonerScreen = () => {
 			try {
 				const backendUrl = import.meta.env.VITE_BACKEND_URL
 				console.log('backendUrl', backendUrl);
-				const response = await fetch(`${backendUrl}/api/summoner/${server}/${gameName}/${tagLine}/update`);
+				const response = await fetch(`${backendUrl}/api/summoner/${server}/${gameName}/${tagLine}/update`, { mode: 'cors' });
 				if (!response.ok) {
 					throw new Error(`HTTP error! Status: ${response.status}`);
 				}
