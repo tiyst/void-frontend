@@ -19,6 +19,36 @@ export const SummonerScreen = () => {
 
 	const firstRender = useRef(false); //react dev build runs twice (WTF)
 
+	const fetchNewData = async () => {
+		const backendUrl = import.meta.env.VITE_BACKEND_URL
+		await pullData(`${backendUrl}/api/summoner/${server}/${gameName}/${tagLine}/update`)
+
+	}
+
+	const fetchData = async () => {
+		const backendUrl = import.meta.env.VITE_BACKEND_URL
+		await pullData(`${backendUrl}/api/summoner/${server}/${gameName}/${tagLine}`)
+	}
+
+	const pullData = async (url: string) => {
+		try {
+			const backendUrl = import.meta.env.VITE_BACKEND_URL
+			console.log('backendUrl', backendUrl);
+			const response = await fetch(`${url}`, { mode: 'cors' });
+			if (!response.ok) {
+				throw new Error(`HTTP error! Status: ${response.status}`);
+			}
+
+			const result: Summoner = await response.json();
+			console.log(`result ${result.gameName}`);
+			setSummoner(result);
+		} catch (err) {
+			console.log(err instanceof Error ? err.message : err);
+		} finally {
+			setLoading(false);
+		}
+	}
+
 	useEffect(() => {
 		if (firstRender.current) {
 			firstRender.current = false;
@@ -26,24 +56,6 @@ export const SummonerScreen = () => {
 		} // Prevent second call
 
 		firstRender.current = true;
-		const fetchData = async () => {
-			try {
-				const backendUrl = import.meta.env.VITE_BACKEND_URL
-				console.log('backendUrl', backendUrl);
-				const response = await fetch(`${backendUrl}/api/summoner/${server}/${gameName}/${tagLine}/update`, { mode: 'cors' });
-				if (!response.ok) {
-					throw new Error(`HTTP error! Status: ${response.status}`);
-				}
-
-				const result: Summoner = await response.json();
-				console.log(`result ${result.gameName}`);
-				setSummoner(result);
-			} catch (err) {
-				console.log(err instanceof Error ? err.message : err);
-			} finally {
-				setLoading(false);
-			}
-		};
 
 		fetchData();
 	}, [server, gameName, tagLine]);
@@ -59,7 +71,7 @@ export const SummonerScreen = () => {
 				<div className="left-side">
 					{summoner && (
 						<>
-							<BaseInfo {...summoner} />
+							<BaseInfo summoner={summoner} buttonCallback={() => fetchNewData()} />
 							<RankComponent ranks={summoner.rank} />
 							<MasteryComponent masteries={summoner.masteries} />
 						</>

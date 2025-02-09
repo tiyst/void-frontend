@@ -25,6 +25,19 @@
 		padding: 0;
 	}
 
+	.button-container {
+		position: absolute;
+		bottom: 10px;
+		left: 10px;
+
+		.update-button {
+			padding: 10px 20px;
+			font-size: 14px;
+			cursor: pointer;
+			background-color: $accent;
+		}
+	}
+
 	h1, h2, h3 {
 		position: relative;
 		z-index: 1;
