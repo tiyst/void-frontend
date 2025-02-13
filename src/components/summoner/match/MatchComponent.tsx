@@ -3,7 +3,7 @@ import { Match, Participant } from '../../../model/Match.ts';
 import './MatchComponent.scss';
 import {
 	calculateKDA, calculateKdaColor,
-	didPlayerWinMatch, fallbackSummonerSpellIconUrl,
+	fallbackSummonerSpellIconUrl,
 	findPlayer, getMapUrlByMapId,
 	getSummonerSpellIconUrl, queueTypeTranslations,
 	unixDurationToMinutes,
@@ -24,12 +24,15 @@ const itemUrl = 'https://ddragon.leagueoflegends.com/cdn/15.1.1/img/item/{itemID
 // FIXME Without reloading document on <Link> makes rerender fail
 
 // TODO Add expandable fragment to show details change map based on which played, when was the match played
+//  send last match time, match pagination, 0 item no fallback to div transform
+
 export const MatchComponent: React.FC<MatchComponentProps> = (data: MatchComponentProps) => {
 	const { className = '' } = data;
-	const { server } = useParams();
+	const { server, gameName } = useParams();
 	const participants = data.match.participants;
-	const playerWon = didPlayerWinMatch(data.match, data.playerName ?? 'SummonerName');
-	const player = findPlayer(data.match, data.playerName ?? '');
+	// const playerWon = didPlayerWinMatch(data.match, gameName ?? 'SummonerName');
+	const player = findPlayer(data.match, gameName ?? 'Unknown');
+	const playerWon = player.win;
 
 	const itemFields = Object.keys(player).filter((key) => /^item[0-5]$/.test(key)) as (keyof Participant)[];
 	const playedChampId = player.championId;
@@ -38,7 +41,7 @@ export const MatchComponent: React.FC<MatchComponentProps> = (data: MatchCompone
 	const kdaColor = calculateKdaColor(kda);
 
 	return (
-		<Base className={`match ${className} ${playerWon ? 'player-won' : 'player-lost'}`} playerName={data.playerName}>
+		<Base className={`match ${className} ${playerWon ? 'player-won' : 'player-lost'}`}>
 			<h2 className="queue-type">{queueTypeTranslations[data.match.queueId]}</h2>
 			<div className="image-container">
 				<img src={getMapUrlByMapId(data.match.mapId)} className="map-image" alt="Map icon" />

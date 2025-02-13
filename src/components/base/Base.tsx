@@ -4,7 +4,6 @@ import './Base.scss';
 export type BaseBlockProps = {
 	children?: React.ReactNode;
 	className?: string;
-	playerName?: string;
 };
 
 const Base: React.FC<BaseBlockProps> = ({ children, className = '' }) => {

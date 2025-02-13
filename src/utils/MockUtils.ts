@@ -257,10 +257,6 @@ export const createRandomMatch = (): Match => {
 		],
 		platformId: 'NA1',
 		queueId: [450, 1710, 420, 440, 400, 430][randomInt(0, 5)],
-		objectives: {
-			baron: { first: randomBoolean(), kills: randomInt(0, 2) },
-			dragon: { first: randomBoolean(), kills: randomInt(0, 4) }
-		},
 		teams: [randomTeam(100), randomTeam(200)],
 		retrievedDate: new Date().toISOString()
 	};

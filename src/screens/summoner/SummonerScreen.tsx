@@ -100,7 +100,7 @@ export const SummonerScreen = () => {
 				</div>
 				<div className="right-side">
 					{summoner?.matches.map((match: Match, index: number) => (
-						<MatchComponent key={match.retrievedDate + index} playerName={gameName} match={match} />
+						<MatchComponent key={match.retrievedDate + index} match={match} />
 					))}
 				</div>
 			</div>

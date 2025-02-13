@@ -2,11 +2,16 @@ import { Match } from '../model/Match.ts';
 import { replaceString } from './StringUtils.ts';
 
 export function didPlayerWinMatch(match: Match, playerName: string): boolean {
-	const playerParticipant = match.participants.find((participant) => participant.riotIdGameName === playerName);
+	const playerParticipant = match.participants.find((participant) =>
+		participant.riotIdGameName.trim().toLowerCase() === playerName.trim().toLowerCase()
+	);
 
-	return playerParticipant
-		? (match.teams.find((team) => team.teamId === playerParticipant.teamId)?.win ?? false)
-		: false;
+	if (!playerParticipant) {
+		console.warn(`player ${playerName} not found!`);
+		return false;
+	}
+
+	return match.teams.find((team) => team.teamId === playerParticipant.teamId)?.win ?? false
 }
 
 export function getSummonerSpellIconUrl(summoneSpellId: number): string {
