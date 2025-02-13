@@ -1,0 +1,19 @@
+.homescreenContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.searchContainer {
+  width: 100%;
+  background-color: $accent;
+  color: white;
+  padding: 10px;
+  border-radius: 15px;
+  height: 60px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
