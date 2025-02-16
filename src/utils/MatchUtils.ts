@@ -97,6 +97,7 @@ export const queueTypeTranslations: { [key: number]: string } = {
 	430: 'Blind Pick',
 	440: 'Ranked Flex',
 	450: 'ARAM',
+	480: 'Swiftplay',
 	490: 'Normal (Quickplay)',
 	600: 'Blood Hunt',
 	610: 'Singularity',

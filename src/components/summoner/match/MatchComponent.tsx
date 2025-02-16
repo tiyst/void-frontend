@@ -41,7 +41,7 @@ export const MatchComponent: React.FC<MatchComponentProps> = (data: MatchCompone
 
 	return (
 		<Base className={`match ${className} ${playerWon ? 'player-won' : 'player-lost'}`}>
-			<h2 className="queue-type">{queueTypeTranslations[data.match.queueId]}</h2>
+			<h2 className="queue-type">{queueTypeTranslations[data.match.queueId] ?? data.match.gameMode}</h2>
 			<div className="image-container">
 				<img src={getMapUrlByMapId(data.match.mapId)} className="map-image" alt="Map icon" />
 				<img
