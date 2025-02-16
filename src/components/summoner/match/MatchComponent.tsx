@@ -24,13 +24,12 @@ const itemUrl = 'https://ddragon.leagueoflegends.com/cdn/15.1.1/img/item/{itemID
 // FIXME Without reloading document on <Link> makes rerender fail
 
 // TODO Add expandable fragment to show details change map based on which played, when was the match played
-//  send last match time, match pagination, 0 item no fallback to div transform
+//  send last match time, match pagination
 
 export const MatchComponent: React.FC<MatchComponentProps> = (data: MatchComponentProps) => {
 	const { className = '' } = data;
 	const { server, gameName } = useParams();
 	const participants = data.match.participants;
-	// const playerWon = didPlayerWinMatch(data.match, gameName ?? 'SummonerName');
 	const player = findPlayer(data.match, gameName ?? 'Unknown');
 	const playerWon = player.win;
 
@@ -59,7 +58,6 @@ export const MatchComponent: React.FC<MatchComponentProps> = (data: MatchCompone
 			<div className="pre-game-choose">
 				{[player.summoner1Id, player.summoner2Id].map((id, index) => (
 					<img key={id ?? 'unknownSummonerId' + index} src={getSummonerSpellIconUrl(id)} alt={`Summoner spell ${id}`}
-
 						 onError={(e) => {
 							 (e.target as HTMLImageElement).src = fallbackSummonerSpellIconUrl;
 						 }}
@@ -94,20 +92,23 @@ export const MatchComponent: React.FC<MatchComponentProps> = (data: MatchCompone
 			<div className="items">
 				{itemFields.map((key, index) => (
 					<div key={key ?? 'unknownItemField' + index} className="item-container">
-						<img
-							src={replaceString(itemUrl, 'itemID', String(player[key]))}
-							alt={`${key}`}
-							className="item"
-							onError={(e) => {
-								const target = e.target as HTMLImageElement;
-								target.style.opacity = '0';
-								const parent = target.parentElement;
-								if (parent) {
-									target.parentElement.style.opacity = '0.2';
-									target.parentElement.style.backgroundColor = 'rgb(193, 155, 230)';
-								}
-							}}
-						/>
+						{player[key] !== 0 ? (
+							<img
+								src={replaceString(itemUrl, 'itemID', String(player[key]))}
+								alt={`${key}`}
+								className="item"
+							/>
+						) : (
+							<div
+								style={{
+									opacity: '0.2',
+									backgroundColor: 'rgb(193, 155, 230)',
+									width: '100%',
+									height: '100%',
+									borderRadius: '25%'
+								}}
+							/>
+						)}
 					</div>
 				))}
 			</div>

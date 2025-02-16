@@ -9,20 +9,21 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import { Match } from '../../model/Match.ts';
 import { LoadingSpinner } from '../../components/base/LoadingSpinner.tsx';
+import { MissingSummonerFragment } from '../../components/summoner/missingSummoner/missingSummonerFragment.tsx';
 
 export const SummonerScreen = () => {
 	const [summoner, setSummoner] = useState<Summoner>();
 	const [loading, setLoading] = useState<boolean>(true);
 	const [nonExistingSummoner, setNonExistingSummoner] = useState<boolean>(false);
 
-	const { server, gameName, tagLine } = useParams();
+	const { server, gameName = "Unknown", tagLine = "Unknown" } = useParams();
 
 	const firstRender = useRef(false); //react dev build runs twice (WTF)
 
 	const fetchNewData = async () => {
 		const backendUrl = import.meta.env.VITE_BACKEND_URL;
 		await pullData(`${backendUrl}/api/summoner/${server}/${gameName}/${tagLine}/update`);
-		setNonExistingSummoner(false)
+		setNonExistingSummoner(false);
 	};
 
 	const fetchData = async () => {
@@ -69,18 +70,16 @@ export const SummonerScreen = () => {
 	}
 
 	if (nonExistingSummoner) {
-		const summoner = {
-			profileIcon: 29,
-			gameName: 'Summoner not found',
-			tagLine: 'click update to retrieve',
-			level: 0
-		};
+		// TODO create a new component to return when summoner is not found
 
-		// TODO create a  new component to return when summoner is not found
 		return (
 			<>
-				<TopBar/>
-				<BaseInfo summoner={summoner} buttonCallback={() => fetchNewData()} />
+				<TopBar />
+				<MissingSummonerFragment summonerIconId={29}
+										 gameName={gameName}
+										 tagLine={tagLine}
+										 buttonCallback={() => fetchNewData()}
+				/>
 			</>
 		);
 	}
