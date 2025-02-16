@@ -7,6 +7,7 @@
   align-items: center;
   height: 130px;
   max-height: 130px;
+  position: relative;
 
   img {
     max-height: 100px;
@@ -66,6 +67,17 @@
       box-shadow: 0 0 5px 5px $lose;
     }
   }
+
+  .expand-button {
+    position: absolute;
+    bottom: -8px;
+    right: -10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+  }
+
 }
 
 .queue-type {
@@ -76,6 +88,27 @@
     margin: 0 5px 0 0;
     font-weight: lighter;
     opacity: 75%;
+  }
+}
+
+.expandable-content {
+  top: 100%;
+  max-height: 0;
+  max-width: 0;
+  overflow: hidden;
+  left: 0;
+  width: 100%;
+  background: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: max-height 0.3s ease-out;
+  margin-bottom: 15px;
+
+  &.expanded {
+    max-height: 200px;
+    height: 200px;
+    max-width: 100%;
+    transition: max-height 0.3s ease-in;
+    visibility: visible;
   }
 }
 
