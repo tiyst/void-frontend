@@ -70,8 +70,6 @@ export const SummonerScreen = () => {
 	}
 
 	if (nonExistingSummoner) {
-		// TODO create a new component to return when summoner is not found
-
 		return (
 			<>
 				<TopBar />
