@@ -5,23 +5,22 @@ import {
 	calculateDatePlayed,
 	calculateKDA, calculateKdaColor,
 	fallbackSummonerSpellIconUrl,
-	findPlayer, getMapUrlByMapId,
+	findPlayer, getItemIconUrlByItemId, getMapUrlByMapId,
 	getSummonerSpellIconUrl, queueTypeTranslations,
 	unixDurationToMinutes,
 	unixTimestampToDuration
 } from '../../../utils/MatchUtils.ts';
 import { getChampionIconUrl, urlUnknownChampion } from '../../../utils/ChampionIconUtils.ts';
 import { getRoleIconUrl } from '../../../utils/RoleUtils.ts';
-import { replaceString, truncatePlayerName } from '../../../utils/StringUtils.ts';
+import { truncatePlayerName } from '../../../utils/StringUtils.ts';
 import { constructRuneIconUrl, constructRuneClassUrl, runeUrlFallback } from '../../../utils/RuneUtils.ts';
 import { Link, useParams } from 'react-router-dom';
 import { useState } from 'react';
+import { MatchExpandComponent } from './expand/MatchExpandComponent.tsx';
 
 type MatchComponentProps = BaseBlockProps & {
 	match: Match;
 };
-
-const itemUrl = 'https://ddragon.leagueoflegends.com/cdn/15.1.1/img/item/{itemID}.png';
 
 // FIXME Without reloading document on <Link> makes rerender fail
 
@@ -48,7 +47,7 @@ export const MatchComponent: React.FC<MatchComponentProps> = (data: MatchCompone
 	};
 
 	return (
-		<>
+		<div>
 			<Base className={`match ${className} ${playerWon ? 'player-won' : 'player-lost'}`}>
 				<h2 className="queue-type">
 					{queueTypeTranslations[data.match.queueId] ?? data.match.gameMode}
@@ -108,7 +107,7 @@ export const MatchComponent: React.FC<MatchComponentProps> = (data: MatchCompone
 						<div key={key ?? 'unknownItemField' + index} className="item-container">
 							{player[key] !== 0 ? (
 								<img
-									src={replaceString(itemUrl, 'itemID', String(player[key]))}
+									src={getItemIconUrlByItemId(String(player[key]))}
 									alt={`${key}`}
 									className="item"
 								/>
@@ -178,10 +177,12 @@ export const MatchComponent: React.FC<MatchComponentProps> = (data: MatchCompone
 					{isExpanded ? '▲' : '▼'}
 				</button>
 			</Base>
-			<div className={`expandable-content ${isExpanded ? 'expanded' : ''}`}>
-				<p>Additional match details go here...</p>
-			</div>
-		</>
+			{isExpanded && (
+				<div className={`expandable-content ${isExpanded ? 'expanded' : ''} ${playerWon ? 'player-won' : 'player-lost'}`}>
+					<MatchExpandComponent playerName={player.riotIdGameName} match={data.match}/>
+				</div>
+			)}
+		</div>
 
 	);
 };
