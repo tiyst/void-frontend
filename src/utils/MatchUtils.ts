@@ -9,6 +9,25 @@ export function getMapUrlByMapId(mapId: number): string {
 	return mapIconUrls[mapId] || rotatingGameModeIconUrl;
 }
 
+export function calculateDatePlayed(gameEndTimestamp: number): string {
+	const now = new Date();
+	const gameDate = new Date(gameEndTimestamp);
+
+	const diffInMs = now.getTime() - gameDate.getTime();
+
+	const diffInMinutes = Math.floor(diffInMs / (1000 * 60));
+	const diffInHours = Math.floor(diffInMinutes / 60);
+	const diffInDays = Math.floor(diffInHours  / 24);
+
+	if (diffInMinutes < 60) {
+		return `${diffInMinutes} minute${diffInMinutes !== 1 ? 's' : ''} ago`;
+	} else if (diffInHours < 24) {
+		return `${diffInHours} hour${diffInHours !== 1 ? 's' : ''} ago`;
+	} else {
+		return `${diffInDays} day${diffInDays !== 1 ? 's' : ''} ago`;
+	}
+}
+
 export function calculateKDA(kills: number, deaths: number, assists: number): number {
 	return deaths === 0 ? kills + assists : Math.round(((kills + assists) / deaths) * 10) / 10;
 }
@@ -71,11 +90,11 @@ const mapIconUrls: { [key: number]: string } = {
 	30: rotatingGameModeIconUrl
 };
 
-const summonerSpellIconUrl = 'https://cdn.tiy.st/summoner-icons/{iconId}.png'
-export const fallbackSummonerSpellIconUrl = "https://cdn.tiy.st/summoner-icons/fallbackSummoner.png"
+const summonerSpellIconUrl = 'https://cdn.tiy.st/summoner-icons/{iconId}.png';
+export const fallbackSummonerSpellIconUrl = 'https://cdn.tiy.st/summoner-icons/fallbackSummoner.png';
 
 export function getSummonerIconUrl(iconId: number) {
-	return replaceString(summonerSpellIconUrl, "iconId", String(iconId));
+	return replaceString(summonerSpellIconUrl, 'iconId', String(iconId));
 }
 
 export const queueTypeTranslations: { [key: number]: string } = {

@@ -2,6 +2,7 @@ import Base, { BaseBlockProps } from '../../base/Base.tsx';
 import { Match, Participant } from '../../../model/Match.ts';
 import './MatchComponent.scss';
 import {
+	calculateDatePlayed,
 	calculateKDA, calculateKdaColor,
 	fallbackSummonerSpellIconUrl,
 	findPlayer, getMapUrlByMapId,
@@ -23,7 +24,7 @@ const itemUrl = 'https://ddragon.leagueoflegends.com/cdn/15.1.1/img/item/{itemID
 
 // FIXME Without reloading document on <Link> makes rerender fail
 
-// TODO Add expandable fragment to show details change map based on which played, when was the match played
+// TODO Add expandable fragment to show details change map based on which played
 //  send last match time, match pagination
 
 export const MatchComponent: React.FC<MatchComponentProps> = (data: MatchComponentProps) => {
@@ -41,7 +42,11 @@ export const MatchComponent: React.FC<MatchComponentProps> = (data: MatchCompone
 
 	return (
 		<Base className={`match ${className} ${playerWon ? 'player-won' : 'player-lost'}`}>
-			<h2 className="queue-type">{queueTypeTranslations[data.match.queueId] ?? data.match.gameMode}</h2>
+			<h2 className="queue-type">
+				{queueTypeTranslations[data.match.queueId] ?? data.match.gameMode}
+				<br/>
+				<h4>{calculateDatePlayed(data.match.gameEndTimestamp)}</h4>
+			</h2>
 			<div className="image-container">
 				<img src={getMapUrlByMapId(data.match.mapId)} className="map-image" alt="Map icon" />
 				<img
