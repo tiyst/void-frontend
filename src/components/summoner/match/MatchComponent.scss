@@ -103,7 +103,7 @@
   overflow: hidden;
   left: 0;
   width: 100%;
-  transition: max-height 0.3s ease-out;
+  transition: max-height 1.3s ease-out;
   visibility: hidden;
   padding: 20px;
 
@@ -114,7 +114,7 @@
     position: relative;
     top: -10px;
     padding-top: 20px;
-    transition: max-height 0.3s ease-in;
+    transition: max-height 1.3s ease-in;
     visibility: visible;
     border-radius: 0 0 15px 15px;
 

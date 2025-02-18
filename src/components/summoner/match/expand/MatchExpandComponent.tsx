@@ -8,12 +8,21 @@ export type MatchExpandProps = BaseBlockProps & {
 	match: Match;
 };
 
+// TODO animation doesn't work
 export const MatchExpandComponent = (data: MatchExpandProps) => {
+	const participants = data.match.participants;
+	const highestDamage = data.match.participants.reduce((max, current) => {
+		return current.totalDamageDealtToChampions > max.totalDamageDealtToChampions
+			? current
+			: max;
+	}).totalDamageDealtToChampions;
 
 	return (
 		<div className="match-expand-wrapper">
-			{data.match.participants.map((participant, index) => (
-				<ExpandParticipantFragment key={participant.riotIdGameName + index} participant={participant} />
+			{participants.map((participant, index) => (
+				<ExpandParticipantFragment key={participant.riotIdGameName + index}
+										   participant={participant}
+										   highestTotalDamage={highestDamage} />
 			))}
 		</div>
 	);

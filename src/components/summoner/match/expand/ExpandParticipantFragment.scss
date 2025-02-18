@@ -1,15 +1,40 @@
 .expand-participant {
   max-height: 30px;
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: 27% 13% 10% 13% 7% 35%;
+  gap: 10px;
   padding: 0;
-  margin-top: 5px;
+  margin-top: 8px;
+  border: 2px green;
 
-  img {
-    max-width: 30px;
-  }
   h3, h4 {
     margin: 0;
     padding: 0;
   }
+
+  div {
+    grid-column: span 1; /* Each div spans one column */
+    align-content: center;
+
+    img {
+      max-width: 30px;
+      border-radius: 35%;
+    }
+
+    h2 {
+      margin: 0;
+    }
+
+    h3,
+    h4 {
+      margin: 0;
+      font-weight: lighter;
+    }
+  }
+}
+
+.expandedItems {
+  display: flex;
+  flex-direction: row;
+  gap: 2px;
 }

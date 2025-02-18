@@ -1,5 +1,8 @@
-import { Match } from '../model/Match.ts';
+import { Match, Participant } from '../model/Match.ts';
 import { replaceString } from './StringUtils.ts';
+import { DamageSegment } from '../components/summoner/match/expand/damageBar/ExpandDamageBar.tsx';
+
+const ITEM_URL = 'https://ddragon.leagueoflegends.com/cdn/15.1.1/img/item/{itemID}.png';
 
 export function getSummonerSpellIconUrl(summoneSpellId: number): string {
 	return getSummonerIconUrl(summoneSpellId);
@@ -7,6 +10,10 @@ export function getSummonerSpellIconUrl(summoneSpellId: number): string {
 
 export function getMapUrlByMapId(mapId: number): string {
 	return mapIconUrls[mapId] || rotatingGameModeIconUrl;
+}
+
+export function getItemIconUrlByItemId(itemId: string): string {
+	return replaceString(ITEM_URL, 'itemID', String(itemId));
 }
 
 export function calculateDatePlayed(gameEndTimestamp: number): string {
@@ -17,7 +24,7 @@ export function calculateDatePlayed(gameEndTimestamp: number): string {
 
 	const diffInMinutes = Math.floor(diffInMs / (1000 * 60));
 	const diffInHours = Math.floor(diffInMinutes / 60);
-	const diffInDays = Math.floor(diffInHours  / 24);
+	const diffInDays = Math.floor(diffInHours / 24);
 
 	if (diffInMinutes < 60) {
 		return `${diffInMinutes} minute${diffInMinutes !== 1 ? 's' : ''} ago`;
@@ -66,6 +73,16 @@ export function findPlayer(match: Match, playerName: string) {
 		throw new Error(`Player with name "${playerName}" not found`);
 	}
 	return player;
+}
+
+export function createDamageSegmentsForParticipant(participant: Participant): DamageSegment[] {
+	const attributes: Array<keyof Participant> = ['magicDamageDealtToChampions', 'physicalDamageDealtToChampions', 'trueDamageDealtToChampions'];
+	const colors = ['#3B719F', '#B11A21', '#FFFFFF'];
+
+	return attributes.map((attr, index) => ({
+		dmg: participant[attr],
+		color: colors[index],
+	}))
 }
 
 const rotatingGameModeIconUrl = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/gamemodeassets/gamemodex/img/icon-v2.png';
