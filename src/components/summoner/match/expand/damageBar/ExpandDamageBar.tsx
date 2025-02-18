@@ -15,8 +15,6 @@ export type DamageSegment = {
 export const ExpandDamageBar = (data: ExpandDamageBarProps) => {
 	const damageSegments = createDamageSegmentsForParticipant(data.participant);
 
-	console.log(damageSegments);
-
 	return (
 		<div className="progress-bar-container">
 			{damageSegments.map((segment, index) => (
