@@ -80,7 +80,7 @@ export function createDamageSegmentsForParticipant(participant: Participant): Da
 	const colors = ['#3B719F', '#B11A21', '#FFFFFF'];
 
 	return attributes.map((attr, index) => ({
-		dmg: participant[attr],
+		dmg: participant[attr] as number,
 		color: colors[index],
 	}))
 }
