@@ -14,3 +14,11 @@ $shadow: rgba(0, 0, 0, 0.2);
 
 $win: #a8e6a3;
 $lose: #e57373;
+
+// Needs to be in :root due to inline styling on border in extended match participant
+:root {
+  --team100-border: rgb(3, 151, 171);
+  --team100-background: rgb(3, 151, 171, 0.2);
+  --team200-border: rgb(192, 79, 79);
+  --team200-background: rgb(192, 79, 79, 0.2);
+}

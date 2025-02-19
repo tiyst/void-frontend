@@ -7,6 +7,7 @@
   align-items: center;
   height: 130px;
   max-height: 130px;
+  position: relative;
 
   img {
     max-height: 100px;
@@ -66,16 +67,66 @@
       box-shadow: 0 0 5px 5px $lose;
     }
   }
+
+  .expand-button {
+    position: absolute;
+    bottom: -8px;
+    right: -10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+
+    &:focus {
+      outline: none;
+    }
+  }
 }
 
 .queue-type {
   margin: 1px;
   writing-mode: sideways-lr;
-  font-size: 1.2em;
+  font-size: 1.1em;
+
   h4 {
     margin: 0 5px 0 0;
     font-weight: lighter;
     opacity: 75%;
+  }
+}
+
+.expandable-content {
+  top: 100%;
+  max-height: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+  left: 0;
+  width: 100%;
+  transition: max-height 1.3s ease-out;
+  visibility: hidden;
+  padding: 20px;
+
+  &.expanded {
+    max-height: 100%;
+    height: fit-content;
+    max-width: 100%;
+    width: 100%;
+    position: relative;
+    top: -10px;
+    padding-top: 20px;
+    transition: max-height 1.3s ease-in;
+    visibility: visible;
+    border-radius: 0 0 15px 15px;
+
+    &.player-lost {
+      box-shadow: 0 0 5px 2px $lose;
+      clip-path: inset(0px -10px -10px -10px);
+    }
+
+    &.player-won {
+      box-shadow: 0 0 5px 2px $win;
+      clip-path: inset(0px -10px -10px -10px);
+    }
   }
 }
 
@@ -174,6 +225,8 @@
       font-size: 1em;
       font-weight: lighter;
       color: white;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
     img {
