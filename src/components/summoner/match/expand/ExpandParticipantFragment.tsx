@@ -15,9 +15,14 @@ export const ExpandParticipantFragment = (data: ExpandParticipantProps) => {
 
 	const kda = calculateKDA(player.kills, player.deaths, player.assists);
 	const kdaColor = calculateKdaColor(kda);
+	const teamId = player.teamId;
 
 	return (
-		<div className="expand-participant">
+		<div className="expand-participant"
+			 style={{
+				 border: `2px solid var(--team${teamId}-border)`,
+				 background: `var(--team${teamId}-background)`
+			 }}>
 			<div style={{ display: 'flex', flexDirection: 'row', gap: '0.5rem' }}>
 				<img src={getChampionIconUrl(player.championId)}
 					 alt={'Expanded player champion icon'}
@@ -54,8 +59,8 @@ export const ExpandParticipantFragment = (data: ExpandParticipantProps) => {
 						) : (
 							<div
 								style={{
-									opacity: '0.2',
-									backgroundColor: 'rgb(193, 155, 230)',
+									opacity: '0.6',
+									backgroundColor: 'gray',
 									width: '30px',
 									height: '30px',
 									borderRadius: '35%'
