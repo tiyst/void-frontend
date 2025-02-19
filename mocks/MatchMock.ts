@@ -4,6 +4,7 @@ import { Match } from '../src/model/Match';
 export const mockMatches: Match = {
 	endOfGameResult: 'Win',
 	gameDuration: 1800000,
+	gameEndTimestamp: 1737223044458,
 	gameMode: 'Classic',
 	gameType: 'Ranked',
 	mapId: 11,
