@@ -24,8 +24,7 @@ type MatchComponentProps = BaseBlockProps & {
 
 // FIXME Without reloading document on <Link> makes rerender fail
 
-// TODO Add expandable fragment to show details change map based on which played
-//  send last match time, match pagination
+// TODO  send last match time, match pagination
 
 export const MatchComponent: React.FC<MatchComponentProps> = (data: MatchComponentProps) => {
 	const { className = '' } = data;
