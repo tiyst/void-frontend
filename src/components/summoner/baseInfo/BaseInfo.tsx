@@ -1,7 +1,7 @@
 import Base, { BaseBlockProps } from '../../base/Base.tsx';
 import './BaseInfo.scss';
 import { Summoner } from '../../../model/Summoner.ts';
-import { getProfileIconUrl } from '../../../utils/ChampionIconUtils.ts';
+import { getProfileIconUrl } from '../../../utils/IconsUtils.ts';
 
 export type BaseInfoProps = BaseBlockProps & {
 	summoner: Summoner;

@@ -1,6 +1,6 @@
 import './ExpandParticipantFragment.scss';
 import { Participant } from '../../../../model/Match.ts';
-import { getChampionIconUrl, urlUnknownChampion } from '../../../../utils/ChampionIconUtils.ts';
+import { getChampionIconUrl, urlUnknownChampion } from '../../../../utils/IconsUtils.ts';
 import { calculateKDA, calculateKdaColor, getItemIconUrlByItemId } from '../../../../utils/MatchUtils.ts';
 import { ExpandDamageBar } from './damageBar/ExpandDamageBar.tsx';
 

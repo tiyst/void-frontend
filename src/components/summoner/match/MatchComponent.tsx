@@ -10,7 +10,7 @@ import {
 	unixDurationToMinutes,
 	unixTimestampToDuration
 } from '../../../utils/MatchUtils.ts';
-import { getChampionIconUrl, urlUnknownChampion } from '../../../utils/ChampionIconUtils.ts';
+import { getChampionIconUrl, urlUnknownChampion } from '../../../utils/IconsUtils.ts';
 import { getRoleIconUrl } from '../../../utils/RoleUtils.ts';
 import { truncatePlayerName } from '../../../utils/StringUtils.ts';
 import { constructRuneIconUrl, constructRuneClassUrl, runeUrlFallback } from '../../../utils/RuneUtils.ts';

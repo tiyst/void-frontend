@@ -1,6 +1,6 @@
 import './missingSummonerFragment.scss';
 import Base, { BaseBlockProps } from '../../base/Base.tsx';
-import { getProfileIconUrl } from '../../../utils/ChampionIconUtils.ts';
+import { getProfileIconUrl } from '../../../utils/IconsUtils.ts';
 
 export type MissingSummonerProps = BaseBlockProps & {
 	summonerIconId: number;
