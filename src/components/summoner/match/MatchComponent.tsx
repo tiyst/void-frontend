@@ -14,12 +14,14 @@ import { getChampionIconUrl, urlUnknownChampion } from '../../../utils/IconsUtil
 import { getRoleIconUrl } from '../../../utils/RoleUtils.ts';
 import { truncatePlayerName } from '../../../utils/StringUtils.ts';
 import { constructRuneIconUrl, constructRuneClassUrl, runeUrlFallback } from '../../../utils/RuneUtils.ts';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { MatchExpandComponent } from './expand/MatchExpandComponent.tsx';
 
 type MatchComponentProps = BaseBlockProps & {
 	match: Match;
+	server: string;
+	gameName: string;
 };
 
 // FIXME Without reloading document on <Link> makes rerender fail
@@ -28,9 +30,8 @@ type MatchComponentProps = BaseBlockProps & {
 
 export const MatchComponent: React.FC<MatchComponentProps> = (data: MatchComponentProps) => {
 	const { className = '' } = data;
-	const { server, gameName } = useParams();
 	const participants = data.match.participants;
-	const player = findPlayer(data.match, gameName ?? 'Unknown');
+	const player = findPlayer(data.match, data.gameName);
 	const playerWon = player.win;
 
 	const itemFields = Object.keys(player).filter((key) => /^item[0-5]$/.test(key)) as (keyof Participant)[];
@@ -130,7 +131,7 @@ export const MatchComponent: React.FC<MatchComponentProps> = (data: MatchCompone
 							<Link reloadDocument
 								  className="name"
 								  key={participant.riotIdGameName ?? 'unknownParticipantId' + index}
-								  to={`/summoner/${server}/${participant.riotIdGameName}/${participant.riotIdTagline}`}
+								  to={`/summoner/${data.server}/${participant.riotIdGameName}/${participant.riotIdTagline}`}
 								  style={{
 									  textDecoration: 'none',
 									  fontWeight: participant.riotIdGameName === player.riotIdGameName ? 'bold' : 'normal'
@@ -153,7 +154,7 @@ export const MatchComponent: React.FC<MatchComponentProps> = (data: MatchCompone
 							<Link reloadDocument
 								  className="name"
 								  key={participant.riotIdGameName ?? 'unknownParticipantId' + index}
-								  to={`/summoner/${server}/${participant.riotIdGameName}/${participant.riotIdTagline}`}
+								  to={`/summoner/${data.server}/${participant.riotIdGameName}/${participant.riotIdTagline}`}
 								  style={{
 									  textDecoration: 'none',
 									  fontWeight: participant.riotIdGameName === player.riotIdGameName ? 'bold' : 'normal'

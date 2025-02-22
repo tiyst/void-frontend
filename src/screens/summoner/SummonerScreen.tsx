@@ -5,7 +5,7 @@ import RankComponent from '../../components/summoner/rank/RankComponent.tsx';
 import MasteryComponent from '../../components/summoner/mastery/MasteryComponent.tsx';
 import { MatchComponent } from '../../components/summoner/match/MatchComponent.tsx';
 import { Summoner } from '../../model/Summoner.ts';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import { useEffect, useRef, useState } from 'react';
 import { Match } from '../../model/Match.ts';
 import { LoadingSpinner } from '../../components/base/LoadingSpinner.tsx';
@@ -16,7 +16,7 @@ export const SummonerScreen = () => {
 	const [loading, setLoading] = useState<boolean>(true);
 	const [nonExistingSummoner, setNonExistingSummoner] = useState<boolean>(false);
 
-	const { server, gameName = 'Unknown', tagLine = 'Unknown' } = useParams();
+	const { server = 'EUW1', gameName = 'Unknown', tagLine = 'Unknown' } = useParams();
 
 	const firstRender = useRef(false); //react dev build runs twice (WTF)
 
@@ -100,7 +100,10 @@ export const SummonerScreen = () => {
 				</div>
 				<div className="right-side">
 					{summoner?.matches.map((match: Match, index: number) => (
-						<MatchComponent key={match.retrievedDate + index} match={match} />
+						<MatchComponent key={match.retrievedDate + index}
+										match={match}
+										server={server}
+										gameName={summoner?.gameName ?? 'Unknown'} />
 					))}
 				</div>
 			</div>
