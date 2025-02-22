@@ -16,7 +16,7 @@ export const SummonerScreen = () => {
 	const [loading, setLoading] = useState<boolean>(true);
 	const [nonExistingSummoner, setNonExistingSummoner] = useState<boolean>(false);
 
-	const { server, gameName = "Unknown", tagLine = "Unknown" } = useParams();
+	const { server, gameName = 'Unknown', tagLine = 'Unknown' } = useParams();
 
 	const firstRender = useRef(false); //react dev build runs twice (WTF)
 
@@ -31,27 +31,30 @@ export const SummonerScreen = () => {
 		await pullData(`${backendUrl}/api/summoner/${server}/${gameName}/${tagLine}`);
 	};
 
+	// TODO useQuery / reactQuery
 	const pullData = async (url: string) => {
-		try {
-			const backendUrl = import.meta.env.VITE_BACKEND_URL;
-			console.log('backendUrl', backendUrl);
-			const response = await fetch(`${url}`, { mode: 'cors' });
-			if (!response.ok) {
-				if (response.status === 400) {
+		fetch(`${url}`, { mode: 'cors' })
+		.then(async res => {
+			if (!res.ok) {
+				const errorData = await res.json();
+				if (res.status === 400) {
 					setNonExistingSummoner(true);
-					return;
 				}
-				throw new Error(`HTTP error! Status: ${response.status}`);
+				if (res.status === 425) {
+					//Summoner throttling
+					// TODO add button disable + change inside to timer
+					console.log(`error data ${errorData.message}`);
+				}
+				throw new Error(errorData.message);
 			}
 
-			const result: Summoner = await response.json();
-			console.log(`result ${result.gameName}`);
+			const result: Summoner = await res.json();
 			setSummoner(result);
-		} catch (err) {
-			console.log(err instanceof Error ? err.message : err);
-		} finally {
-			setLoading(false);
-		}
+		})
+		.catch(error => {
+			console.error(error);
+		})
+		.finally(() => setLoading(false));
 	};
 
 	useEffect(() => {
