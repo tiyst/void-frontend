@@ -58,12 +58,15 @@ export const SummonerScreen = () => {
 	};
 
 	useEffect(() => {
-		if (firstRender.current) {
-			firstRender.current = false;
-			return;
-		} // Prevent second call
+		console.log(import.meta.env.MODE);
+		if (import.meta.env.MODE === 'development') {
+			if (firstRender.current) {
+				firstRender.current = false;
+				return;
+			} // Prevent second call
 
-		firstRender.current = true;
+			firstRender.current = true;
+		}
 
 		fetchData();
 	}, [server, gameName, tagLine]);
