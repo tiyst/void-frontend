@@ -10,21 +10,26 @@ import { useState } from 'react';
 import { Match } from '../../model/Match.ts';
 import { LoadingSpinner } from '../../components/base/LoadingSpinner.tsx';
 import { MissingSummonerFragment } from '../../components/summoner/missingSummoner/missingSummonerFragment.tsx';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 export const SummonerScreen = () => {
 	const [nonExistingSummoner, setNonExistingSummoner] = useState<boolean>(false);
 
+	const queryClient = useQueryClient();
+
 	const { server = 'EUW1', gameName = 'Unknown', tagLine = 'Unknown' } = useParams();
 
-
 	const fetchSummoner = async (): Promise<Summoner> => {
-		return await fetchData();
-	};
-
-	const fetchData = async (): Promise<Summoner> => {
 		const backendUrl = import.meta.env.VITE_BACKEND_URL;
 		return await pullData(`${backendUrl}/api/summoner/${server}/${gameName}/${tagLine}`);
+	};
+
+	const updateSummoner = async (): Promise<Summoner> => {
+		const backendUrl = import.meta.env.VITE_BACKEND_URL;
+		setNonExistingSummoner(false);
+		const summoner1 = await pullData(`${backendUrl}/api/summoner/${server}/${gameName}/${tagLine}/update`);
+		console.log(summoner1);
+		return summoner1;
 	};
 
 	const pullData = async (url: string): Promise<Summoner> => {
@@ -43,35 +48,34 @@ export const SummonerScreen = () => {
 		return await res.json();
 	};
 
-	const { data, isLoading, isFetching } = useQuery<Summoner>({
+	const { data: summoner, isLoading, isFetching } = useQuery<Summoner>({
 		queryKey: [server, gameName, tagLine],
 		queryFn: fetchSummoner,
 		refetchOnWindowFocus: false,
 		refetchOnReconnect: false,
-		retry: false
+		retry: false,
 	});
-	let summoner: Summoner = data;
 
-	const fetchNewData = async () => {
-		const backendUrl = import.meta.env.VITE_BACKEND_URL;
-		summoner = await pullData(`${backendUrl}/api/summoner/${server}/${gameName}/${tagLine}/update`);
-		console.log(summoner);
-		setNonExistingSummoner(false);
-	};
+	const { mutate } = useMutation<Summoner>({
+		mutationFn: updateSummoner,
+		onSuccess: (newData: Summoner) => {
+			queryClient.setQueryData([server, gameName, tagLine], newData);
+		}
+	});
 
 	if (isFetching || isLoading) {
-		console.log("is in isFetching || isLoading");
+		console.log('is in isFetching || isLoading');
 		return <LoadingSpinner />;
 	}
 
 	if (nonExistingSummoner) {
-		console.log("is in nonExistingSummoner || isError");
+		console.log('is in nonExistingSummoner || isError');
 		return (
 			<>
 				<TopBar />
 				<MissingSummonerFragment gameName={gameName}
 										 tagLine={tagLine}
-										 buttonCallback={() => fetchNewData()}
+										 buttonCallback={() => mutate()}
 				/>
 			</>
 		);
@@ -84,7 +88,7 @@ export const SummonerScreen = () => {
 				<div className="left-side">
 					{summoner && (
 						<>
-							<BaseInfo summoner={summoner} buttonCallback={() => fetchNewData()} />
+							<BaseInfo summoner={summoner} buttonCallback={() => mutate()} />
 							<RankComponent ranks={summoner.rank} />
 							<MasteryComponent masteries={summoner.masteries} />
 						</>
