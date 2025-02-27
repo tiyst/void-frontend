@@ -16,7 +16,7 @@ const BaseInfo = (data: BaseInfoProps) => {
 				 alt="Summoner Icon" />
 			<h1 className="responsive-text">{data.summoner.gameName}</h1>
 			<h2>{data.summoner.tagLine}</h2>
-			{data.summoner.level !== 0 && <h3>{data.summoner.level} level</h3>}
+			<h3>{data.summoner.level} level</h3>
 			<div className="button-container">
 				<button className="update-button" onClick={data.buttonCallback}>Update</button>
 			</div>
