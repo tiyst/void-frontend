@@ -23,9 +23,7 @@ export const SummonerScreen = () => {
 
 	const updateSummoner = async (): Promise<Summoner> => {
 		const backendUrl = import.meta.env.VITE_BACKEND_URL;
-		const summoner1 = await pullData(`${backendUrl}/api/summoner/${server}/${gameName}/${tagLine}/update`);
-		console.log(summoner1);
-		return summoner1;
+		return await pullData(`${backendUrl}/api/summoner/${server}/${gameName}/${tagLine}/update`);
 	};
 
 	const pullData = async (url: string): Promise<Summoner> => {
