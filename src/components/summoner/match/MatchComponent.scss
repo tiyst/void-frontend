@@ -86,12 +86,16 @@
 .queue-type {
   margin: 1px;
   writing-mode: sideways-lr;
-  font-size: 1.1em;
 
-  h4 {
-    margin: 0 5px 0 0;
-    font-weight: lighter;
+  h2, h4 {
+    margin: 0 0 0 0;
     opacity: 75%;
+  }
+  h2 {
+    font-size: 1.1em;
+  }
+  h4 {
+    font-weight: normal;
   }
 }
 

@@ -49,11 +49,12 @@ export const MatchComponent: React.FC<MatchComponentProps> = (data: MatchCompone
 	return (
 		<div>
 			<Base className={`match ${className} ${playerWon ? 'player-won' : 'player-lost'}`}>
-				<h2 className="queue-type">
-					{queueTypeTranslations[data.match.queueId] ?? data.match.gameMode}
-					<br />
+				<div className="queue-type">
+					<h2>
+						{queueTypeTranslations[data.match.queueId] ?? data.match.gameMode}
+					</h2>
 					<h4>{calculateDatePlayed(data.match.gameEndTimestamp)}</h4>
-				</h2>
+				</div>
 				<div className="image-container">
 					<img src={getMapUrlByMapId(data.match.mapId)} className="map-image" alt="Map icon" />
 					<img
@@ -179,7 +180,7 @@ export const MatchComponent: React.FC<MatchComponentProps> = (data: MatchCompone
 			</Base>
 			{isExpanded && (
 				<div className={`expandable-content ${isExpanded ? 'expanded' : ''} ${playerWon ? 'player-won' : 'player-lost'}`}>
-					<MatchExpandComponent playerName={player.riotIdGameName} match={data.match}/>
+					<MatchExpandComponent playerName={player.riotIdGameName} match={data.match} />
 				</div>
 			)}
 		</div>
