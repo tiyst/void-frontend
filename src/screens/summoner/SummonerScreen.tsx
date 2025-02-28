@@ -10,8 +10,10 @@ import { Match } from '../../model/Match.ts';
 import { LoadingSpinner } from '../../components/base/LoadingSpinner.tsx';
 import { MissingSummonerFragment } from '../../components/summoner/missingSummoner/missingSummonerFragment.tsx';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useEffect, useState } from 'react';
 
 export const SummonerScreen = () => {
+	const [countdown, setCountdown] = useState(0);
 	const queryClient = useQueryClient();
 
 	const { server = 'EUW1', gameName = 'Unknown', tagLine = 'Unknown' } = useParams();
@@ -33,6 +35,9 @@ export const SummonerScreen = () => {
 			if (res.status === 400) { // Summoner not found
 			}
 			if (res.status === 425) { // Summoner throttling
+				const receivedTime = new Date(errorData.timestamp).getTime();
+				const currentTime = new Date().getTime();
+				setCountdown(Math.floor((receivedTime - currentTime) / 1000) + 1);
 			}
 
 			throw new Error(errorData.message || 'An error has occurred');
@@ -40,6 +45,16 @@ export const SummonerScreen = () => {
 
 		return await res.json();
 	};
+
+	useEffect(() => {
+		if (countdown <= 0) return;
+
+		const timer: number = setInterval(() => {
+			setCountdown((prev) => prev - 1);
+		}, 1000);
+
+		return () => clearInterval(timer);
+	}, [countdown]);
 
 	const { data: summoner, isLoading, isFetching } = useQuery<Summoner>({
 		queryKey: [server, gameName, tagLine],
@@ -79,7 +94,7 @@ export const SummonerScreen = () => {
 				<div className="left-side">
 					{summoner && (
 						<>
-							<BaseInfo summoner={summoner} buttonCallback={() => mutate()} />
+							<BaseInfo summoner={summoner} buttonCallback={() => mutate()} countdown={countdown} />
 							<RankComponent ranks={summoner.rank} />
 							<MasteryComponent masteries={summoner.masteries} />
 						</>

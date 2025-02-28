@@ -36,6 +36,12 @@
 			cursor: pointer;
 			background-color: $accent;
 		}
+
+		.update-button[disabled]{
+			border: 1px solid $accent;
+			background-color: #cccccc;
+			color: #666666;
+		}
 	}
 
 	h1, h2, h3 {
