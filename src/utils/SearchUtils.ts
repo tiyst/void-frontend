@@ -28,6 +28,24 @@ export const transformSuggestionToSavableFormat = (server: string, gameName: str
 	return `${server}/${gameName}/${tagLine}`;
 };
 
+export function separateGameName(name: string): { gameName: string, tagLine: string } {
+	const [pre, post] = name.split('#', 2);
+	if (pre.includes('#') || post.includes('#')) {
+		throw new Error(`Invalid game name: ${name}`);
+	}
+
+	return { gameName: pre, tagLine: post };
+}
+
+export function extractGameNameFromSuggestion(suggestion: string): string {
+	const split = suggestion.split("/", 3);
+	if (split.length !== 3) {
+		return suggestion;
+	}
+
+	return split[1];
+}
+
 const serverToCode = new Map<string, string>([
 	['BR', 'BR'],
 	['EUNE', 'EUN1'],

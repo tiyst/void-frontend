@@ -11,12 +11,3 @@ export function truncatePlayerName(str: string): string {
 	}
 	return str;
 }
-
-export function separateGameName(name: string): { gameName: string, tagLine: string } {
-	const [pre, post] = name.split('#', 2);
-	if (pre.includes('#') || post.includes('#')) {
-		throw new Error(`Invalid game name: ${name}`);
-	}
-
-	return {gameName: pre, tagLine: post};
-}

@@ -18,7 +18,7 @@ export const Suggestion = (data: SearchSuggestionProps) => {
 					{transformCodeToServer(data.server)}
 				</div>
 				<div className="summoner-info">
-					{data.gameName}#{data.tagLine}
+					{data.gameName}#<i>{data.tagLine}</i>
 				</div>
 			</div>
 			<button className="close-btn" onClick={() => data.onRemove(data.server, data.gameName, data.tagLine)}>

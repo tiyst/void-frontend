@@ -1,9 +1,13 @@
 import './Search.scss';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { separateGameName } from '../../utils/StringUtils.ts';
 import { Suggestion } from './Suggestion.tsx';
-import { processSavedSuggestion, transformSuggestionToSavableFormat } from '../../utils/SearchUtils.ts';
+import {
+	extractGameNameFromSuggestion,
+	processSavedSuggestion,
+	separateGameName,
+	transformSuggestionToSavableFormat
+} from '../../utils/SearchUtils.ts';
 
 const serverToCode = {
 	'BR': 'BR',
@@ -85,7 +89,7 @@ export const Search = () => {
 		let filtered = suggestions;
 		if (value.trim().length > 0) {
 			filtered = suggestions.filter((item) =>
-				item.toLowerCase().includes(value.toLowerCase())
+				extractGameNameFromSuggestion(item).toLowerCase().includes(value.toLowerCase())
 			);
 		}
 
@@ -95,7 +99,7 @@ export const Search = () => {
 	const changeServer = (server: string): void => {
 		localStorage.setItem(SERVER_KEY, server);
 		setServer(server);
-	}
+	};
 
 	// Hide suggestion when clicked outside or "escape" pressed
 	const handleClickOutside = (event: MouseEvent) => {
