@@ -2,8 +2,10 @@ import './Search.scss';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { separateGameName } from '../../utils/StringUtils.ts';
+import { Suggestion } from './Suggestion.tsx';
+import { processSavedSuggestion, transformSuggestionToSavableFormat } from '../../utils/SearchUtils.ts';
 
-const options = {
+const serverToCode = {
 	'BR': 'BR',
 	'EUNE': 'EUN1',
 	'EUW': 'EUW1',
@@ -23,45 +25,90 @@ const options = {
 	'VN': 'VN2'
 };
 
+const SUGGESTIONS_KEY = 'suggestions';
+const SERVER_KEY = 'chosenServer';
+const MAX_SUGGESTIONS = 8;
+
 export const Search = () => {
-	const [server, setServer] = useState<string>('BR');
+	const suggestions: string[] = JSON.parse(localStorage.getItem(SUGGESTIONS_KEY) ?? '[]');
+	const chosenServer: string = localStorage.getItem(SERVER_KEY) ?? 'EUW';
+
+	const [server, setServer] = useState<string>(chosenServer);
 	const [query, setQuery] = useState<string>('');
-	const [suggestions, setSuggestions] = useState<string[]>([]);
+	const [displayedSuggestions, setDisplayedSuggestions] = useState<string[]>([]);
+
 	const navigate = useNavigate();
 	const wrapperRef = useRef<HTMLDivElement | null>(null);
+
+
+	const handleSearchParametrised = (server: string, gameName: string, tagLine: string) => {
+		addSuggestion(transformSuggestionToSavableFormat(server, gameName, tagLine));
+		navigate(`/summoner/${server}/${gameName}/${tagLine}`);
+	};
 
 	const handleSearch = () => {
 		const { gameName, tagLine } = separateGameName(query);
 		if (query.trim()) {
-			navigate(`/summoner/${server}/${gameName}/${tagLine}`);
+			handleSearchParametrised(server, gameName, tagLine);
 		}
 	};
 
-	// TODO Style suggestions, cache previously searched in local storage and show them as suggestions
+	const addSuggestion = (newSuggestion: string) => {
+		if (suggestions.includes(newSuggestion)) {
+			return;
+		}
+
+		if (suggestions.length > MAX_SUGGESTIONS) {
+			suggestions.shift();
+		}
+
+		suggestions.push(newSuggestion);
+		localStorage.setItem(SUGGESTIONS_KEY, JSON.stringify(suggestions));
+	};
+
+	const removeSuggestion = (server: string, gameName: string, tagLine: string): void => {
+		console.log('removeSuggestion', server, gameName, tagLine);
+		const suggestion = transformSuggestionToSavableFormat(server, gameName, tagLine);
+		if (!suggestions.includes(suggestion)) {
+			return;
+		}
+
+		const newSuggestions = suggestions.filter(item => item !== suggestion);
+		console.log(newSuggestions);
+		localStorage.setItem(SUGGESTIONS_KEY, JSON.stringify(newSuggestions));
+		setDisplayedSuggestions(newSuggestions);
+	};
+
 	const handleSearchChange = (value: string) => {
 		setQuery(value);
+
+		let filtered = suggestions;
 		if (value.trim().length > 0) {
-			const filtered = ['aaa', 'bbb', 'ccc', 'aa', 'bb', 'cc', 'a', 'b', 'c'].filter((item) =>
+			filtered = suggestions.filter((item) =>
 				item.toLowerCase().includes(value.toLowerCase())
 			);
-			setSuggestions(filtered);
-		} else {
-			setSuggestions([]);
 		}
+
+		setDisplayedSuggestions(filtered);
 	};
+
+	const changeServer = (server: string): void => {
+		localStorage.setItem(SERVER_KEY, server);
+		setServer(server);
+	}
 
 	// Hide suggestion when clicked outside or "escape" pressed
 	const handleClickOutside = (event: MouseEvent) => {
 		if (!wrapperRef.current || !(event.target instanceof HTMLElement)) return;
 
 		if (!wrapperRef.current.contains(event.target)) {
-			setSuggestions([]);
+			setDisplayedSuggestions([]);
 		}
 	};
 
 	const handleKeyDown = (event: KeyboardEvent) => {
 		if (event.key === 'Escape') {
-			setSuggestions([]);
+			setDisplayedSuggestions([]);
 		}
 	};
 
@@ -76,8 +123,8 @@ export const Search = () => {
 
 	return (
 		<div className="search-container" ref={wrapperRef}>
-			<select value={server} onChange={(e) => setServer(e.target.value)} className="search-select">
-				{Object.entries(options).map(([key, value]) => (
+			<select value={server} onChange={(e) => changeServer(e.target.value)} defaultValue={server} className="search-select">
+				{Object.entries(serverToCode).map(([key, value]) => (
 					<option key={key} value={value}> {key}</option>
 				))}
 			</select>
@@ -87,16 +134,19 @@ export const Search = () => {
 					   placeholder="name#tag"
 					   value={query}
 					   onChange={(e) => handleSearchChange(e?.target.value)}
-					   onFocus={()=> handleSearchChange(query)}
+					   onFocus={() => handleSearchChange(query)}
 					   onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
 					   className="search-input" />
 
 				{suggestions.length > 0 && (
 					<ul className="suggestions-drop">
-						{suggestions.map((suggestion, index) => (
-							<li key={'suggestion' + index} onClick={() => {}} onKeyDown={() => handleSearch()}>
-								{suggestion}
-							</li>
+						{displayedSuggestions
+						.map(processSavedSuggestion)
+						.filter((suggestion) => suggestion !== undefined)
+						.map(({ server, gameName, tagLine }, index) => (
+							<Suggestion server={server} gameName={gameName} tagLine={tagLine} key={'suggestion' + index}
+										onClick={() => handleSearchParametrised(server, gameName, tagLine)}
+										onRemove={removeSuggestion} />
 						))}
 					</ul>
 				)}
