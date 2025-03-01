@@ -64,9 +64,9 @@
     height: 100%;
   }
 
-  //&:hover {
-  //  background: #0056b3;
-  //}
+  &:hover {
+    background: $accent;
+  }
 }
 
 .suggestions-drop {
@@ -78,19 +78,4 @@
   margin: 0;
   padding: 0;
   z-index: 1000;
-
-  li {
-    height: 35px;
-    cursor: pointer;
-    background: white;
-    border: 1px solid #ccc;
-    align-content: center;
-    margin-top: 4px;
-    border-radius: 8px;
-    padding-top: 8px;
-  }
-
-  li:hover {
-    background-color: $accent;
-  }
 }
