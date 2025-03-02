@@ -61,7 +61,7 @@ export const SummonerScreen = () => {
 		queryFn: fetchSummoner,
 		refetchOnWindowFocus: false,
 		refetchOnReconnect: false,
-		retry: false,
+		retry: false
 	});
 
 	const { mutate } = useMutation<Summoner>({
@@ -101,7 +101,8 @@ export const SummonerScreen = () => {
 					)}
 				</div>
 				<div className="right-side">
-					{summoner?.matches.map((match: Match, index: number) => (
+					{summoner?.matches?.toSorted((a, b) => b.gameEndTimestamp - a.gameEndTimestamp)
+					.map((match: Match, index: number) => (
 						<MatchComponent key={match.retrievedDate + index}
 										match={match}
 										server={server}
