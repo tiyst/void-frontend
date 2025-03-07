@@ -1,6 +1,6 @@
-import { Match, Participant } from '../model/Match.ts';
-import { replaceString } from './StringUtils.ts';
-import { DamageSegment } from '../components/summoner/match/expand/damageBar/ExpandDamageBar.tsx';
+import {Match, Participant} from '../model/Match.ts';
+import {replaceString} from './StringUtils.ts';
+import {DamageSegment} from '../components/summoner/match/expand/damageBar/ExpandDamageBar.tsx';
 
 const ITEM_URL = 'https://ddragon.leagueoflegends.com/cdn/15.1.1/img/item/{itemID}.png';
 
@@ -53,6 +53,14 @@ export function calculateKdaColor(kda: number): string {
 	} else {
 		return '#9d9d9d';
 	}
+}
+
+export function isMatchArena(match: Match) {
+	return match.gameMode === "CHERRY" || match.participants[0].playerSubteamId !== 0;
+}
+
+export function isMatchArenaByParticipant(participant: Participant) {
+	return participant.playerSubteamId !== 0;
 }
 
 export function unixDurationToMinutes(unixDurationInMillis: number) {

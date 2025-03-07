@@ -1,8 +1,15 @@
 import './ExpandParticipantFragment.scss';
 import { Participant } from '../../../../model/Match.ts';
 import { getChampionIconUrl, urlUnknownChampion } from '../../../../utils/IconsUtils.ts';
-import { calculateKDA, calculateKdaColor, getItemIconUrlByItemId } from '../../../../utils/MatchUtils.ts';
+import {
+	calculateKDA,
+	calculateKdaColor,
+	getItemIconUrlByItemId,
+	isMatchArenaByParticipant
+} from '../../../../utils/MatchUtils.ts';
 import { ExpandDamageBar } from './damageBar/ExpandDamageBar.tsx';
+import {Simulate} from "react-dom/test-utils";
+import play = Simulate.play;
 
 export type ExpandParticipantProps = {
 	participant: Participant;
@@ -15,7 +22,9 @@ export const ExpandParticipantFragment = (data: ExpandParticipantProps) => {
 
 	const kda = calculateKDA(player.kills, player.deaths, player.assists);
 	const kdaColor = calculateKdaColor(kda);
-	const teamId = player.teamId;
+	console.log(player.teamId)
+	const teamId = player.playerSubteamId === 0 ? player.teamId : player.playerSubteamId;
+	const isArena = isMatchArenaByParticipant(player)
 
 	return (
 		<div className="expand-participant"
@@ -46,7 +55,7 @@ export const ExpandParticipantFragment = (data: ExpandParticipantProps) => {
 				<h4>{player.totalDamageDealtToChampions}</h4>
 				<ExpandDamageBar max={data.highestTotalDamage} participant={player} />
 			</div>
-			<div style={{ textAlign: 'end' }}>{player.totalMinionsKilled} CS</div>
+			{!isArena && <div style={{ textAlign: 'end' }}>{player.totalMinionsKilled} CS</div>}
 			<div className="expandedItems">
 				{itemFields.map((key, index) => (
 					<div key={key ?? 'unknownItemField' + index} className="item-container">
