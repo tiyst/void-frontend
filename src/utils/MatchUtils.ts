@@ -89,10 +89,10 @@ export function calculateArenaPlacementColor(participant: Participant): string {
 	if (placement === 1) {
 		return '#ff8000';
 	} else if (placement === 2) {
-		return '#a335ee';
+		return '#bd64fb';
 	} else if (placement <= 4) {
 		return '#1eff00';
-	} else if (placement >= 6) {
+	} else if (placement <= 6) {
 		return '#ffffff';
 	} else {
 		return '#9d9d9d';
