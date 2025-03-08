@@ -55,6 +55,67 @@ export function calculateKdaColor(kda: number): string {
 	}
 }
 
+export function sortParticipantsByTeam(participants: Participant[]): Participant[] {
+	return [...participants].sort((a, b) => {
+		if (a.playerSubteamId === 0 && b.teamId === 0) {
+			return b.teamId - a.teamId;
+		}
+		if (a.playerSubteamId === 0) return 1;
+		if (b.playerSubteamId === 0) return -1;
+		return b.playerSubteamId - a.playerSubteamId;
+	});
+}
+
+export function getArenaPlacementForParticipant(participant: Participant): string {
+	const placement = participant.subteamPlacement;
+
+	// In case we have arena we more than 10 teams one day (HOW WILL WE DISPLAY ALL THE PLAYERS?!?!?!)
+	const lastDigit = placement % 10;
+	switch (lastDigit) {
+		case 1:
+			return `${placement}st`;
+		case 2:
+			return `${placement}nd`;
+		case 3:
+			return `${placement}rd`;
+		default:
+			return `${placement}th`;
+	}
+}
+
+export function calculateArenaPlacementColor(participant: Participant): string {
+	const placement = participant.subteamPlacement;
+
+	if (placement === 1) {
+		return '#ff8000';
+	} else if (placement === 2) {
+		return '#bd64fb';
+	} else if (placement <= 4) {
+		return '#1eff00';
+	} else if (placement <= 6) {
+		return '#ffffff';
+	} else {
+		return '#9d9d9d';
+	}
+}
+
+//Input - An array of 16 participants (Arena participants); Output - array of arrays containing chunkSize participants
+export function chunkArenaParticipants(participants: Participant[], chunkSize: number): Participant[][] {
+	const numberOfChunks = Math.ceil(participants.length / chunkSize)
+
+	return Array.from({ length: numberOfChunks }, (_, index) => {
+		return participants.slice(index * chunkSize, (index + 1) * chunkSize);
+	});
+}
+
+export function isMatchArena(match: Match) {
+	return match.gameMode === 'CHERRY' || match.participants[0].playerSubteamId !== 0;
+}
+
+export function isMatchArenaByParticipant(participant: Participant) {
+	return participant.playerSubteamId !== 0;
+}
+
 export function unixDurationToMinutes(unixDurationInMillis: number) {
 	return unixDurationInMillis / 60;
 }
@@ -81,8 +142,8 @@ export function createDamageSegmentsForParticipant(participant: Participant): Da
 
 	return attributes.map((attr, index) => ({
 		dmg: participant[attr] as number,
-		color: colors[index],
-	}))
+		color: colors[index]
+	}));
 }
 
 const rotatingGameModeIconUrl = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/gamemodeassets/gamemodex/img/icon-v2.png';

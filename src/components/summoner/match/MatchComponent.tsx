@@ -6,7 +6,7 @@ import {
 	calculateKDA, calculateKdaColor,
 	fallbackSummonerSpellIconUrl,
 	findPlayer, getItemIconUrlByItemId, getMapUrlByMapId,
-	getSummonerSpellIconUrl, queueTypeTranslations,
+	getSummonerSpellIconUrl, isMatchArena, queueTypeTranslations, sortParticipantsByTeam,
 	unixDurationToMinutes,
 	unixTimestampToDuration
 } from '../../../utils/MatchUtils.ts';
@@ -17,8 +17,9 @@ import { constructRuneIconUrl, constructRuneClassUrl, runeUrlFallback } from '..
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { MatchExpandComponent } from './expand/MatchExpandComponent.tsx';
+import { ArenaMatchComponent } from './ArenaMatchComponent.tsx';
 
-type MatchComponentProps = BaseBlockProps & {
+export type MatchComponentProps = BaseBlockProps & {
 	match: Match;
 	server: string;
 	gameName: string;
@@ -30,15 +31,13 @@ type MatchComponentProps = BaseBlockProps & {
 
 export const MatchComponent: React.FC<MatchComponentProps> = (data: MatchComponentProps) => {
 	const { className = '' } = data;
-	const participants = data.match.participants;
+	const participants = sortParticipantsByTeam(data.match.participants); // ordered due to arena scrambling subteams
 	const player = findPlayer(data.match, data.gameName);
-	const playerWon = player.win;
 
 	const itemFields = Object.keys(player).filter((key) => /^item[0-5]$/.test(key)) as (keyof Participant)[];
-	const playedChampId = player.championId;
-	const champIconUrl = getChampionIconUrl(playedChampId);
+	const champIconUrl = getChampionIconUrl(player.championId);
 	const kda = calculateKDA(player.kills, player.deaths, player.assists);
-	const kdaColor = calculateKdaColor(kda);
+	const isArena = isMatchArena(data.match);
 
 	const [isExpanded, setIsExpanded] = useState(false);
 
@@ -46,9 +45,14 @@ export const MatchComponent: React.FC<MatchComponentProps> = (data: MatchCompone
 		setIsExpanded(!isExpanded);
 	};
 
+	// I don't like this, but it's the easiest and quickest way. Doesn't have to be elegant for a temporary game mode
+	if (isArena) {
+		return <ArenaMatchComponent match={data.match} server={data.server} gameName={data.gameName} />;
+	}
+
 	return (
 		<div>
-			<Base className={`match ${className} ${playerWon ? 'player-won' : 'player-lost'}`}>
+			<Base className={`match ${className} ${player.win ? 'player-won' : 'player-lost'}`}>
 				<div className="queue-type">
 					<h2>
 						{queueTypeTranslations[data.match.queueId] ?? data.match.gameMode}
@@ -68,7 +72,7 @@ export const MatchComponent: React.FC<MatchComponentProps> = (data: MatchCompone
 					{player.teamPosition !== '' &&
 						<img src={getRoleIconUrl(player.teamPosition)} alt="Role Icon" className="role-image" />}
 				</div>
-				<div className="pre-game-choose">
+				<div className="summoner-spells">
 					{[player.summoner1Id, player.summoner2Id].map((id, index) => (
 						<img key={id ?? 'unknownSummonerId' + index} src={getSummonerSpellIconUrl(id)}
 							 alt={`Summoner spell ${id}`}
@@ -77,6 +81,8 @@ export const MatchComponent: React.FC<MatchComponentProps> = (data: MatchCompone
 							 }}
 						/>
 					))}
+				</div>
+				{!isArena && <div className="summoner-runes">
 					<img
 						src={constructRuneIconUrl(player.perks.styles)}
 						alt="Keystone rune"
@@ -91,14 +97,14 @@ export const MatchComponent: React.FC<MatchComponentProps> = (data: MatchCompone
 							(e.target as HTMLImageElement).src = runeUrlFallback;
 						}}
 					/>
-				</div>
+				</div>}
 				<div className="player-stats">
 					<h2>
 						<span>{player.kills}</span> / <span
 						style={{ color: '#F47174' }}>{player.deaths}</span> / <span>{player.assists}</span>
 					</h2>
 					<h4>
-						<span style={{ fontSize: '22px', fontWeight: 'bold', color: kdaColor }}>{kda}</span> KDA
+						<span style={{ fontSize: '22px', fontWeight: 'bold', color: calculateKdaColor(kda) }}>{kda}</span> KDA
 					</h4>
 					<h4>{`${player.totalMinionsKilled}CS (${(player.totalMinionsKilled / unixDurationToMinutes(data.match.gameDuration)).toFixed(1)})`}</h4>
 					<h4>{unixTimestampToDuration(data.match.gameDuration)}</h4>
@@ -179,11 +185,11 @@ export const MatchComponent: React.FC<MatchComponentProps> = (data: MatchCompone
 				</button>
 			</Base>
 			{isExpanded && (
-				<div className={`expandable-content ${isExpanded ? 'expanded' : ''} ${playerWon ? 'player-won' : 'player-lost'}`}>
+				<div
+					className={`expandable-content ${isExpanded ? 'expanded' : ''} ${player.win ? 'player-won' : 'player-lost'}`}>
 					<MatchExpandComponent playerName={player.riotIdGameName} match={data.match} />
 				</div>
 			)}
 		</div>
-
 	);
 };

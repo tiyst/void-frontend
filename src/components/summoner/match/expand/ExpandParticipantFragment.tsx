@@ -1,7 +1,13 @@
 import './ExpandParticipantFragment.scss';
 import { Participant } from '../../../../model/Match.ts';
 import { getChampionIconUrl, urlUnknownChampion } from '../../../../utils/IconsUtils.ts';
-import { calculateKDA, calculateKdaColor, getItemIconUrlByItemId } from '../../../../utils/MatchUtils.ts';
+import {
+	calculateArenaPlacementColor,
+	calculateKDA,
+	calculateKdaColor, getArenaPlacementForParticipant,
+	getItemIconUrlByItemId,
+	isMatchArenaByParticipant
+} from '../../../../utils/MatchUtils.ts';
 import { ExpandDamageBar } from './damageBar/ExpandDamageBar.tsx';
 
 export type ExpandParticipantProps = {
@@ -15,12 +21,13 @@ export const ExpandParticipantFragment = (data: ExpandParticipantProps) => {
 
 	const kda = calculateKDA(player.kills, player.deaths, player.assists);
 	const kdaColor = calculateKdaColor(kda);
-	const teamId = player.teamId;
+	const teamId = player.playerSubteamId === 0 ? player.teamId : player.playerSubteamId;
+	const isArena = isMatchArenaByParticipant(player);
 
 	return (
 		<div className="expand-participant"
 			 style={{
-				 border: `2px solid var(--team${teamId}-border)`,
+				 border: `3px solid var(--team${teamId}-border)`,
 				 background: `var(--team${teamId}-background)`
 			 }}>
 			<div style={{ display: 'flex', flexDirection: 'row', gap: '0.5rem' }}>
@@ -46,7 +53,10 @@ export const ExpandParticipantFragment = (data: ExpandParticipantProps) => {
 				<h4>{player.totalDamageDealtToChampions}</h4>
 				<ExpandDamageBar max={data.highestTotalDamage} participant={player} />
 			</div>
-			<div style={{ textAlign: 'end' }}>{player.totalMinionsKilled} CS</div>
+			{!isArena && <div style={{ textAlign: 'end' }}>{player.totalMinionsKilled} CS</div>}
+			{isArena && <div style={{ textAlign: 'center', fontWeight: 'bold' }}>
+				<span style={{ color: calculateArenaPlacementColor(player) }}>{getArenaPlacementForParticipant(player)}</span>
+			</div>}
 			<div className="expandedItems">
 				{itemFields.map((key, index) => (
 					<div key={key ?? 'unknownItemField' + index} className="item-container">

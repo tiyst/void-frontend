@@ -93,7 +93,7 @@ export type Participant = {
 	playerAugment4: number;
 	playerAugment5: number;
 	playerAugment6: number;
-	playerSubteamId: number;
+	playerSubteamId: number; // Used in arena
 	profileIcon: number;
 	pushPings: number;
 	puuid: string;
