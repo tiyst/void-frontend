@@ -8,8 +8,6 @@ import {
 	isMatchArenaByParticipant
 } from '../../../../utils/MatchUtils.ts';
 import { ExpandDamageBar } from './damageBar/ExpandDamageBar.tsx';
-import {Simulate} from "react-dom/test-utils";
-import play = Simulate.play;
 
 export type ExpandParticipantProps = {
 	participant: Participant;
@@ -22,14 +20,13 @@ export const ExpandParticipantFragment = (data: ExpandParticipantProps) => {
 
 	const kda = calculateKDA(player.kills, player.deaths, player.assists);
 	const kdaColor = calculateKdaColor(kda);
-	console.log(player.teamId)
 	const teamId = player.playerSubteamId === 0 ? player.teamId : player.playerSubteamId;
 	const isArena = isMatchArenaByParticipant(player)
 
 	return (
 		<div className="expand-participant"
 			 style={{
-				 border: `2px solid var(--team${teamId}-border)`,
+				 border: `3px solid var(--team${teamId}-border)`,
 				 background: `var(--team${teamId}-background)`
 			 }}>
 			<div style={{ display: 'flex', flexDirection: 'row', gap: '0.5rem' }}>
