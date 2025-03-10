@@ -67,7 +67,20 @@ export const SummonerScreen = () => {
 	const { mutate } = useMutation<Summoner>({
 		mutationFn: updateSummoner,
 		onSuccess: (newData: Summoner) => {
-			queryClient.setQueryData([server, gameName, tagLine], newData);
+			queryClient.setQueryData([server, gameName, tagLine], (oldData?: Summoner) => {
+				if (!oldData) return newData;
+
+				const existingMatchIds = new Set(oldData.matches.map((m) => m.gameId));
+				const mergedMatches = [
+					...oldData.matches,
+					...newData.matches.filter((match) => !existingMatchIds.has(match.gameId))
+				];
+
+				return {
+					...newData,
+					matches: mergedMatches.toSorted((a, b) => b.gameEndTimestamp - a.gameEndTimestamp)
+				};
+			});
 		}
 	});
 
