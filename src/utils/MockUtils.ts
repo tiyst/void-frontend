@@ -245,6 +245,7 @@ export const createRandomMatch = (): Match => {
 		endOfGameResult: 'GameComplete',
 		gameDuration: randomInt(900000, 3900000),
 		gameEndTimestamp: 1737223044458,
+		gameId: 3753466822,
 		gameMode: 'Classic',
 		gameType: 'Ranked',
 		mapId: 11,
