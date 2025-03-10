@@ -7,6 +7,7 @@ import { UpdateSummonerSpinner } from '../../../screens/summoner/UpdateSummonerS
 export type BaseInfoProps = BaseBlockProps & {
 	summoner: Summoner;
 	buttonCallback: () => void;
+	isUpdating: boolean;
 	countdown: number;
 };
 
@@ -27,7 +28,7 @@ const BaseInfo = (data: BaseInfoProps) => {
 			<h3>{data.summoner.level} level</h3>
 			<div className="button-container">
 				<button className="update-button" onClick={data.buttonCallback} disabled={data.countdown > 0}>
-					{/*TODO*/}
+					{data.isUpdating
 						? <UpdateSummonerSpinner />
 						: buttonStatus(data.countdown)
 					}

@@ -64,7 +64,7 @@ export const SummonerScreen = () => {
 		retry: false
 	});
 
-	const { mutate } = useMutation<Summoner>({
+	const { mutate, isPending } = useMutation<Summoner>({
 		mutationFn: updateSummoner,
 		onSuccess: (newData: Summoner) => {
 			queryClient.setQueryData([server, gameName, tagLine], (oldData?: Summoner) => {
@@ -107,7 +107,7 @@ export const SummonerScreen = () => {
 				<div className="left-side">
 					{summoner && (
 						<>
-							<BaseInfo summoner={summoner} buttonCallback={() => mutate()} countdown={countdown} />
+							<BaseInfo summoner={summoner} buttonCallback={() => mutate()} countdown={countdown} isUpdating={isPending} />
 							<RankComponent ranks={summoner.rank} />
 							<MasteryComponent masteries={summoner.masteries} />
 						</>
