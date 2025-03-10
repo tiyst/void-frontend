@@ -2,6 +2,7 @@ import Base, { BaseBlockProps } from '../../base/Base.tsx';
 import './BaseInfo.scss';
 import { Summoner } from '../../../model/Summoner.ts';
 import { getProfileIconUrl } from '../../../utils/IconsUtils.ts';
+import { UpdateSummonerSpinner } from '../../../screens/summoner/UpdateSummonerSpinner.tsx';
 
 export type BaseInfoProps = BaseBlockProps & {
 	summoner: Summoner;
@@ -10,6 +11,12 @@ export type BaseInfoProps = BaseBlockProps & {
 };
 
 const BaseInfo = (data: BaseInfoProps) => {
+	const buttonStatus = (countdown: number): string => {
+		return countdown == 0
+			? 'Update'
+			: `Wait ${data.countdown}s`;
+	};
+
 	return (
 		<Base className={`baseInfo`}>
 			<img className="summonerIcon"
@@ -19,10 +26,10 @@ const BaseInfo = (data: BaseInfoProps) => {
 			<h2>{data.summoner.tagLine}</h2>
 			<h3>{data.summoner.level} level</h3>
 			<div className="button-container">
-				<button className="update-button" onClick={data.buttonCallback} disabled={ data.countdown > 0 } >
-					{data.countdown == 0
-						? "Update"
-						: `Wait ${data.countdown}s`
+				<button className="update-button" onClick={data.buttonCallback} disabled={data.countdown > 0}>
+					{/*TODO*/}
+						? <UpdateSummonerSpinner />
+						: buttonStatus(data.countdown)
 					}
 				</button>
 			</div>
