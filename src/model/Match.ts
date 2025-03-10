@@ -2,6 +2,7 @@ export type Match = {
 	endOfGameResult: string;
 	gameDuration: number;
 	gameEndTimestamp: number;
+	gameId: number;
 	gameMode: string;
 	gameType: string;
 	mapId: number;
