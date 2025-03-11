@@ -11,20 +11,23 @@ export type MatchExpandProps = BaseBlockProps & {
 
 // TODO animation doesn't work
 export const MatchExpandComponent = (data: MatchExpandProps) => {
-	const highestDamage = data.match.participants.reduce((max, current) => {
-		return current.totalDamageDealtToChampions > max.totalDamageDealtToChampions
-			? current
-			: max;
-	}).totalDamageDealtToChampions;
+	const highestDamage = data.match.participants.reduce(
+		(max, current) => {
+			return current.totalDamageDealtToChampions > max.totalDamageDealtToChampions ? current : max;
+		},
+		{ totalDamageDealtToChampions: -Infinity }
+	).totalDamageDealtToChampions;
 
 	const participants = sortParticipantsByTeam(data.match.participants); // ordered due to arena scrambling subteams
 
 	return (
 		<div className="match-expand-wrapper">
 			{participants.map((participant, index) => (
-				<ExpandParticipantFragment key={participant.riotIdGameName + index}
-										   participant={participant}
-										   highestTotalDamage={highestDamage} />
+				<ExpandParticipantFragment
+					key={participant.riotIdGameName + index}
+					participant={participant}
+					highestTotalDamage={highestDamage}
+				/>
 			))}
 		</div>
 	);

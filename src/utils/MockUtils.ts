@@ -199,8 +199,10 @@ export const createRandomMatch = (): Match => {
 
 	const randomStyles = (): PerksStyle[] => {
 		const styleIds = [8000, 8100, 8200, 8300, 8400];
-		return [generatePerkStyle(styleIds[randomInt(0, 4)], true),
-			generatePerkStyle(styleIds[randomInt(0, 4)], false)];
+		return [
+			generatePerkStyle(styleIds[randomInt(0, 4)], true),
+			generatePerkStyle(styleIds[randomInt(0, 4)], false)
+		];
 	};
 
 	const generatePerkStyle = (style: number, isPrimary: boolean) => {
@@ -213,9 +215,10 @@ export const createRandomMatch = (): Match => {
 
 	const randomPerksSelection = (repetitions: number, style: number): PerksSelection[] => {
 		return Array.from({ length: repetitions }, (_, index) =>
-			createPerkSelection(index === 0 && repetitions === 4
-				? runeKeystonesByStyle[style][Math.floor(Math.random() * runeKeystonesByStyle[style].length)]
-				: runeSecondaryByStyle[style][Math.floor(Math.random() * runeSecondaryByStyle[style].length)]
+			createPerkSelection(
+				index === 0 && repetitions === 4
+					? runeKeystonesByStyle[style][Math.floor(Math.random() * runeKeystonesByStyle[style].length)]
+					: runeSecondaryByStyle[style][Math.floor(Math.random() * runeSecondaryByStyle[style].length)]
 			)
 		);
 	};
@@ -237,8 +240,8 @@ export const createRandomMatch = (): Match => {
 			dragon: { first: randomBoolean(), kills: randomInt(0, 4) }
 		},
 		championBans: Array(5)
-		.fill(null)
-		.map(() => randomInt(1, 160))
+			.fill(null)
+			.map(() => randomInt(1, 160))
 	});
 
 	const game = {
@@ -251,11 +254,11 @@ export const createRandomMatch = (): Match => {
 		mapId: 11,
 		participants: [
 			...Array(5)
-			.fill(null)
-			.map(() => randomParticipant(100)),
+				.fill(null)
+				.map(() => randomParticipant(100)),
 			...Array(5)
-			.fill(null)
-			.map(() => randomParticipant(200))
+				.fill(null)
+				.map(() => randomParticipant(200))
 		],
 		platformId: 'NA1',
 		queueId: [450, 1710, 420, 440, 400, 430][randomInt(0, 5)],

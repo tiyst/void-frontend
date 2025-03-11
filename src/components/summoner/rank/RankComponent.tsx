@@ -13,8 +13,8 @@ const RankComponent: React.FC<RankComponentProps> = (data: RankComponentProps) =
 
 	return (
 		<BaseWithHeader headerText="Ranks" className={`rankComponent ${className}`}>
-			{RankFragment("Ranked Solo", data.ranks[0])}
-			{RankFragment("Ranked Flex", data.ranks[1])}
+			{RankFragment('Ranked Solo', data.ranks[0])}
+			{RankFragment('Ranked Flex', data.ranks[1])}
 		</BaseWithHeader>
 	);
 };

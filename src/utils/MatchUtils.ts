@@ -66,6 +66,17 @@ export function sortParticipantsByTeam(participants: Participant[]): Participant
 	});
 }
 
+export function getItemsFromParticipant(participant: Participant): number[] {
+	return [
+		participant.item0,
+		participant.item1,
+		participant.item2,
+		participant.item3,
+		participant.item4,
+		participant.item5
+	];
+}
+
 export function getArenaPlacementForParticipant(participant: Participant): string {
 	const placement = participant.subteamPlacement;
 
@@ -101,7 +112,7 @@ export function calculateArenaPlacementColor(participant: Participant): string {
 
 //Input - An array of 16 participants (Arena participants); Output - array of arrays containing chunkSize participants
 export function chunkArenaParticipants(participants: Participant[], chunkSize: number): Participant[][] {
-	const numberOfChunks = Math.ceil(participants.length / chunkSize)
+	const numberOfChunks = Math.ceil(participants.length / chunkSize);
 
 	return Array.from({ length: numberOfChunks }, (_, index) => {
 		return participants.slice(index * chunkSize, (index + 1) * chunkSize);
@@ -137,7 +148,11 @@ export function findPlayer(match: Match, playerName: string) {
 }
 
 export function createDamageSegmentsForParticipant(participant: Participant): DamageSegment[] {
-	const attributes: Array<keyof Participant> = ['magicDamageDealtToChampions', 'physicalDamageDealtToChampions', 'trueDamageDealtToChampions'];
+	const attributes: Array<keyof Participant> = [
+		'magicDamageDealtToChampions',
+		'physicalDamageDealtToChampions',
+		'trueDamageDealtToChampions'
+	];
 	const colors = ['#3B719F', '#B11A21', '#FFFFFF'];
 
 	return attributes.map((attr, index) => ({
@@ -146,9 +161,12 @@ export function createDamageSegmentsForParticipant(participant: Participant): Da
 	}));
 }
 
-const rotatingGameModeIconUrl = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/gamemodeassets/gamemodex/img/icon-v2.png';
-const aramGameModeIconUrl = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/gamemodeassets/aram/img/icon-victory.png';
-const summonersRiftGameIconUrl = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/gamemodeassets/classic_sru/img/icon-victory.png';
+const rotatingGameModeIconUrl =
+	'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/gamemodeassets/gamemodex/img/icon-v2.png';
+const aramGameModeIconUrl =
+	'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/gamemodeassets/aram/img/icon-victory.png';
+const summonersRiftGameIconUrl =
+	'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/gamemodeassets/classic_sru/img/icon-victory.png';
 const mapIconUrls: { [key: number]: string } = {
 	1: summonersRiftGameIconUrl,
 	2: summonersRiftGameIconUrl,

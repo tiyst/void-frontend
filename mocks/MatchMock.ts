@@ -85,7 +85,7 @@ export const mockMatches: Match = {
 				offense: 5008,
 				styles: [
 					{
-						description: "primaryStyle",
+						description: 'primaryStyle',
 						selections: [
 							{
 								perk: 8128,
@@ -115,7 +115,7 @@ export const mockMatches: Match = {
 						style: 8100
 					},
 					{
-						description: "subStyle",
+						description: 'subStyle',
 						selections: [
 							{
 								perk: 8009,
@@ -273,7 +273,7 @@ export const mockMatches: Match = {
 				offense: 5008,
 				styles: [
 					{
-						description: "primaryStyle",
+						description: 'primaryStyle',
 						selections: [
 							{
 								perk: 8128,
@@ -303,7 +303,7 @@ export const mockMatches: Match = {
 						style: 8100
 					},
 					{
-						description: "subStyle",
+						description: 'subStyle',
 						selections: [
 							{
 								perk: 8009,
@@ -461,7 +461,7 @@ export const mockMatches: Match = {
 				offense: 5008,
 				styles: [
 					{
-						description: "primaryStyle",
+						description: 'primaryStyle',
 						selections: [
 							{
 								perk: 8128,
@@ -491,7 +491,7 @@ export const mockMatches: Match = {
 						style: 8100
 					},
 					{
-						description: "subStyle",
+						description: 'subStyle',
 						selections: [
 							{
 								perk: 8009,
@@ -649,7 +649,7 @@ export const mockMatches: Match = {
 				offense: 5008,
 				styles: [
 					{
-						description: "primaryStyle",
+						description: 'primaryStyle',
 						selections: [
 							{
 								perk: 8128,
@@ -679,7 +679,7 @@ export const mockMatches: Match = {
 						style: 8100
 					},
 					{
-						description: "subStyle",
+						description: 'subStyle',
 						selections: [
 							{
 								perk: 8009,
@@ -837,7 +837,7 @@ export const mockMatches: Match = {
 				offense: 5008,
 				styles: [
 					{
-						description: "primaryStyle",
+						description: 'primaryStyle',
 						selections: [
 							{
 								perk: 8128,
@@ -867,7 +867,7 @@ export const mockMatches: Match = {
 						style: 8100
 					},
 					{
-						description: "subStyle",
+						description: 'subStyle',
 						selections: [
 							{
 								perk: 8009,
@@ -1025,7 +1025,7 @@ export const mockMatches: Match = {
 				offense: 5008,
 				styles: [
 					{
-						description: "primaryStyle",
+						description: 'primaryStyle',
 						selections: [
 							{
 								perk: 8128,
@@ -1055,7 +1055,7 @@ export const mockMatches: Match = {
 						style: 8100
 					},
 					{
-						description: "subStyle",
+						description: 'subStyle',
 						selections: [
 							{
 								perk: 8009,
@@ -1213,7 +1213,7 @@ export const mockMatches: Match = {
 				offense: 5008,
 				styles: [
 					{
-						description: "primaryStyle",
+						description: 'primaryStyle',
 						selections: [
 							{
 								perk: 8128,
@@ -1243,7 +1243,7 @@ export const mockMatches: Match = {
 						style: 8100
 					},
 					{
-						description: "subStyle",
+						description: 'subStyle',
 						selections: [
 							{
 								perk: 8009,
@@ -1401,7 +1401,7 @@ export const mockMatches: Match = {
 				offense: 5008,
 				styles: [
 					{
-						description: "primaryStyle",
+						description: 'primaryStyle',
 						selections: [
 							{
 								perk: 8128,
@@ -1431,7 +1431,7 @@ export const mockMatches: Match = {
 						style: 8100
 					},
 					{
-						description: "subStyle",
+						description: 'subStyle',
 						selections: [
 							{
 								perk: 8009,
@@ -1589,7 +1589,7 @@ export const mockMatches: Match = {
 				offense: 5008,
 				styles: [
 					{
-						description: "primaryStyle",
+						description: 'primaryStyle',
 						selections: [
 							{
 								perk: 8128,
@@ -1619,7 +1619,7 @@ export const mockMatches: Match = {
 						style: 8100
 					},
 					{
-						description: "subStyle",
+						description: 'subStyle',
 						selections: [
 							{
 								perk: 8009,
@@ -1777,7 +1777,7 @@ export const mockMatches: Match = {
 				offense: 5008,
 				styles: [
 					{
-						description: "primaryStyle",
+						description: 'primaryStyle',
 						selections: [
 							{
 								perk: 8128,
@@ -1807,7 +1807,7 @@ export const mockMatches: Match = {
 						style: 8100
 					},
 					{
-						description: "subStyle",
+						description: 'subStyle',
 						selections: [
 							{
 								perk: 8009,

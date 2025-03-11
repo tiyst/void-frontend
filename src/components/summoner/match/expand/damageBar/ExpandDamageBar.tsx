@@ -5,12 +5,12 @@ import { createDamageSegmentsForParticipant } from '../../../../../utils/MatchUt
 export type ExpandDamageBarProps = {
 	participant: Participant;
 	max: number;
-}
+};
 
 export type DamageSegment = {
 	dmg: number;
 	color: string;
-}
+};
 
 export const ExpandDamageBar = (data: ExpandDamageBarProps) => {
 	const damageSegments = createDamageSegmentsForParticipant(data.participant);
@@ -22,12 +22,11 @@ export const ExpandDamageBar = (data: ExpandDamageBarProps) => {
 					key={segment.dmg + index}
 					className="progress-bar-segment"
 					style={{
-						width: `${(segment.dmg/data.max) * 100}%`,
-						backgroundColor: segment.color,
+						width: `${(segment.dmg / data.max) * 100}%`,
+						backgroundColor: segment.color
 					}}
 				/>
 			))}
 		</div>
 	);
 };
-

@@ -1,82 +1,83 @@
 .arena-player-stats {
-  max-height: 100%;
-  display: inline-grid;
-  align-self: revert;
-  width: 15%;
-  overflow: hidden;
-  justify-content: center;
+	max-height: 100%;
+	display: inline-grid;
+	align-self: revert;
+	width: 15%;
+	overflow: hidden;
+	justify-content: center;
 
-  h2 {
-    margin: 0;
-    font-size: 1.2rem;
-  }
+	h2 {
+		margin: 0;
+		font-size: 1.2rem;
+	}
 
-  h3,
-  h4 {
-    font-size: 1rem;
-    margin: 0;
-    font-weight: lighter;
-  }
+	h3,
+	h4 {
+		font-size: 1rem;
+		margin: 0;
+		font-weight: lighter;
+	}
 
-  .arena-items {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-    gap: 5px;
-    justify-items: center;
-    align-items: center;
-    width: fit-content;
+	.arena-items {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		grid-template-rows: repeat(2, 1fr);
+		gap: 5px;
+		justify-items: center;
+		align-items: center;
+		width: fit-content;
 
-    .arena-item-container {
-      display: inline-block;
-      width: 30px;
-      height: 30px;
-      border-radius: 25%;
-    }
+		.arena-item-container {
+			display: inline-block;
+			width: 30px;
+			height: 30px;
+			border-radius: 25%;
+		}
 
-    .arena-item-icon {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      object-fit: contain;
-      max-height: 30px;
-      border-radius: 25%;
+		.arena-item-icon {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			object-fit: contain;
+			max-height: 30px;
+			border-radius: 25%;
 
-      img {
-        max-height: inherit;
-        border-radius: 0;
-      }
-    }
-  }
+			img {
+				max-height: inherit;
+				border-radius: 0;
+			}
+		}
+	}
 }
 
 .arena-teams {
-  display: flex;
-  flex-direction: row;
-  gap: 5px;
-  justify-content: center;
-  width: 55%;
-  text-align: left;
+	display: flex;
+	flex-direction: row;
+	gap: 5px;
+	justify-content: center;
+	width: 55%;
+	text-align: left;
 
-  .arena-team {
-    display: flex;
-    flex-direction: column;
-    width: 50%;
+	.arena-team {
+		display: flex;
+		flex-direction: column;
+		width: 50%;
 
-    .arena-name, h4 {
-      margin: 1px;
-      font-size: 1em;
-      font-weight: lighter;
-      color: white;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
+		.arena-name,
+		h4 {
+			margin: 1px;
+			font-size: 1em;
+			font-weight: lighter;
+			color: white;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
 
-    img {
-      max-height: 20px;
-      border-radius: 30%;
-      flex-direction: column;
-      align-items: center;
-    }
-  }
+		img {
+			max-height: 20px;
+			border-radius: 30%;
+			flex-direction: column;
+			align-items: center;
+		}
+	}
 }

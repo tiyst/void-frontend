@@ -1,41 +1,42 @@
 .expand-participant {
-  max-height: 30px;
-  display: grid;
-  grid-template-columns: 27% 13% 10% 13% 7% 35%;
-  gap: 10px;
-  padding: 5px 20px 10px 10px;
-  margin-top: 8px;
-  border-radius: 10px;
-  background-color: #464646;
+	max-height: 30px;
+	display: grid;
+	grid-template-columns: 27% 13% 10% 13% 7% 35%;
+	gap: 10px;
+	padding: 5px 20px 10px 10px;
+	margin-top: 8px;
+	border-radius: 10px;
+	background-color: #464646;
 
-  h3, h4 {
-    margin: 0;
-    padding: 0;
-  }
+	h3,
+	h4 {
+		margin: 0;
+		padding: 0;
+	}
 
-  div {
-    grid-column: span 1; /* Each div spans one column */
-    align-content: center;
+	div {
+		grid-column: span 1; /* Each div spans one column */
+		align-content: center;
 
-    img {
-      max-width: 30px;
-      border-radius: 35%;
-    }
+		img {
+			max-width: 30px;
+			border-radius: 35%;
+		}
 
-    h2 {
-      margin: 0;
-    }
+		h2 {
+			margin: 0;
+		}
 
-    h3,
-    h4 {
-      margin: 0;
-      font-weight: lighter;
-    }
-  }
+		h3,
+		h4 {
+			margin: 0;
+			font-weight: lighter;
+		}
+	}
 }
 
 .expandedItems {
-  display: flex;
-  flex-direction: row;
-  gap: 2px;
+	display: flex;
+	flex-direction: row;
+	gap: 2px;
 }
