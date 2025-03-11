@@ -8,7 +8,7 @@ export function constructRuneIconUrl(perks: PerksStyle[]): string {
 	const style = perks.find((perk) => perk.description === 'primaryStyle');
 
 	if (!style) {
-		console.log("No style found");
+		console.log('No style found');
 		return runeUrlFallback;
 	}
 	const runeId = style.selections[0].perk;
@@ -19,7 +19,7 @@ export function constructRuneClassUrl(perks: PerksStyle[]): string {
 	const style = perks.find((perk) => perk.description !== 'primaryStyle');
 
 	if (!style) {
-		console.log("No style class found");
+		console.log('No style class found');
 		return runeUrlFallback;
 	}
 
@@ -36,7 +36,7 @@ export const runeKeystonesByStyle: { [key: number]: number[] } = {
 	8400: [8437, 8439, 8465]
 };
 
-export const runeSecondaryByStyle: { [key: number]: number[] }  = {
+export const runeSecondaryByStyle: { [key: number]: number[] } = {
 	8000: [9101, 9111, 8009, 9104, 9105, 9103, 8014, 8017, 8299],
 	8100: [8126, 8139, 8143, 8136, 8120, 8138, 8135, 8105, 8106],
 	8200: [8224, 8226, 8275, 8210, 8234, 8233, 8237, 8232, 8236],

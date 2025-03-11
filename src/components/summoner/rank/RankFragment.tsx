@@ -2,20 +2,25 @@ import { Rank } from '../../../model/Summoner.ts';
 import './RankFragment.scss';
 import { calculateWinRate, getRankUrl } from '../../../utils/RankUtils.ts';
 
-const RankFragment = (queueType:string, data: Rank) => {
+const RankFragment = (queueType: string, data: Rank) => {
 	return (
 		<div className="rankFragment">
 			<img src={getRankUrl(data?.tier?.toLowerCase() || 'unranked')} alt="Rank icon" />
 
 			<div className="rankText">
 				<h2>{queueType}</h2>
-				{data?.tier ?
+				{data?.tier ? (
 					<>
-						<h3>{data.tier} {data.division}	{data.leaguePoints} LP</h3>
-						<h4>{data.wins}W / {data.losses}L <i>{calculateWinRate(data.wins, data.losses)}</i></h4>
+						<h3>
+							{data.tier} {data.division} {data.leaguePoints} LP
+						</h3>
+						<h4>
+							{data.wins}W / {data.losses}L <i>{calculateWinRate(data.wins, data.losses)}</i>
+						</h4>
 					</>
-				:	<h3>Unranked</h3>
-				}
+				) : (
+					<h3>Unranked</h3>
+				)}
 			</div>
 		</div>
 	);

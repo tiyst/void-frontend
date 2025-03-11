@@ -3,10 +3,9 @@ import React from 'react';
 import { Search } from '../searchBar/Search.tsx';
 
 const TopBar: React.FC = () => {
-
 	return (
 		<div className="top-bar">
-			<Search/>
+			<Search />
 		</div>
 	);
 };

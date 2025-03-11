@@ -1,81 +1,81 @@
 .search-container {
-  display: flex;
-  align-items: center;
-  width: 33%;
-  height: 40px;
-  background: #f8f9fa;
-  color: black;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  position: relative;
+	display: flex;
+	align-items: center;
+	width: 33%;
+	height: 40px;
+	background: #f8f9fa;
+	color: black;
+	border-radius: 8px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	position: relative;
 }
 
 .search-select {
-  flex: 1;
-  height: 100%;
-  border: none;
-  padding: 0 10px;
-  font-size: 16px;
-  background: white;
-  outline: none;
-  appearance: none;
-  color: black;
-  border-radius: 8px;
-  text-align: center;
+	flex: 1;
+	height: 100%;
+	border: none;
+	padding: 0 10px;
+	font-size: 16px;
+	background: white;
+	outline: none;
+	appearance: none;
+	color: black;
+	border-radius: 8px;
+	text-align: center;
 
-  option {
-    text-align: center;
-  }
+	option {
+		text-align: center;
+	}
 }
 
 .vertical-line {
-  width: 1px;
-  height: 70%;
-  background: #ccc;
+	width: 1px;
+	height: 70%;
+	background: #ccc;
 }
 
 .search-input {
-  height: 100%;
-  border: none;
-  padding: 0 10px;
-  font-size: 16px;
-  outline: none;
-  background: #f8f9fa;
-  color: black;
+	height: 100%;
+	border: none;
+	padding: 0 10px;
+	font-size: 16px;
+	outline: none;
+	background: #f8f9fa;
+	color: black;
 }
 
 .search-button {
-  width: 70px;
-  height: 100%;
-  border: none;
-  background: black;
+	width: 70px;
+	height: 100%;
+	border: none;
+	background: black;
 
-  color: white;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  transition: background 0.3s;
+	color: white;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 18px;
+	transition: background 0.3s;
 
-  svg {
-    display: block;
-    width: 100%;
-    height: 100%;
-  }
+	svg {
+		display: block;
+		width: 100%;
+		height: 100%;
+	}
 
-  &:hover {
-    background: $accent;
-  }
+	&:hover {
+		background: $accent;
+	}
 }
 
 .suggestions-drop {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  z-index: 1000;
+	position: absolute;
+	top: 100%;
+	left: 0;
+	right: 0;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	z-index: 1000;
 }
