@@ -1,66 +1,71 @@
 .suggestion {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 30px;
-  cursor: pointer;
-  background: white;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  align-content: center;
-  margin-top: 4px;
-  padding-top: 4px;
-  padding-bottom: 4px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	height: 30px;
+	cursor: pointer;
+	background: white;
+	border: 1px solid #ccc;
+	border-radius: 8px;
+	align-content: center;
+	margin-top: 4px;
+	padding-top: 4px;
+	padding-bottom: 4px;
 }
 
 .suggestion:hover {
-  background-color: $accent;
+	background-color: $accent;
 }
 
 .suggestion-content {
-  display: flex;
-  justify-content: space-between;
-  flex-grow: 1;
-  align-items: center;
+	display: flex;
+	justify-content: space-between;
+	flex-grow: 1;
+	align-items: center;
+	background: transparent;
+	color: black;
+	border: none;
+
+	&:hover {
+		border: none;
+	}
 }
 
 .summoner-info {
-  flex-grow: 1;
-  text-align: center;
+	flex-grow: 1;
+	text-align: center;
 }
 
 .server {
-  text-align: right;
-  font-style: italic;
-  opacity: 0.7;
-  width: 20%;
+	text-align: right;
+	font-style: italic;
+	opacity: 0.7;
+	width: 20%;
 }
 
 .close-btn {
-  border: none;
-  color: black;
-  background: black;
-  font-size: 16px;
-  cursor: pointer;
-  padding: 5px;
-  margin-left: 10px;
+	border: none;
+	color: black;
+	background: black;
+	font-size: 16px;
+	cursor: pointer;
+	padding: 5px;
 
-  &:hover {
-    svg path {
-      stroke: $accent;
-    }
-  }
+	&:hover {
+		svg path {
+			stroke: red;
+		}
+	}
 
-  svg {
-    width: 24px;
-    height: 24px;
+	svg {
+		width: 24px;
+		height: 24px;
 
-    path {
-      stroke: white;
-      stroke-width: 2;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-  }
+		path {
+			stroke: white;
+			stroke-width: 2;
+			stroke-linecap: round;
+			stroke-linejoin: round;
+		}
+	}
 }
-

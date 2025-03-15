@@ -20,9 +20,7 @@ const BaseInfo = (data: BaseInfoProps) => {
 
 	return (
 		<Base className={`baseInfo`}>
-			<img className="summonerIcon"
-				 src={getProfileIconUrl(data.summoner.profileIcon)}
-				 alt="Summoner Icon" />
+			<img className="summonerIcon" src={getProfileIconUrl(data.summoner.profileIcon)} alt="Summoner Icon" />
 			<h1 className="responsive-text">{data.summoner.gameName}</h1>
 			<h2>{data.summoner.tagLine}</h2>
 			<h3>{data.summoner.level} level</h3>

@@ -26,6 +26,6 @@ export function calculateWinRate(wins: number, losses: number) {
 }
 
 const rankQueueTranslations: { [key: string]: string } = {
-	'RANKED_SOLO_5x5': 'Ranked Solo',
-	'RANKED_FLEX_SR': 'Ranked Flex'
+	RANKED_SOLO_5x5: 'Ranked Solo',
+	RANKED_FLEX_SR: 'Ranked Flex'
 };

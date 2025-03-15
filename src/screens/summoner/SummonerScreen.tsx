@@ -32,9 +32,11 @@ export const SummonerScreen = () => {
 		const res = await fetch(url, { mode: 'cors' });
 		if (!res.ok) {
 			const errorData = await res.json();
-			if (res.status === 400) { // Summoner not found
+			if (res.status === 400) {
+				// Summoner not found
 			}
-			if (res.status === 425) { // Summoner throttling
+			if (res.status === 425) {
+				// Summoner throttling
 				const receivedTime = new Date(errorData.timestamp).getTime();
 				const currentTime = new Date().getTime();
 				setCountdown(Math.floor((receivedTime - currentTime) / 1000) + 1);
@@ -56,7 +58,11 @@ export const SummonerScreen = () => {
 		return () => clearInterval(timer);
 	}, [countdown]);
 
-	const { data: summoner, isLoading, isFetching } = useQuery<Summoner>({
+	const {
+		data: summoner,
+		isLoading,
+		isFetching
+	} = useQuery<Summoner>({
 		queryKey: [server, gameName, tagLine],
 		queryFn: fetchSummoner,
 		refetchOnWindowFocus: false,
@@ -92,10 +98,7 @@ export const SummonerScreen = () => {
 		return (
 			<>
 				<TopBar />
-				<MissingSummonerFragment gameName={gameName}
-										 tagLine={tagLine}
-										 buttonCallback={() => mutate()}
-				/>
+				<MissingSummonerFragment gameName={gameName} tagLine={tagLine} buttonCallback={() => mutate()} />
 			</>
 		);
 	}
@@ -114,13 +117,16 @@ export const SummonerScreen = () => {
 					)}
 				</div>
 				<div className="right-side">
-					{summoner?.matches?.toSorted((a, b) => b.gameEndTimestamp - a.gameEndTimestamp)
-					.map((match: Match, index: number) => (
-						<MatchComponent key={match.retrievedDate + index}
-										match={match}
-										server={server}
-										gameName={summoner?.gameName ?? 'Unknown'} />
-					))}
+					{summoner?.matches
+						?.toSorted((a, b) => b.gameEndTimestamp - a.gameEndTimestamp)
+						.map((match: Match, index: number) => (
+							<MatchComponent
+								key={match.retrievedDate + index}
+								match={match}
+								server={server}
+								gameName={summoner?.gameName ?? 'Unknown'}
+							/>
+						))}
 				</div>
 			</div>
 		</div>

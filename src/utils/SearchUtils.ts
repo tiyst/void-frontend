@@ -6,11 +6,15 @@ export const transformCodeToServer = (code: string) => {
 	return codeToServer.get(code) ?? 'UNKNOWN';
 };
 
-export const processSavedSuggestion = (savedSuggestion: string): {
-	server: string;
-	gameName: string;
-	tagLine: string
-} | undefined => {
+export const processSavedSuggestion = (
+	savedSuggestion: string
+):
+	| {
+			server: string;
+			gameName: string;
+			tagLine: string;
+	  }
+	| undefined => {
 	const strings = savedSuggestion.split('/');
 	if (strings.length !== 3) {
 		console.warn(`Invalid suggestion format ${savedSuggestion}`);
@@ -28,7 +32,7 @@ export const transformSuggestionToSavableFormat = (server: string, gameName: str
 	return `${server}/${gameName}/${tagLine}`;
 };
 
-export function separateGameName(name: string): { gameName: string, tagLine: string } {
+export function separateGameName(name: string): { gameName: string; tagLine: string } {
 	const [pre, post] = name.split('#', 2);
 	if (pre.includes('#') || post.includes('#')) {
 		throw new Error(`Invalid game name: ${name}`);
@@ -38,7 +42,7 @@ export function separateGameName(name: string): { gameName: string, tagLine: str
 }
 
 export function extractGameNameFromSuggestion(suggestion: string): string {
-	const split = suggestion.split("/", 3);
+	const split = suggestion.split('/', 3);
 	if (split.length !== 3) {
 		return suggestion;
 	}

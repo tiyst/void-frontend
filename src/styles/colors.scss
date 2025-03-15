@@ -17,33 +17,32 @@ $lose: #e57373;
 
 // Needs to be in :root due to inline styling on border in extended match participant
 :root {
-  --team100-border: rgb(3, 151, 171);
-  --team100-background: rgb(3, 151, 171, 0.2);
-  --team200-border: rgb(192, 79, 79);
-  --team200-background: rgb(192, 79, 79, 0.2);
+	--team100-border: rgb(3, 151, 171);
+	--team100-background: rgb(3, 151, 171, 0.2);
+	--team200-border: rgb(192, 79, 79);
+	--team200-background: rgb(192, 79, 79, 0.2);
 
-  --team1-border: rgb(39, 58, 11); //Arena teams colors
-  --team1-background: rgb(157, 200, 87, 0.4);
+	--team1-border: rgb(39, 58, 11); //Arena teams colors
+	--team1-background: rgb(157, 200, 87, 0.4);
 
-  --team2-border: rgb(85, 46, 10);
-  --team2-background: rgb(252, 164, 92, 0.4);
+	--team2-border: rgb(85, 46, 10);
+	--team2-background: rgb(252, 164, 92, 0.4);
 
-  --team3-border: rgb(11, 58, 50);
-  --team3-background: rgb(92, 211, 190, 0.4);
+	--team3-border: rgb(11, 58, 50);
+	--team3-background: rgb(92, 211, 190, 0.4);
 
-  --team4-border: rgb(25, 66, 96);
-  --team4-background: rgb(126, 209, 255, 0.4);
+	--team4-border: rgb(25, 66, 96);
+	--team4-background: rgb(126, 209, 255, 0.4);
 
-  --team5-border: rgb(100, 23, 35);
-  --team5-background: rgb(236, 118, 127, 0.4);
+	--team5-border: rgb(100, 23, 35);
+	--team5-background: rgb(236, 118, 127, 0.4);
 
-  --team6-border: rgb(96, 25, 63);
-  --team6-background: rgb(255, 161, 218, 0.4);
+	--team6-border: rgb(96, 25, 63);
+	--team6-background: rgb(255, 161, 218, 0.4);
 
-  --team7-border: rgb(71, 56, 4);
-  --team7-background: rgb(249, 206, 53, 0.4);
+	--team7-border: rgb(71, 56, 4);
+	--team7-background: rgb(249, 206, 53, 0.4);
 
-  --team8-border: rgb(73, 25, 96);
-  --team8-background: rgb(221, 126, 255, 0.4);
-
+	--team8-border: rgb(73, 25, 96);
+	--team8-background: rgb(221, 126, 255, 0.4);
 }

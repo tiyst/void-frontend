@@ -13,11 +13,12 @@ const MasteryComponent: React.FC<MasteryComponentProps> = (data: MasteryComponen
 
 	return (
 		<BaseWithHeader headerText="Masteries" className={`masteryComponent ${className}`}>
-			{data.masteries.toSorted((a, b) => b.championPoints - a.championPoints)
-			.slice(0, 4)
-			.map((mastery) => (
-				<MasteryFragment key={mastery.lastPlayTime} {...mastery} />
-			))}
+			{data.masteries
+				.toSorted((a, b) => b.championPoints - a.championPoints)
+				.slice(0, 4)
+				.map((mastery) => (
+					<MasteryFragment key={mastery.lastPlayTime} {...mastery} />
+				))}
 		</BaseWithHeader>
 	);
 };

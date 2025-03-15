@@ -1,42 +1,66 @@
 name: CI Checks
 
 on:
-  push:
-    branches:
-      - '**'
-  pull_request:
+    push:
+        branches:
+            - '**'
+    pull_request:
 
 jobs:
-  checks:
-    runs-on: ubuntu-latest
+    checks:
+        runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
+            - name: Set up Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '22'
+                  cache: yarn
 
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile
+            - name: Install dependencies
+              run: yarn install --frozen-lockfile
 
-      - name: Run Linter
-        id: lint
-        continue-on-error: true
-        run: yarn lint
+            - name: Linter check
+              id: lint
+              continue-on-error: true
+              run: yarn lint
 
-      - name: Notify Discord on Failure
-        if: failure()
-        env:
-          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
-        run: |
-          message="🚨 CI Checks Failed in Repository: ${{ github.repository }} on Branch: ${{ github.ref }}"
-          if [ "${{ steps.lint.outcome }}" == "failure" ]; then
-            message="$message\n❌ Linting failed."
-          fi
-          curl -H "Content-Type: application/json" \
-               -X POST \
-               -d "{\"username\": \"GitHub Actions\", \"content\": \"$message\"}" \
-               $DISCORD_WEBHOOK_URL
+            - name: TypeScript Check
+              id: tscheck
+              run: yarn tsc --noEmit --strict
+
+            - name: Prettier Check
+              id: prettier
+              run: yarn prettier --check .
+
+            - name: Run Build Check
+              id: buildcheck
+              run: yarn tsc && yarn vite build --mode development
+
+            - name: Notify Discord on Failure
+              if: failure()
+              env:
+                  DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+              run: |
+                  message="🚨 CI Checks Failed in Repository: ${{ github.repository }} on Branch: ${{ github.ref }}"
+
+                  if [ "${{ steps.lint.outcome }}" == "failure" ]; then
+                      message="$message\n❌ Linting failed."
+                  fi
+                  if [ "${{ steps.tscheck.outcome }}" == "failure" ]; then
+                      message="$message\n❌ TypeScript Check failed."
+                  fi
+                  if [ "${{ steps.prettier.outcome }}" == "failure" ]; then
+                      message="$message\n❌ Prettier Check failed."
+                  fi
+                  if [ "${{ steps.buildcheck.outcome }}" == "failure" ]; then
+                      message="$message\n❌ Build Check failed."
+                  fi
+
+                  curl -H "Content-Type: application/json" \
+                       -X POST \
+                       -d "{\"username\": \"GitHub Actions\", \"content\": \"$message\"}" \
+                       "$DISCORD_WEBHOOK_URL"

@@ -1,62 +1,62 @@
 .masteryFragment {
-  position: relative;
-  max-width: 100%;
-  max-height: 100px;
-  min-height: 100px;
-  height: 100px;
-  overflow: hidden;
-  border-bottom: 1px dashed $accent;
+	position: relative;
+	max-width: 100%;
+	max-height: 100px;
+	min-height: 100px;
+	height: 100px;
+	overflow: hidden;
+	border-bottom: 1px dashed $accent;
 
-  .masteryIcon {
-    position: absolute;
-    display: block;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    height: 50px;
-    width: auto;
-    pointer-events: none;
-    margin: 0;
-    padding: 0;
-  }
+	.masteryIcon {
+		position: absolute;
+		display: block;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		height: 50px;
+		width: auto;
+		pointer-events: none;
+		margin: 0;
+		padding: 0;
+	}
 
-  .splashBckg {
-    mask-image: linear-gradient(to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+	.splashBckg {
+		mask-image: linear-gradient(to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
 
-    max-width: 100%;
-    width: 100%;
-    max-height: 100%;
-    height: 100px;
-    position: relative;
-    top: 0;
-    left: -25%;
-    pointer-events: none;
-    object-fit: cover;
-    object-position: center 25%;
-  }
+		max-width: 100%;
+		width: 100%;
+		max-height: 100%;
+		height: 100px;
+		position: relative;
+		top: 0;
+		left: -25%;
+		pointer-events: none;
+		object-fit: cover;
+		object-position: center 25%;
+	}
 }
 
 .textDiv {
-  display: flex;
-  position: absolute;
-  max-height: 100%;
-  top: 50%;
-  left: 48%;
-  transform: translate(0, -50%);
-  flex-direction: column;
-  justify-content: center;
-  overflow: hidden;
-  padding-right: 10px;
-  margin-right: 10px;
-  width: 50%;
+	display: flex;
+	position: absolute;
+	max-height: 100%;
+	top: 50%;
+	left: 48%;
+	transform: translate(0, -50%);
+	flex-direction: column;
+	justify-content: center;
+	overflow: hidden;
+	padding-right: 10px;
+	margin-right: 10px;
+	width: 50%;
 
-  h2,
-  h3 {
-    margin: 5px 0;
-    word-wrap: break-word;
-    text-align: right;
-    font-size: 1rem;
-    line-height: 1.5;
-    font-weight: normal;
-  }
+	h2,
+	h3 {
+		margin: 5px 0;
+		word-wrap: break-word;
+		text-align: right;
+		font-size: 1rem;
+		line-height: 1.5;
+		font-weight: normal;
+	}
 }
