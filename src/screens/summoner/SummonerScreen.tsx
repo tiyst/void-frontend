@@ -110,7 +110,12 @@ export const SummonerScreen = () => {
 				<div className="left-side">
 					{summoner && (
 						<>
-							<BaseInfo summoner={summoner} buttonCallback={() => mutate()} countdown={countdown} isUpdating={isPending} />
+							<BaseInfo
+								summoner={summoner}
+								buttonCallback={() => mutate()}
+								countdown={countdown}
+								isUpdating={isPending}
+							/>
 							<RankComponent ranks={summoner.rank} />
 							<MasteryComponent masteries={summoner.masteries} />
 						</>

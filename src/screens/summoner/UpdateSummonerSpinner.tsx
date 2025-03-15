@@ -1,8 +1,5 @@
-import "./UpdateSummonerSpinner.scss"
+import './UpdateSummonerSpinner.scss';
 
 export const UpdateSummonerSpinner = () => {
-
-	return (
-		<div className="update-spinner"></div>
-	);
+	return <div className="update-spinner"></div>;
 };
