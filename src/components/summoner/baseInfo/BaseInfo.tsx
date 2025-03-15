@@ -13,9 +13,7 @@ export type BaseInfoProps = BaseBlockProps & {
 
 const BaseInfo = (data: BaseInfoProps) => {
 	const buttonStatus = (countdown: number): string => {
-		return countdown == 0
-			? 'Update'
-			: `Wait ${data.countdown}s`;
+		return countdown == 0 ? 'Update' : `Wait ${data.countdown}s`;
 	};
 
 	return (
@@ -26,10 +24,7 @@ const BaseInfo = (data: BaseInfoProps) => {
 			<h3>{data.summoner.level} level</h3>
 			<div className="button-container">
 				<button className="update-button" onClick={data.buttonCallback} disabled={data.countdown > 0}>
-					{data.isUpdating
-						? <UpdateSummonerSpinner />
-						: buttonStatus(data.countdown)
-					}
+					{data.isUpdating ? <UpdateSummonerSpinner /> : buttonStatus(data.countdown)}
 				</button>
 			</div>
 		</Base>
