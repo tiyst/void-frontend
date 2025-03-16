@@ -126,12 +126,7 @@ export const Search = () => {
 
 	return (
 		<div className="search-container" ref={wrapperRef}>
-			<select
-				value={server}
-				onChange={(e) => changeServer(e.target.value)}
-				defaultValue={server}
-				className="search-select"
-			>
+			<select value={server} onChange={(e) => changeServer(e.target.value)} className="search-select">
 				{Object.entries(serverToCode).map(([key, value]) => (
 					<option key={key} value={value}>
 						{' '}
