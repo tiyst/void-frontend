@@ -11,9 +11,11 @@ import { LoadingSpinner } from '../../components/base/LoadingSpinner.tsx';
 import { MissingSummonerFragment } from '../../components/summoner/missingSummoner/missingSummonerFragment.tsx';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
+import { UpdateSummonerSpinner } from './UpdateSummonerSpinner.tsx';
 
 export const SummonerScreen = () => {
 	const [countdown, setCountdown] = useState(0);
+	const [moreMatchesAvailable, setMoreMatchesAvailable] = useState(true);
 	const queryClient = useQueryClient();
 
 	const { server = 'EUW1', gameName = 'Unknown', tagLine = 'Unknown' } = useParams();
@@ -69,6 +71,52 @@ export const SummonerScreen = () => {
 		refetchOnReconnect: false,
 		retry: false
 	});
+
+	const {
+		data: additionalMatches = [],
+		isLoading: matchesLoading,
+		isFetching: matchesFetching,
+		refetch: getMoreMatches
+	} = useQuery<Match[]>({
+		queryKey: ['moreMatches', server, gameName, tagLine, summoner?.matches.length ?? 0],
+		refetchOnWindowFocus: false,
+		refetchOnReconnect: false,
+		retry: false,
+		queryFn: async (): Promise<Match[]> => {
+			if (!summoner) return [];
+			const backendUrl = import.meta.env.VITE_BACKEND_URL;
+			const url = `${backendUrl}/api/match/${summoner.puuid}?matchesSize=${summoner.matches.length}`;
+			const result = await fetch(url, { mode: 'cors' });
+			const matches = await result.json();
+			if (matches && matches.length === 0) {
+				setMoreMatchesAvailable(false);
+			}
+			return matches;
+		},
+		enabled: false
+	});
+
+	useEffect(() => {
+		if (!additionalMatches) return;
+
+		queryClient.setQueryData([server, gameName, tagLine], (oldData?: Summoner) => {
+			if (!oldData) return;
+
+			const existingMatchIds = new Set(oldData.matches.map((match) => match.gameId));
+			const mergedMatches = [
+				...oldData.matches,
+				...additionalMatches.filter((match) => !existingMatchIds.has(match.gameId))
+			];
+			return {
+				...oldData,
+				matches: mergedMatches.toSorted((a, b) => b.gameEndTimestamp - a.gameEndTimestamp)
+			};
+		});
+	}, [additionalMatches]);
+
+	const fetchMoreMatches = () => {
+		getMoreMatches();
+	};
 
 	const { mutate, isPending } = useMutation<Summoner>({
 		mutationFn: updateSummoner,
@@ -132,6 +180,13 @@ export const SummonerScreen = () => {
 								gameName={summoner?.gameName ?? 'Unknown'}
 							/>
 						))}
+					<button className="load-matches-button" onClick={fetchMoreMatches} disabled={!moreMatchesAvailable}>
+						{matchesLoading || matchesFetching ? (
+							<UpdateSummonerSpinner />
+						) : (
+							<h2>{moreMatchesAvailable ? 'Get more matches' : 'No more matches'}</h2>
+						)}
+					</button>
 				</div>
 			</div>
 		</div>

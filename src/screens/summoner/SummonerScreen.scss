@@ -32,6 +32,22 @@
 	flex-direction: column;
 	gap: 15px;
 	padding: 20px 0;
+
+	.load-matches-button {
+		min-height: 3.4rem;
+		height: 3.4rem;
+		background: $accent;
+		color: black;
+
+		&:disabled {
+			color: white;
+			background: grey;
+		}
+
+		h2 {
+			margin: 0;
+		}
+	}
 }
 
 @media (max-width: 768px) {
