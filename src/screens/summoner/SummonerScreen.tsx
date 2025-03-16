@@ -72,6 +72,12 @@ export const SummonerScreen = () => {
 		retry: false
 	});
 
+	useEffect(() => {
+		if (summoner) {
+			document.title = `${summoner.gameName}#${summoner.tagLine} - Void`;
+		}
+	}, [summoner]);
+
 	const {
 		data: additionalMatches = [],
 		isLoading: matchesLoading,
