@@ -32,9 +32,7 @@ export type MatchComponentProps = BaseBlockProps & {
 	gameName: string;
 };
 
-// TODO  send last match time, match pagination
-
-export const MatchComponent: React.FC<MatchComponentProps> = (data: MatchComponentProps) => {
+export const MatchComponent = (data: MatchComponentProps) => {
 	const { className = '' } = data;
 	const participants = sortParticipantsByTeam(data.match.participants); // ordered due to arena scrambling subteams
 	const player = findPlayer(data.match, data.gameName);

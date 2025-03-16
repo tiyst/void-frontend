@@ -152,7 +152,12 @@ export const SummonerScreen = () => {
 		return (
 			<>
 				<TopBar />
-				<MissingSummonerFragment gameName={gameName} tagLine={tagLine} buttonCallback={() => mutate()} />
+				<MissingSummonerFragment
+					gameName={gameName}
+					tagLine={tagLine}
+					buttonCallback={() => mutate()}
+					isUpdating={isPending}
+				/>
 			</>
 		);
 	}
@@ -176,23 +181,35 @@ export const SummonerScreen = () => {
 					)}
 				</div>
 				<div className="right-side">
-					{summoner?.matches
-						?.toSorted((a, b) => b.gameEndTimestamp - a.gameEndTimestamp)
-						.map((match: Match, index: number) => (
-							<MatchComponent
-								key={match.retrievedDate + index}
-								match={match}
-								server={server}
-								gameName={summoner?.gameName ?? 'Unknown'}
-							/>
-						))}
-					<button className="load-matches-button" onClick={fetchMoreMatches} disabled={!moreMatchesAvailable}>
-						{matchesLoading || matchesFetching ? (
-							<UpdateSummonerSpinner />
-						) : (
-							<h2>{moreMatchesAvailable ? 'Get more matches' : 'No more matches'}</h2>
-						)}
-					</button>
+					{summoner?.matches?.length === 0 ? (
+						<div className="base">
+							<h2>No matches found, please update.</h2>
+						</div>
+					) : (
+						<>
+							{summoner?.matches
+								?.toSorted((a, b) => b.gameEndTimestamp - a.gameEndTimestamp)
+								.map((match: Match, index: number) => (
+									<MatchComponent
+										key={match.retrievedDate + index}
+										match={match}
+										server={server}
+										gameName={summoner?.gameName ?? 'Unknown'}
+									/>
+								))}
+							<button
+								className="load-matches-button"
+								onClick={fetchMoreMatches}
+								disabled={!moreMatchesAvailable}
+							>
+								{matchesLoading || matchesFetching ? (
+									<UpdateSummonerSpinner />
+								) : (
+									<h2>{moreMatchesAvailable ? 'Get more matches' : 'No more matches'}</h2>
+								)}
+							</button>
+						</>
+					)}
 				</div>
 			</div>
 		</div>

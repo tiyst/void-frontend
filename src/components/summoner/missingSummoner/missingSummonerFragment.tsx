@@ -1,11 +1,13 @@
 import './missingSummonerFragment.scss';
 import Base, { BaseBlockProps } from '../../base/Base.tsx';
 import { getProfileIconUrl } from '../../../utils/IconsUtils.ts';
+import { UpdateSummonerSpinner } from '../../../screens/summoner/UpdateSummonerSpinner.tsx';
 
 export type MissingSummonerProps = BaseBlockProps & {
 	gameName: string;
 	tagLine: string;
 	buttonCallback: () => void;
+	isUpdating: boolean;
 };
 
 export const MissingSummonerFragment = (data: MissingSummonerProps) => {
@@ -22,7 +24,7 @@ export const MissingSummonerFragment = (data: MissingSummonerProps) => {
 			<h2>Please press the update button</h2>
 			<div className="button-container">
 				<button className="update-button" onClick={data.buttonCallback}>
-					Update
+					{data.isUpdating ? <UpdateSummonerSpinner /> : 'Update'}
 				</button>
 			</div>
 		</Base>
