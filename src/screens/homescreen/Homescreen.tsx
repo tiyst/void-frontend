@@ -4,8 +4,11 @@ import './HomeScreen.scss';
 function Homescreen() {
 	return (
 		<div className="homescreenContainer">
-			<div className="searchContainer">
-				<Search />
+			<div style={{ marginBottom: "50px" }}>
+				<img src="/void-logo.png" alt="void logo" />
+				<div className="searchContainer">
+					<Search />
+				</div>
 			</div>
 		</div>
 	);
