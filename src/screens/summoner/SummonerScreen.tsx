@@ -94,7 +94,7 @@ export const SummonerScreen = () => {
 			const url = `${backendUrl}/api/match/${summoner.puuid}?matchesSize=${summoner.matches.length}`;
 			const result = await fetch(url, { mode: 'cors' });
 			const matches = await result.json();
-			if (matches && matches.length === 0) {
+			if (!matches || (matches && matches.length === 0)) {
 				setMoreMatchesAvailable(false);
 			}
 			return matches;
