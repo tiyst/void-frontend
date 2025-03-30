@@ -20,34 +20,35 @@ export const TrophyComponent = (data: TrophyProms) => {
 	const match = data.trophy.bestMatch ?? null;
 
 	if (!match) {
-		return <div className="trophy-component">
-			<div className="trophy-title-container">
-				<h4 className="trophy-title-text">{data.trophy.name}</h4>
+		return (
+			<div className="trophy-component">
+				<div className="trophy-title-container">
+					<h4 className="trophy-title-text">{data.trophy.name}</h4>
+				</div>
+				<div className="trophy-image-container">
+					<img
+						src={getUnknownChampionIconUrl()}
+						alt="Champion icon"
+						onError={(e) => {
+							(e.target as HTMLImageElement).src = urlUnknownChampion;
+						}}
+					/>
+				</div>
+				<div>
+					<h2>??</h2>
+				</div>
+				<div className="trophy-player-stats">
+					<h3>
+						<span>?</span>/<span style={{ color: '#F47174' }}>?</span>/<span>?</span>
+						{' • '}
+						<span style={{ fontWeight: 'bold', color: '#ffffff' }}>?</span> KDA
+					</h3>
+					<h4></h4>
+					<h4>{`?CS  • (? CSPM)`}</h4>
+				</div>
+				<div>???/??</div>
 			</div>
-			<div className="trophy-image-container">
-				<img
-					src={getUnknownChampionIconUrl()}
-					alt="Champion icon"
-					onError={(e) => {
-						(e.target as HTMLImageElement).src = urlUnknownChampion;
-					}}
-				/>
-			</div>
-			<div>
-				<h2>??</h2>
-			</div>
-			<div className="trophy-player-stats">
-				<h3>
-					<span>?</span>/<span style={{ color: '#F47174' }}>?</span>/
-					<span>?</span>
-					{' • '}
-					<span style={{ fontWeight: 'bold', color: '#ffffff' }}>?</span> KDA
-				</h3>
-				<h4></h4>
-				<h4>{`?CS  • (? CSPM)`}</h4>
-			</div>
-			<div>???/??</div>
-		</div>;
+		);
 	}
 
 	const player = findPlayerByPuuid(match, data.puuid);
