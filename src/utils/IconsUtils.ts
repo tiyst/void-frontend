@@ -12,6 +12,10 @@ export function getChampionIconUrl(championId: number) {
 	return replaceString(urlKnownChampion, 'ID', String(championId));
 }
 
+export function getUnknownChampionIconUrl() {
+	return urlUnknownChampion;
+}
+
 export function getProfileIconUrl(profileIconId: number) {
 	return replaceString(urlIcon, 'iconId', String(profileIconId));
 }
