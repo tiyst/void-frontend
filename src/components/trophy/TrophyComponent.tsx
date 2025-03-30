@@ -49,19 +49,15 @@ export const TrophyComponent = (data: TrophyProms) => {
 			</div>
 			<div className="trophy-player-stats">
 				<h3>
-					<span>{player.kills}</span>/<span style={{ color: '#F47174' }}>{player.deaths}</span>/<span>{player.assists}</span>{' • '}
-					<span style={{ fontWeight: 'bold', color: calculateKdaColor(kda) }}>
-							{kda}
-					</span>{' '}
-					KDA
+					<span>{player.kills}</span>/<span style={{ color: '#F47174' }}>{player.deaths}</span>/
+					<span>{player.assists}</span>
+					{' • '}
+					<span style={{ fontWeight: 'bold', color: calculateKdaColor(kda) }}>{kda}</span> KDA
 				</h3>
-				<h4>
-				</h4>
+				<h4></h4>
 				<h4>{`${player.totalMinionsKilled}CS  • (${(player.totalMinionsKilled / unixDurationToMinutes(data.trophy.bestMatch.gameDuration)).toFixed(1)} CSPM)`}</h4>
 			</div>
-			<div>
-				{date.toLocaleString('en-US', { month: 'short', day: '2-digit' }).replace(' ', '/')}
-			</div>
+			<div>{date.toLocaleString('en-US', { month: 'short', day: '2-digit' }).replace(' ', '/')}</div>
 		</div>
 	);
 };

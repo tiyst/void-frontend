@@ -1,15 +1,13 @@
 import Base, { BaseBlockProps } from '../base/Base.tsx';
 import { TrophyComponent } from './TrophyComponent.tsx';
 import { Trophy } from '../../model/Summoner.ts';
-import "./TrophyRoom.scss"
+import './TrophyRoom.scss';
 import { useRef } from 'react';
-
 
 export type TrophyRoomProps = BaseBlockProps & {
 	trophies: Trophy[];
 	puuid: string;
 };
-
 
 export const TrophyRoom = (data: TrophyRoomProps) => {
 	const { className = '' } = data;
@@ -40,5 +38,5 @@ export const TrophyRoom = (data: TrophyRoomProps) => {
 				{'>'}
 			</div>
 		</Base>
-	)
-}
+	);
+};

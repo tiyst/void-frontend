@@ -188,7 +188,7 @@ export const SummonerScreen = () => {
 						</div>
 					) : (
 						<>
-							<TrophyRoom trophies={summoner?.trophies} puuid={summoner?.puuid}/>
+							<TrophyRoom trophies={summoner?.trophies} puuid={summoner?.puuid} />
 							{summoner?.matches
 								?.toSorted((a, b) => b.gameEndTimestamp - a.gameEndTimestamp)
 								.map((match: Match, index: number) => (

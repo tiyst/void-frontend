@@ -21,7 +21,7 @@ export type Trophy = {
 	description: string;
 	bestMatch: Match;
 	bestValue: string;
-}
+};
 
 export type Rank = {
 	id: number;
