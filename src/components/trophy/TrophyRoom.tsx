@@ -30,7 +30,7 @@ export const TrophyRoom = (data: TrophyRoomProps) => {
 				{'<'}
 			</div>
 			<div className="trophy-room" ref={scrollContainerRef}>
-				{data?.trophies.map((trophy: Trophy) => {
+				{data?.trophies?.map((trophy: Trophy) => {
 					return <TrophyComponent trophy={trophy} puuid={data.puuid} />;
 				})}
 			</div>
