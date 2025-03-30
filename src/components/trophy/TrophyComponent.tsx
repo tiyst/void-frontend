@@ -72,7 +72,7 @@ export const TrophyComponent = (data: TrophyProms) => {
 				/>
 				<div className="trophy-level-badge">{player.champLevel}</div>
 				{player.teamPosition !== '' && (
-					<img src={getRoleIconUrl(player.teamPosition)} alt="Role Icon" className="role-image" />
+					<img src={getRoleIconUrl(player.teamPosition)} alt="Role Icon" className="trophy-role-image" />
 				)}
 			</div>
 			<div>
