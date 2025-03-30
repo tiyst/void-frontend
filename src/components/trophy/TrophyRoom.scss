@@ -1,0 +1,45 @@
+.trophy-room-container {
+	position: relative;
+	width: 100%;
+	overflow: hidden;
+
+	.trophy-room {
+		display: flex;
+		overflow-x: auto;
+		gap: 15px;
+		scroll-behavior: smooth;
+		max-width: 100%;
+		padding-left: 10px;
+	}
+
+	.trophy-room::-webkit-scrollbar {
+		height: 8px;
+	}
+
+	.trophy-room::-webkit-scrollbar-thumb {
+		background-color: rgba(0, 0, 0, 0.3);
+		border-radius: 10px;
+	}
+
+	.arrow-btn {
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		background-color: rgba(0, 0, 0, 0.3);
+		color: white;
+		padding: 10px;
+		border-radius: 50%;
+		cursor: pointer;
+		z-index: 10;
+		font-size: 24px;
+		user-select: none;
+	}
+
+	.arrow-left {
+		left: 10px;
+	}
+
+	.arrow-right {
+		right: 10px;
+	}
+}
