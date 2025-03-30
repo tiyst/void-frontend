@@ -1,0 +1,75 @@
+.trophy-component {
+  flex: 0 0 calc(25% - 15px);
+  box-sizing: border-box;
+  padding: 10px 0;
+
+  h2 {
+    margin: 0;
+  }
+
+  .trophy-title-container {
+    width: 100%;
+    height: 40px;
+    padding: 0 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    .trophy-title-text {
+      font-size: 22px;
+      font-weight: 600;
+      color: #ffffff;
+      line-height: 1.2;
+      overflow-wrap: break-word;
+      word-break: break-word;
+    }
+  }
+
+  .trophy-player-stats {
+    max-height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-self: revert;
+
+
+    h3,
+    h4 {
+      margin: 0;
+      font-weight: lighter;
+    }
+  }
+
+  .trophy-image-container {
+    position: relative;
+    display: inline-block;
+    img {
+      max-height: 100px;
+      object-fit: contain;
+      border-radius: 50%;
+    }
+    .trophy-map-image {
+      position: absolute;
+      top: -5px;
+      left: -5px;
+      width: 40px;
+      height: 40px;
+    }
+
+    .trophy-level-badge {
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 35px;
+      height: 35px;
+      background-color: black;
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 18px;
+    }
+  }
+
+}

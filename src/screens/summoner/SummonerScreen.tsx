@@ -12,6 +12,7 @@ import { MissingSummonerFragment } from '../../components/summoner/missingSummon
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { UpdateSummonerSpinner } from './UpdateSummonerSpinner.tsx';
+import { TrophyRoom } from '../../components/trophy/TrophyRoom.tsx';
 
 export const SummonerScreen = () => {
 	const [countdown, setCountdown] = useState(0);
@@ -187,6 +188,7 @@ export const SummonerScreen = () => {
 						</div>
 					) : (
 						<>
+							<TrophyRoom trophies={summoner?.trophies} puuid={summoner?.puuid}/>
 							{summoner?.matches
 								?.toSorted((a, b) => b.gameEndTimestamp - a.gameEndTimestamp)
 								.map((match: Match, index: number) => (

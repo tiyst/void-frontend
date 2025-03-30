@@ -2,7 +2,7 @@ import { Match, Participant } from '../model/Match.ts';
 import { replaceString } from './StringUtils.ts';
 import { DamageSegment } from '../components/summoner/match/expand/damageBar/ExpandDamageBar.tsx';
 
-const ITEM_URL = 'https://ddragon.leagueoflegends.com/cdn/15.1.1/img/item/{itemID}.png';
+const ITEM_URL = 'https://ddragon.leagueoflegends.com/cdn/15.6.1/img/item/{itemID}.png';
 
 export function getSummonerSpellIconUrl(summoneSpellId: number): string {
 	return getSummonerIconUrl(summoneSpellId);
@@ -143,6 +143,14 @@ export function findPlayer(match: Match, playerName: string) {
 	const player = match.participants.find((p) => p.riotIdGameName.toLowerCase() === playerName.toLowerCase());
 	if (!player) {
 		throw new Error(`Player with name "${playerName}" not found`);
+	}
+	return player;
+}
+
+export function findPlayerByPuuid(match: Match, puuid: string) {
+	const player = match.participants.find((p) => p.puuid.toLowerCase() === puuid.toLowerCase());
+	if (!player) {
+		throw new Error(`Player with puuid "${puuid}" not found`);
 	}
 	return player;
 }

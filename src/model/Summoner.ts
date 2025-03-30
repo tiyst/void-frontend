@@ -13,7 +13,15 @@ export type Summoner = {
 	rank: Rank[];
 	masteries: ChampionMastery[];
 	matches: Match[];
+	trophies: Trophy[];
 };
+
+export type Trophy = {
+	name: string;
+	description: string;
+	bestMatch: Match;
+	bestValue: string;
+}
 
 export type Rank = {
 	id: number;
