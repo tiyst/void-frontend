@@ -2,7 +2,7 @@ import { Match, Participant } from '../model/Match.ts';
 import { replaceString } from './StringUtils.ts';
 import { DamageSegment } from '../components/summoner/match/expand/damageBar/ExpandDamageBar.tsx';
 
-const ITEM_URL = 'https://ddragon.leagueoflegends.com/cdn/15.6.1/img/item/{itemID}.png';
+const ITEM_URL = 'https://ddragon.leagueoflegends.com/cdn/15.7.1/img/item/{itemID}.png';
 
 export function getSummonerSpellIconUrl(summoneSpellId: number): string {
 	return getSummonerIconUrl(summoneSpellId);
