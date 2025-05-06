@@ -45,7 +45,7 @@ export const SummonerScreen = () => {
 				setCountdown(Math.floor((receivedTime - currentTime) / 1000) + 1);
 			}
 
-			throw new Error(errorData.message || 'An error has occurred');
+			throw new Error(errorData.message ?? 'An error has occurred');
 		}
 
 		return await res.json();

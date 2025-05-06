@@ -8,10 +8,15 @@ const TopBar: React.FC = () => {
 
 	return (
 		<div className="top-bar">
-			<button className="logo-button" onClick={() => navigate('/')}>
-				<img src="/void-logo-bar.png" alt="void logo" style={{ maxHeight: '100%', left: '15px' }} />
-			</button>
-			<Search />
+			<div className="top-bar__left">
+				<button className="logo-button" onClick={() => navigate('/')}>
+					<span className="logo-text">Void</span>
+				</button>
+			</div>
+			<div className="top-bar__center">
+				<Search />
+			</div>
+			<div className="top-bar__right" />
 		</div>
 	);
 };

@@ -1,23 +1,83 @@
 .top-bar {
-	width: 100%;
-	background-color: $accent;
-	color: white;
-	padding: 10px;
-	border-radius: 15px;
-	height: 60px;
-	box-sizing: border-box;
 	display: flex;
 	align-items: center;
-	justify-content: center;
+	justify-content: space-between;
+	height: 64px;
+	box-shadow: none;
 	position: relative;
+	width: 100%;
+
+	&__left,
+	&__right {
+		flex: 1 1 0;
+		display: flex;
+		align-items: center;
+		height: 100%;
+	}
+
+	&__center {
+		flex: 0 1 auto;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
 
 	.logo-button {
-		position: absolute;
-		left: 20px;
-		width: auto;
 		background: none;
-		height: 100%;
-		padding: 10px 0 10px 0;
 		border: none;
+		margin-right: 24px;
+		cursor: pointer;
+		height: 100%;
+		display: flex;
+		align-items: stretch;
+
+		.logo-text {
+			font-family: 'Poppins', sans-serif;
+			font-size: 48px;
+			height: 100%;
+			line-height: 1;
+			color: $accent-violet;
+			letter-spacing: 1px;
+			user-select: none;
+			display: flex;
+			align-items: center;
+			padding: 0 8px;
+		}
+		img {
+			height: 40px;
+			width: auto;
+			display: block;
+		}
+	}
+}
+
+@media (max-width: 768px) {
+	.top-bar {
+		flex-direction: column;
+		align-items: stretch;
+		height: auto;
+		padding: 0 8px;
+		gap: 12px;
+
+		&__left {
+			order: 1;
+			justify-content: center;
+			height: 56px;
+		}
+		&__right {
+			order: 2;
+			justify-content: flex-end;
+			height: 56px;
+		}
+		&__center {
+			order: 3;
+			justify-content: center;
+		}
+		.logo-button {
+			height: 100%;
+			.logo-text {
+				font-size: 48px;
+			}
+		}
 	}
 }

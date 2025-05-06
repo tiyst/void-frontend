@@ -146,23 +146,7 @@ export const Search = () => {
 					className="search-input"
 				/>
 
-				{suggestions.length > 0 && (
-					<ul className="suggestions-drop">
-						{displayedSuggestions
-							.map(processSavedSuggestion)
-							.filter((suggestion) => suggestion !== undefined)
-							.map(({ server, gameName, tagLine }, index) => (
-								<Suggestion
-									server={server}
-									gameName={gameName}
-									tagLine={tagLine}
-									key={'suggestion' + index}
-									onClick={() => handleSearchParametrised(server, gameName, tagLine)}
-									onRemove={removeSuggestion}
-								/>
-							))}
-					</ul>
-				)}
+
 			</div>
 			<button onClick={handleSearch} className="search-button">
 				<svg
@@ -174,6 +158,23 @@ export const Search = () => {
 					<path d="M10 2a8 8 0 015.293 13.707l4.707 4.707-1.414 1.414-4.707-4.707A8 8 0 1110 2zm0 2a6 6 0 104.472 10.472A6 6 0 0010 4z" />
 				</svg>
 			</button>
+			{suggestions.length > 0 && (
+				<ul className="suggestions-drop">
+					{displayedSuggestions
+					.map(processSavedSuggestion)
+					.filter((suggestion) => suggestion !== undefined)
+					.map(({ server, gameName, tagLine }, index) => (
+						<Suggestion
+							server={server}
+							gameName={gameName}
+							tagLine={tagLine}
+							key={'suggestion' + index}
+							onClick={() => handleSearchParametrised(server, gameName, tagLine)}
+							onRemove={removeSuggestion}
+						/>
+					))}
+				</ul>
+			)}
 		</div>
 	);
 };
