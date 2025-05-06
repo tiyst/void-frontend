@@ -3,6 +3,7 @@ import './BaseInfo.scss';
 import { Summoner } from '../../../model/Summoner.ts';
 import { getProfileIconUrl } from '../../../utils/IconsUtils.ts';
 import { UpdateSummonerSpinner } from '../../../screens/summoner/UpdateSummonerSpinner.tsx';
+import { fallbackSummonerSpellIconUrl } from '../../../utils/MatchUtils.ts';
 
 export type BaseInfoProps = BaseBlockProps & {
 	summoner: Summoner;
@@ -17,16 +18,33 @@ const BaseInfo = (data: BaseInfoProps) => {
 	};
 
 	return (
-		<Base className={`baseInfo`}>
-			<img className="summonerIcon" src={getProfileIconUrl(data.summoner.profileIcon)} alt="Summoner Icon" />
-			<h1 className="responsive-text">{data.summoner.gameName}</h1>
-			<h2>{data.summoner.tagLine}</h2>
-			<h3>{data.summoner.level} level</h3>
-			<div className="button-container">
-				<button className="update-button" onClick={data.buttonCallback} disabled={data.countdown > 0}>
-					{data.isUpdating ? <UpdateSummonerSpinner /> : buttonStatus(data.countdown)}
-				</button>
+		<Base className="baseInfo">
+			<div className="baseInfo__top-row">
+				<div className="baseInfo__icon-container">
+					<img
+						className="baseInfo__icon"
+						src={getProfileIconUrl(data.summoner.profileIcon)}
+						alt="Summoner Icon"
+						onError={(e) => {
+							(e.target as HTMLImageElement).src = fallbackSummonerSpellIconUrl;
+						}}
+					/>
+				</div>
+				<div className="baseInfo__info-block">
+					<div className="baseInfo__name">
+						{data.summoner.gameName}
+						<span className="baseInfo__tagline">#{data.summoner.tagLine}</span>
+					</div>
+					<div className="baseInfo__level">Level {data.summoner.level}</div>
+				</div>
 			</div>
+			<button
+				className="baseInfo__update-button"
+				onClick={data.buttonCallback}
+				disabled={data.countdown > 0}
+			>
+				{data.isUpdating ? <UpdateSummonerSpinner /> : buttonStatus(data.countdown)}
+			</button>
 		</Base>
 	);
 };

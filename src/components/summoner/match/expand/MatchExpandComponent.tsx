@@ -7,9 +7,9 @@ import { sortParticipantsByTeam } from '../../../../utils/MatchUtils.ts';
 export type MatchExpandProps = BaseBlockProps & {
 	playerName: string;
 	match: Match;
+	server: string;
 };
 
-// TODO animation doesn't work
 export const MatchExpandComponent = (data: MatchExpandProps) => {
 	const highestDamage = data.match.participants.reduce(
 		(max, current) => {
@@ -26,7 +26,9 @@ export const MatchExpandComponent = (data: MatchExpandProps) => {
 				<ExpandParticipantFragment
 					key={participant.riotIdGameName + index}
 					participant={participant}
+					isMainPlayer={data.playerName === participant.riotIdGameName} // Searching player has bold name
 					highestTotalDamage={highestDamage}
+					server={data.server}
 				/>
 			))}
 		</div>

@@ -1,5 +1,11 @@
-.masteryComponent {
-	display: flex;
-	flex-wrap: wrap;
-	overflow: hidden;
+.mastery-component {
+	background: transparent;
+	border-radius: 18px;
+	border: none;
+
+	&__list {
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+	}
 }

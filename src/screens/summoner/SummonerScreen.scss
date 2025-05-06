@@ -32,12 +32,12 @@
 	display: flex;
 	flex-direction: column;
 	gap: 15px;
-	padding: 20px 0;
+	padding: 20px 0 0 0;
 
 	.load-matches-button {
 		min-height: 3.4rem;
 		height: 3.4rem;
-		background: $accent;
+		background: $accent-violet;
 		color: black;
 
 		&:disabled {
@@ -58,6 +58,10 @@
 	}
 
 	.left-side {
+		width: 100%;
+	}
+
+	.right-side {
 		width: 100%;
 	}
 }

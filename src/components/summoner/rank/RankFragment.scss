@@ -1,39 +1,54 @@
-.rankFragment {
+.rank-fragment {
 	display: flex;
-	flex-grow: 1;
-	flex-shrink: 1;
-	flex-basis: 0;
-	box-sizing: border-box;
-	padding: 0 10px 10px 10px;
-
-	flex-direction: row;
+	align-items: center;
+	border-radius: 12px;
+	padding: 4px 20px;
+	min-width: 180px;
 	width: 100%;
-	max-width: 100%;
-	height: 100px;
-	max-height: 100px;
-	justify-content: space-around;
-	border-bottom: $accent 1px dashed;
+	box-shadow: 0 2px 8px rgba(30, 20, 60, 0.10);
 
-	img {
-		width: 100%;
-		max-width: 30%;
+	&__icon {
 		height: 100%;
-		object-fit: contain;
+		width: auto;
+		max-height: 100%;
+		max-width: 72px;
+		display: block;
 	}
 
-	.rankText {
+	&__text {
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
-		h2,
-		h3,
-		h4 {
-			margin: 0;
-		}
+		flex: 1;
+	}
 
-		h3,
-		h4 {
-			font-weight: normal;
+	&__queue {
+		font-size: 1.05rem;
+		font-weight: 700;
+		color: #fff;
+		margin-bottom: 2px;
+		letter-spacing: 0.2px;
+	}
+
+	&__tier {
+		font-size: 1rem;
+		font-weight: 400;
+		color: #fff;
+		margin-bottom: 4px;
+		line-height: 1.1;
+	}
+
+	&__wr {
+		font-size: 0.75rem;
+		color: #bdb8d7;
+		font-weight: 500;
+		letter-spacing: 0.5px;
+
+		i, .wr-percentage {
+			color: #6be2a1;
+			font-style: normal;
+			font-weight: 700;
+			margin-left: 4px;
 		}
 	}
 }
