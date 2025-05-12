@@ -130,13 +130,16 @@ export function getTeams(participants: Participant[]): Participant[][] {
 	return Object.values(teams);
 }
 
-export function separateTeams(participants: Participant[]): { topRowTeams: Participant[][]; bottomRowTeams: Participant[][]}{
+export function separateTeams(participants: Participant[]): {
+	topRowTeams: Participant[][];
+	bottomRowTeams: Participant[][];
+} {
 	const teams = getTeams(participants);
 	const half = Math.ceil(teams.length / 2);
 	const topRowTeams = teams.slice(0, half);
 	const bottomRowTeams = teams.slice(half);
 
-	return { topRowTeams, bottomRowTeams }
+	return { topRowTeams, bottomRowTeams };
 }
 
 export function getMultikillBadge(p: Participant) {
@@ -169,9 +172,13 @@ export function unixTimestampToDuration(unixDurationInSeconds: number) {
 	const minutes = Math.floor((unixDurationInSeconds / 60) % 60);
 	const hours = Math.floor(unixDurationInSeconds / 3600);
 
-	return [hours > 0 ? `${hours}:` : '',
+	return [
+		hours > 0 ? `${hours}:` : '',
 		minutes > 0 ? `${String(minutes).padStart(2, '0')}:` : '',
-		`${String(seconds).padStart(2, '0')}`].filter(Boolean).join('');
+		`${String(seconds).padStart(2, '0')}`
+	]
+		.filter(Boolean)
+		.join('');
 }
 
 export function findPlayer(match: Match, playerName: string) {

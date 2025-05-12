@@ -38,11 +38,7 @@ const BaseInfo = (data: BaseInfoProps) => {
 					<div className="baseInfo__level">Level {data.summoner.level}</div>
 				</div>
 			</div>
-			<button
-				className="baseInfo__update-button"
-				onClick={data.buttonCallback}
-				disabled={data.countdown > 0}
-			>
+			<button className="baseInfo__update-button" onClick={data.buttonCallback} disabled={data.countdown > 0}>
 				{data.isUpdating ? <UpdateSummonerSpinner /> : buttonStatus(data.countdown)}
 			</button>
 		</Base>

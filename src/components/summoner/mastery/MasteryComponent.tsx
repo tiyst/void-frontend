@@ -14,13 +14,13 @@ const MasteryComponent: React.FC<MasteryComponentProps> = (data: MasteryComponen
 		<Base className={`mastery-component ${className}`}>
 			<div className="mastery-component__list">
 				{data.masteries
-				.toSorted((a, b) => b.championPoints - a.championPoints)
-				.slice(0, 4)
-				.map((mastery) => (
-					<div className="mastery-component__fragment" key={mastery.lastPlayTime}>
-						<MasteryFragment key={mastery.lastPlayTime} {...mastery} />
-					</div>
-				))}
+					.toSorted((a, b) => b.championPoints - a.championPoints)
+					.slice(0, 4)
+					.map((mastery) => (
+						<div className="mastery-component__fragment" key={mastery.lastPlayTime}>
+							<MasteryFragment key={mastery.lastPlayTime} {...mastery} />
+						</div>
+					))}
 			</div>
 		</Base>
 	);

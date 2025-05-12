@@ -8,10 +8,13 @@ import {
 	fallbackSummonerSpellIconUrl,
 	findPlayer,
 	getItemIconUrlByItemId,
-	getItemsFromParticipant, getKillParticipation,
+	getItemsFromParticipant,
+	getKillParticipation,
 	getMultikillBadge,
-	getSummonerSpellIconUrl, isMatchArena,
-	queueTypeTranslations, separateTeams,
+	getSummonerSpellIconUrl,
+	isMatchArena,
+	queueTypeTranslations,
+	separateTeams,
 	sortParticipantsByTeam,
 	unixTimestampToDuration
 } from '../../../utils/MatchUtils.ts';
@@ -50,11 +53,9 @@ export const MatchComponent = (data: MatchComponentProps) => {
 	// 	return <ArenaMatchComponent match={data.match} server={data.server} gameName={data.gameName} />;
 	// }
 
-	const {topRowTeams, bottomRowTeams} = separateTeams(participants);
+	const { topRowTeams, bottomRowTeams } = separateTeams(participants);
 	const teamId = player.playerSubteamId !== 0 ? player.playerSubteamId : player.teamId;
-	const team = participants.filter(
-		p => (p.playerSubteamId !== 0 ? p.playerSubteamId : p.teamId) === teamId
-	);
+	const team = participants.filter((p) => (p.playerSubteamId !== 0 ? p.playerSubteamId : p.teamId) === teamId);
 	const killParticipation = getKillParticipation(team, player);
 	const multikillBadge = getMultikillBadge(player);
 
@@ -64,19 +65,17 @@ export const MatchComponent = (data: MatchComponentProps) => {
 				<div className="match-left">
 					<div className="match-left__row">
 						<div className="match-left__icon-wrapper">
-							<img src={champIconUrl}
-								 alt="Champion icon"
-								 className={`match-left__champion ${player.win ? 'win' : 'loss'}`}
-								 onError={e => {
-									 (e.target as HTMLImageElement).src = fallbackSummonerSpellIconUrl;
-								 }}
+							<img
+								src={champIconUrl}
+								alt="Champion icon"
+								className={`match-left__champion ${player.win ? 'win' : 'loss'}`}
+								onError={(e) => {
+									(e.target as HTMLImageElement).src = fallbackSummonerSpellIconUrl;
+								}}
 							/>
 							<div className={`level-badge ${player.win ? 'win' : 'loss'}`}>{player.champLevel}</div>
 							{player.teamPosition !== '' && (
-								<img src={getRoleIconUrl(player.teamPosition)}
-									 alt="Role Icon"
-									 className="role-image"
-								/>
+								<img src={getRoleIconUrl(player.teamPosition)} alt="Role Icon" className="role-image" />
 							)}
 						</div>
 						<div className="match-left__stats">
@@ -84,9 +83,7 @@ export const MatchComponent = (data: MatchComponentProps) => {
 								<span>{player.kills} / </span>
 								<span className="match-left__deaths">{player.deaths}</span>
 								<span> / {player.assists}</span>
-								<span className="kda-ratio"
-									  style={{ color: calculateKdaColor(kda) }}
-								>
+								<span className="kda-ratio" style={{ color: calculateKdaColor(kda) }}>
 									{kda} KDA
 								</span>
 							</div>
@@ -97,17 +94,13 @@ export const MatchComponent = (data: MatchComponentProps) => {
 					</div>
 					<div className="match-left__second-row">
 						<div className={`match-left__match-details ${player.win ? 'victory' : 'defeat'}`}>
-						<span>
-							{queueTypeTranslations[data.match.queueId]}
-						</span>
+							<span>{queueTypeTranslations[data.match.queueId]}</span>
 						</div>
 						<div className="match-left__footer">
-						<span className={`match-left__result ${player.win ? 'victory' : 'defeat'}`}>
-							{player.win ? 'Victory' : 'Defeat'}
-						</span>
-							<span className="match-left__ago">
-							{calculateDatePlayed(data.match.gameEndTimestamp)}
-						</span>
+							<span className={`match-left__result ${player.win ? 'victory' : 'defeat'}`}>
+								{player.win ? 'Victory' : 'Defeat'}
+							</span>
+							<span className="match-left__ago">{calculateDatePlayed(data.match.gameEndTimestamp)}</span>
 						</div>
 					</div>
 				</div>
@@ -118,7 +111,7 @@ export const MatchComponent = (data: MatchComponentProps) => {
 								className="center-icon summoner-spell"
 								src={getSummonerSpellIconUrl(player.summoner1Id)}
 								alt="Summoner Spell 1"
-								onError={e => {
+								onError={(e) => {
 									(e.target as HTMLImageElement).src = fallbackSummonerSpellIconUrl;
 								}}
 								draggable={false}
@@ -127,7 +120,7 @@ export const MatchComponent = (data: MatchComponentProps) => {
 								className="center-icon summoner-spell"
 								src={getSummonerSpellIconUrl(player.summoner2Id)}
 								alt="Summoner Spell 2"
-								onError={e => {
+								onError={(e) => {
 									(e.target as HTMLImageElement).src = fallbackSummonerSpellIconUrl;
 								}}
 								draggable={false}
@@ -138,7 +131,7 @@ export const MatchComponent = (data: MatchComponentProps) => {
 								className="center-icon rune"
 								src={constructRuneIconUrl(player.perks.styles)}
 								alt="Primary Rune"
-								onError={e => {
+								onError={(e) => {
 									(e.target as HTMLImageElement).src = runeUrlFallback;
 								}}
 								draggable={false}
@@ -147,7 +140,7 @@ export const MatchComponent = (data: MatchComponentProps) => {
 								className="center-icon rune"
 								src={constructRuneClassUrl(player.perks.styles)}
 								alt="Secondary Rune"
-								onError={e => {
+								onError={(e) => {
 									(e.target as HTMLImageElement).src = runeUrlFallback;
 								}}
 								draggable={false}
@@ -156,16 +149,26 @@ export const MatchComponent = (data: MatchComponentProps) => {
 					</div>
 					<div className="center-extra-stats">
 						<span className="vision-score" title="Vision Score">
-						  <svg width="16" height="16" viewBox="0 0 16 16" style={{marginRight: 2, verticalAlign: 'middle'}}><circle cx="8" cy="8" r="7" fill="none" stroke="#b9a7e6" strokeWidth="2"/><circle cx="8" cy="8" r="3" fill="#b9a7e6"/></svg>
+							<svg
+								width="16"
+								height="16"
+								viewBox="0 0 16 16"
+								style={{ marginRight: 2, verticalAlign: 'middle' }}
+							>
+								<circle cx="8" cy="8" r="7" fill="none" stroke="#b9a7e6" strokeWidth="2" />
+								<circle cx="8" cy="8" r="3" fill="#b9a7e6" />
+							</svg>
 							{player.visionScore}
 						</span>
-											<span className="kill-participation" title="Kill Participation">
-						  KP: {killParticipation.toFixed(0)}%
+						<span className="kill-participation" title="Kill Participation">
+							KP: {killParticipation.toFixed(0)}%
 						</span>
-							{multikillBadge && (
-								<span className={`multikill-badge multikill-${multikillBadge.replace(' ', '').toLowerCase()}`}>
-							{multikillBadge}
-						  </span>
+						{multikillBadge && (
+							<span
+								className={`multikill-badge multikill-${multikillBadge.replace(' ', '').toLowerCase()}`}
+							>
+								{multikillBadge}
+							</span>
 						)}
 					</div>
 				</div>
@@ -204,7 +207,7 @@ export const MatchComponent = (data: MatchComponentProps) => {
 														? 'active-player'
 														: ''
 												}`}
-												onError={e => {
+												onError={(e) => {
 													(e.target as HTMLImageElement).src = urlUnknownChampion;
 												}}
 												title={participant.riotIdGameName}
@@ -232,7 +235,7 @@ export const MatchComponent = (data: MatchComponentProps) => {
 														? 'active-player'
 														: ''
 												}`}
-												onError={e => {
+												onError={(e) => {
 													(e.target as HTMLImageElement).src = urlUnknownChampion;
 												}}
 												title={participant.riotIdGameName}
@@ -248,12 +251,10 @@ export const MatchComponent = (data: MatchComponentProps) => {
 					</button>
 				</div>
 			</Base>
-			<div className={`expandable-content${isExpanded ? ' expanded' : ''} ${player.win ? 'player-won' : 'player-lost'}`}>
-					<MatchExpandComponent
-						playerName={player.riotIdGameName}
-						match={data.match}
-						server={data.server}
-					/>
+			<div
+				className={`expandable-content${isExpanded ? ' expanded' : ''} ${player.win ? 'player-won' : 'player-lost'}`}
+			>
+				<MatchExpandComponent playerName={player.riotIdGameName} match={data.match} server={data.server} />
 			</div>
 		</div>
 	);

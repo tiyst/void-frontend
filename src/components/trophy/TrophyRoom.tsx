@@ -126,10 +126,11 @@ export const TrophyRoom = (data: TrophyRoomProps) => {
 				</button>
 			)}
 			<div className="trophy-room-container" ref={scrollContainerRef}>
-				<div className="trophy-room"
-					 style={{ width: containerWidth ? `${containerWidth}px` : undefined }}
-					 onMouseDown={onMouseDown}
-					 ref={trophyRoomRef}
+				<div
+					className="trophy-room"
+					style={{ width: containerWidth ? `${containerWidth}px` : undefined }}
+					onMouseDown={onMouseDown}
+					ref={trophyRoomRef}
 				>
 					{data?.trophies?.map((trophy: Trophy) => {
 						return <TrophyComponent trophy={trophy} puuid={data.puuid} key={trophy.name} />;

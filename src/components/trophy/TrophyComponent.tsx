@@ -1,8 +1,5 @@
 import { BaseBlockProps } from '../base/Base.tsx';
-import {
-	findPlayerByPuuid,
-	getMapUrlByMapId,
-} from '../../utils/MatchUtils.ts';
+import { findPlayerByPuuid, getMapUrlByMapId } from '../../utils/MatchUtils.ts';
 import { getChampionIconUrl, getUnknownChampionIconUrl, urlUnknownChampion } from '../../utils/IconsUtils.ts';
 import './TrophyComponent.scss';
 import { Trophy } from '../../model/Summoner.ts';
@@ -44,13 +41,7 @@ export const TrophyComponent = (data: TrophyProms) => {
 	return (
 		<div className="trophy-component">
 			<div className="trophy-icon-wrap">
-				<img
-					className="trophy-map-icon"
-					src={getMapUrlByMapId(match.mapId)}
-
-					alt="Map icon"
-					draggable={false}
-				/>
+				<img className="trophy-map-icon" src={getMapUrlByMapId(match.mapId)} alt="Map icon" draggable={false} />
 				<img
 					src={champIconUrl}
 					alt="Champion icon"

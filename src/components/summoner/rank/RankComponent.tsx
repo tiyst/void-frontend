@@ -12,13 +12,9 @@ const RankComponent: React.FC<RankComponentProps> = (data: RankComponentProps) =
 
 	return (
 		<Base className={`rank-component ${className}`}>
-			<div className="rank-component__fragment">
-				{RankFragment('Ranked Solo', data.ranks[0])}
-			</div>
+			<div className="rank-component__fragment">{RankFragment('Ranked Solo', data.ranks[0])}</div>
 			<div className="rank-component__divider" />
-			<div className="rank-component__fragment">
-				{RankFragment('Ranked Flex', data.ranks[1])}
-			</div>
+			<div className="rank-component__fragment">{RankFragment('Ranked Flex', data.ranks[1])}</div>
 		</Base>
 	);
 };

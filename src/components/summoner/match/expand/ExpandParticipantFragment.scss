@@ -3,7 +3,7 @@
 	align-items: center;
 	width: 100%;
 	padding: 0.25rem 0;
-	border-bottom: 1px solid rgba(255,255,255,0.04);
+	border-bottom: 1px solid rgba(255, 255, 255, 0.04);
 	color: #e6eaf3;
 
 	&:last-child {
@@ -50,18 +50,18 @@
 		white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;
-			.name {
-				margin: 1px;
-				font-size: 1em;
-				font-weight: lighter;
-				color: white;
-				text-overflow: ellipsis;
-				white-space: nowrap;
+		.name {
+			margin: 1px;
+			font-size: 1em;
+			font-weight: lighter;
+			color: white;
+			text-overflow: ellipsis;
+			white-space: nowrap;
 
-				&:hover {
-					color: #b9a7e6;
-				}
+			&:hover {
+				color: #b9a7e6;
 			}
+		}
 	}
 }
 
@@ -72,12 +72,13 @@
 	font-variant-numeric: tabular-nums;
 	justify-content: flex-end;
 
-	.epf-kills, .epf-assists {
+	.epf-kills,
+	.epf-assists {
 		color: #e6eaf3;
 		font-weight: 500;
 	}
 	.epf-deaths {
-		color: #F47174;
+		color: #f47174;
 		font-weight: 600;
 	}
 	.epf-sep {

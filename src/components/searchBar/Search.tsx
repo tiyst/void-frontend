@@ -33,6 +33,7 @@ const SUGGESTIONS_KEY = 'suggestions';
 const SERVER_KEY = 'chosenServer';
 const MAX_SUGGESTIONS = 8;
 
+// TODO Optimize
 export const Search = () => {
 	const suggestions: string[] = JSON.parse(localStorage.getItem(SUGGESTIONS_KEY) ?? '[]');
 	const chosenServer: string = localStorage.getItem(SERVER_KEY) ?? 'EUW';
@@ -145,8 +146,6 @@ export const Search = () => {
 					onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
 					className="search-input"
 				/>
-
-
 			</div>
 			<button onClick={handleSearch} className="search-button">
 				<svg
@@ -161,18 +160,18 @@ export const Search = () => {
 			{suggestions.length > 0 && (
 				<ul className="suggestions-drop">
 					{displayedSuggestions
-					.map(processSavedSuggestion)
-					.filter((suggestion) => suggestion !== undefined)
-					.map(({ server, gameName, tagLine }, index) => (
-						<Suggestion
-							server={server}
-							gameName={gameName}
-							tagLine={tagLine}
-							key={'suggestion' + index}
-							onClick={() => handleSearchParametrised(server, gameName, tagLine)}
-							onRemove={removeSuggestion}
-						/>
-					))}
+						.map(processSavedSuggestion)
+						.filter((suggestion) => suggestion !== undefined)
+						.map(({ server, gameName, tagLine }, index) => (
+							<Suggestion
+								server={server}
+								gameName={gameName}
+								tagLine={tagLine}
+								key={'suggestion' + index}
+								onClick={() => handleSearchParametrised(server, gameName, tagLine)}
+								onRemove={removeSuggestion}
+							/>
+						))}
 				</ul>
 			)}
 		</div>

@@ -56,18 +56,18 @@ export const ExpandParticipantFragment = (data: ExpandParticipantProps) => {
 							fontWeight: data.isMainPlayer ? 'bold' : 'normal'
 						}}
 					>
-					{data.participant.riotIdGameName}
+						{data.participant.riotIdGameName}
 					</Link>
 				</span>
 			</div>
 			<div className="epf-cell epf-kda">
-                <span>
-                    <span className="epf-kills">{data.participant.kills}</span>
-                    <span className="epf-sep">/</span>
-                    <span className="epf-deaths">{data.participant.deaths}</span>
-                    <span className="epf-sep">/</span>
-                    <span className="epf-assists">{data.participant.assists}</span>
-                </span>
+				<span>
+					<span className="epf-kills">{data.participant.kills}</span>
+					<span className="epf-sep">/</span>
+					<span className="epf-deaths">{data.participant.deaths}</span>
+					<span className="epf-sep">/</span>
+					<span className="epf-assists">{data.participant.assists}</span>
+				</span>
 			</div>
 			<div className="epf-cell epf-kda-value" style={{ color: kdaColor }}>
 				{kda}

@@ -23,7 +23,8 @@ const RankFragment = (queueType: string, data: Rank) => {
 				</div>
 				{data?.tier && (
 					<div className="rank-fragment__wr">
-						{data.wins} / {data.losses} - <span className="wr-percentage">{calculateWinRate(data.wins, data.losses)}</span>WR
+						{data.wins} / {data.losses} -{' '}
+						<span className="wr-percentage">{calculateWinRate(data.wins, data.losses)}</span>WR
 					</div>
 				)}
 			</div>

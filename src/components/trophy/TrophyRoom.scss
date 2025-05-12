@@ -17,13 +17,13 @@
 	}
 
 	.trophy-room:before {
-		content:"";
-		flex-basis:100%;
-		order:1
+		content: '';
+		flex-basis: 100%;
+		order: 1;
 	}
 
 	.trophy-room *:nth-child(even) {
-		order:2;
+		order: 2;
 	}
 
 	.trophy-room::-webkit-scrollbar {
@@ -37,7 +37,7 @@
 	}
 }
 
-.trophy-base{
+.trophy-base {
 	position: relative;
 
 	.arrow-btn {
