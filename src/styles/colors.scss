@@ -8,9 +8,6 @@ $background-light: #2d2340;
 $background-dark: #241b32;
 $border-color: #42355e;
 
-$border-win: #6be2a1;
-$border-lose: #f47174;
-
 $trash-color: #9d9d9d;
 $common-color: #ffffff;
 $uncommon-color: #1eff00;
@@ -27,6 +24,10 @@ $best-color-background: #f47174;
 
 $win: #a8e6a3;
 $lose: #e57373;
+
+$win-border: #6be2a1;
+$defeat-border: #f47174;
+$remake-border: grey;
 
 // Needs to be in :root due to inline styling on border in extended match participant
 :root {

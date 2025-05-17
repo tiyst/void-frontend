@@ -10,6 +10,7 @@ import {
 	getItemIconUrlByItemId,
 	getItemsFromParticipant,
 	getKillParticipation,
+	getMatchResult,
 	getMultikillBadge,
 	getSummonerSpellIconUrl,
 	isMatchArena,
@@ -43,6 +44,7 @@ export const MatchComponent = (data: MatchComponentProps) => {
 
 	const champIconUrl = getChampionIconUrl(player.championId);
 	const kda = calculateKDA(player.kills, player.deaths, player.assists);
+	const matchResult = getMatchResult(data.match, player);
 	const isArena = isMatchArena(data.match); // Used for css class for components that should be hidden in arena
 
 	const toggleExpand = () => {
@@ -58,19 +60,19 @@ export const MatchComponent = (data: MatchComponentProps) => {
 	return (
 		<div>
 			<div onClick={isMobile ? toggleExpand : undefined}>
-				<Base className={`match-modern ${className} ${player.win ? 'player-won' : 'player-lost'}`}>
+				<Base className={`match-modern ${className} ${matchResult}`}>
 					<div className="match-left">
 						<div className="match-left__row">
 							<div className="match-left__icon-wrapper">
 								<img
 									src={champIconUrl}
 									alt="Champion icon"
-									className={`match-left__champion ${player.win ? 'win' : 'loss'}`}
+									className={`match-left__champion ${matchResult}`}
 									onError={(e) => {
 										(e.target as HTMLImageElement).src = fallbackSummonerSpellIconUrl;
 									}}
 								/>
-								<div className={`level-badge ${player.win ? 'win' : 'loss'}`}>{player.champLevel}</div>
+								<div className={`level-badge ${matchResult}`}>{player.champLevel}</div>
 								{player.teamPosition !== '' && (
 									<img
 										src={getRoleIconUrl(player.teamPosition)}
@@ -97,12 +99,12 @@ export const MatchComponent = (data: MatchComponentProps) => {
 							</div>
 						</div>
 						<div className="match-left__second-row">
-							<div className={`match-left__match-details ${player.win ? 'victory' : 'defeat'}`}>
+							<div className={`match-left__match-details ${matchResult}`}>
 								<span>{queueTypeTranslations[data.match.queueId]}</span>
 							</div>
 							<div className="match-left__footer">
-								<span className={`match-left__result ${player.win ? 'victory' : 'defeat'}`}>
-									{player.win ? 'Victory' : 'Defeat'}
+								<span className={`match-left__result ${matchResult}`}>
+									{matchResult}
 								</span>
 								<span className="match-left__ago">
 									{calculateDatePlayed(data.match.gameEndTimestamp)}
@@ -259,7 +261,7 @@ export const MatchComponent = (data: MatchComponentProps) => {
 				</Base>
 			</div>
 			<div
-				className={`expandable-content${isExpanded ? ' expanded' : ''} ${player.win ? 'player-won' : 'player-lost'}`}
+				className={`expandable-content${isExpanded ? ' expanded' : ''}`}
 			>
 				<MatchExpandComponent playerName={player.riotIdGameName} match={data.match} server={data.server} />
 			</div>

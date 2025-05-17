@@ -12,14 +12,19 @@
 	position: relative;
 	z-index: 2;
 
-	&.player-won {
-		border-left: 5px solid $border-win;
+	&.Victory {
+		border-left: 5px solid $win-border;
 		background: linear-gradient(270deg, $background-light 75%, #23413a 100%);
 	}
 
-	&.player-lost {
-		border-left: 5px solid $border-lose;
+	&.Defeat {
+		border-left: 5px solid $defeat-border;
 		background: linear-gradient(270deg, $background-light 75%, #3a2323 100%);
+	}
+
+	&.Remake {
+		border-left: 5px solid $remake-border;
+		background: linear-gradient(270deg, $background-light 75%, #454545 100%);
 	}
 
 	.match-left {
@@ -39,25 +44,39 @@
 			display: flex;
 			flex-direction: column;
 			align-content: flex-end;
+
+			.match-left__match-details {
+				&.Victory {
+					color: $win-border;
+				}
+				&.Defeat {
+					color: $defeat-border;
+				}
+				&.Remake {
+					color: white;
+				}
+			}
 		}
 
 		&__champion {
 			width: 44px;
 			height: 44px;
 			border-radius: 10px;
-			border: 2px solid #fff;
+			border: 3px solid #fff;
 			background: #18162a;
 			object-fit: cover;
 			margin-right: 0;
 
-			&.win {
-				border-color: #6be2a1;
-				border-width: 3px;
+			&.Victory {
+				border-color: $win-border;
 			}
 
-			&.loss {
-				border-color: #f47174;
-				border-width: 3px;
+			&.Defeat {
+				border-color: $defeat-border;
+			}
+
+			&.Remake {
+				border-color: $remake-border;
 			}
 		}
 
@@ -88,12 +107,16 @@
 			z-index: 2;
 			box-shadow: 0 2px 8px rgba(30, 20, 60, 0.1);
 
-			&.win {
-				border-color: #6be2a1;
+			&.Victory {
+				border-color: $win-border;
 			}
 
-			&.loss {
-				border-color: #f47174;
+			&.Defeat {
+				border-color: $defeat-border;
+			}
+
+			&.Remake {
+				border-color: $remake-border;
 			}
 		}
 
@@ -153,12 +176,16 @@
 			font-size: 1.05rem;
 			font-weight: 600;
 
-			&.victory {
-				color: #6be2a1;
+			&.Victory {
+				color: $win-border;
 			}
 
-			&.defeat {
-				color: #f47174;
+			&.Defeat {
+				color: $defeat-border;
+			}
+
+			&.Remake {
+				color: white;
 			}
 		}
 
@@ -174,11 +201,15 @@
 			font-weight: 600;
 			margin-top: 10px;
 
-			&.victory {
+			&.Victory {
 				color: #6be2a1;
 			}
 
-			&.defeat {
+			&.Defeat {
+				color: #f47174;
+			}
+
+			&.Remake {
 				color: #f47174;
 			}
 		}

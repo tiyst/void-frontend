@@ -77,6 +77,29 @@ export function getItemsFromParticipant(participant: Participant): number[] {
 	];
 }
 
+export function getMatchResult(match: Match, player: Participant): ('Victory' | 'Defeat' | 'Remake') {
+	if (!match || !player) {
+		throw new Error('Match or player is undefined');
+	}
+
+	if (wasMatchRemade(match)) {
+		return 'Remake';
+	}
+
+	if (player.win) {
+		return 'Victory';
+	}
+
+	return 'Defeat';
+}
+
+const wasMatchRemade = (match: Match): boolean => {
+	const durationInSeconds = match.gameDuration;
+	const maxDurationForRemake = 270;
+
+	return durationInSeconds <= maxDurationForRemake;
+}
+
 export function getArenaPlacementForParticipant(participant: Participant): string {
 	const placement = participant.subteamPlacement;
 
