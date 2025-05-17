@@ -11,6 +11,20 @@ $border-color: #42355e;
 $border-win: #6be2a1;
 $border-lose: #f47174;
 
+$trash-color: #9d9d9d;
+$common-color: #ffffff;
+$uncommon-color: #1eff00;
+$rare-color: #0070dd;
+$epic-color: #a335ee;
+$legendary-color: #ff8000;
+$trash-color-background: #6a6a6a;
+$common-color-background: #aaaaaa;
+$uncommon-color-background: #1eff00;
+$rare-color-background: #6ec1e4;
+$epic-color-background: #a259f7;
+$legendary-color-background: #f7c873;
+$best-color-background: #f47174;
+
 $win: #a8e6a3;
 $lose: #e57373;
 
@@ -21,7 +35,8 @@ $lose: #e57373;
 	--team200-border: rgb(192, 79, 79);
 	--team200-background: rgb(192, 79, 79, 0.2);
 
-	--team1-border: rgb(39, 58, 11); //Arena teams colors
+	//Arena teams colors
+	--team1-border: rgb(39, 58, 11);
 	--team1-background: rgb(157, 200, 87, 0.4);
 
 	--team2-border: rgb(85, 46, 10);

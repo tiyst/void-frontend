@@ -42,19 +42,35 @@
 	}
 
 	.update-button {
-		background: #6c4fbb;
-		color: #fff;
-		border: none;
-		border-radius: 10px;
-		padding: 8px 28px;
-		font-size: 1.1rem;
-		font-weight: 600;
+ 		display: block;
+		margin: 0 auto;
+		width: 75%;
+		max-width: 260px;
+		font-weight: 500;
+		padding: 14px 0;
+		background: #2d2340;
+		color: $accent-violet;
+		border: 2px solid $accent-violet;
+		border-radius: 16px;
+		font-size: 1.15rem;
 		cursor: pointer;
-		transition: background 0.2s;
-		min-width: 120px;
+		transition:
+				background 0.2s,
+				border 0.2s,
+				box-shadow 0.2s,
+				color 0.2s;
+		outline: none;
 
-		&:hover {
-			background: #8d6ee0;
+		&:hover:not(:disabled) {
+			box-shadow: 0 0 0 6px rgba(141, 110, 224, 0.13);
+		}
+
+		&:disabled {
+			background: #241b32;
+			color: #b9a7e6;
+			border: 2px solid #3a2c54;
+			cursor: not-allowed;
+			box-shadow: none;
 		}
 	}
 }

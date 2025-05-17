@@ -1,4 +1,4 @@
-import './missingSummonerFragment.scss';
+import './MissingSummonerFragment.scss';
 import Base, { BaseBlockProps } from '../../base/Base.tsx';
 import { getProfileIconUrl } from '../../../utils/IconsUtils.ts';
 import { UpdateSummonerSpinner } from '../../../screens/summoner/UpdateSummonerSpinner.tsx';

@@ -1,6 +1,6 @@
 .summoner-screen-container {
 	padding-top: 0.5rem;
-	margin: 0;
+	margin: 0 0 8px;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
@@ -35,18 +35,40 @@
 	padding: 20px 0 0 0;
 
 	.load-matches-button {
-		min-height: 3.4rem;
-		height: 3.4rem;
-		background: $accent-violet;
-		color: black;
+		display: block;
+		margin: 0 auto;
+		width: 100%;
+		font-weight: 500;
+		background: #2d2340;
+		color: $accent-violet;
+		border: 2px solid $accent-violet;
+		border-radius: 16px;
+		font-size: 1.15rem;
+		cursor: pointer;
+		transition:
+				background 0.2s,
+				border 0.2s,
+				box-shadow 0.2s,
+				color 0.2s;
+		outline: none;
+		min-height: 40px;
+
+		&:hover:not(:disabled) {
+			box-shadow: 0 0 0 6px rgba(141, 110, 224, 0.13);
+		}
 
 		&:disabled {
-			color: white;
-			background: grey;
+			background: #241b32;
+			color: #b9a7e6;
+			border: 2px solid #3a2c54;
+			cursor: not-allowed;
+			box-shadow: none;
 		}
 
 		h2 {
-			margin: 0;
+			margin: 8px 0;
+			font-weight: 500;
+			font-size: 1.15rem;
 		}
 	}
 }

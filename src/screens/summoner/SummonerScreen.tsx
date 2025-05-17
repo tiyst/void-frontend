@@ -8,7 +8,7 @@ import { Summoner } from '../../model/Summoner.ts';
 import { useParams } from 'react-router';
 import { Match } from '../../model/Match.ts';
 import { LoadingSpinner } from '../../components/base/LoadingSpinner.tsx';
-import { MissingSummonerFragment } from '../../components/summoner/missingSummoner/missingSummonerFragment.tsx';
+import { MissingSummonerFragment } from '../../components/summoner/missingSummoner/MissingSummonerFragment.tsx';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { UpdateSummonerSpinner } from './UpdateSummonerSpinner.tsx';

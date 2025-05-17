@@ -99,3 +99,41 @@
 	max-height: 320px;
 	overflow-y: auto;
 }
+
+@media (max-width: 768px) {
+	.search-container {
+		min-width: 0;
+		padding: 0 10px;
+		margin-right: 16px;
+	}
+
+	.search-select {
+		font-size: 1rem;
+		padding: 0 4px;
+		margin-right: 6px;
+		height: calc(100% - 16px);
+	}
+
+	.vertical-line {
+		height: 24px;
+		margin: 0 6px;
+	}
+	.search-input {
+		font-size: 1rem;
+		height: calc(100% - 16px);
+	}
+
+	.search-button {
+		width: 36px;
+		height: 36px;
+		margin-left: 8px;
+		svg {
+			width: 18px;
+			height: 18px;
+		}
+	}
+
+	.suggestions-drop {
+		top: 48px;
+	}
+}

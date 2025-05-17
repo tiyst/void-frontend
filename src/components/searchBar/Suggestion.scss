@@ -10,6 +10,10 @@
 	width: 100%;
 	box-sizing: border-box;
 
+	&:not(:last-child) {
+		border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+	}
+
 	&:hover {
 		background: #2d2340;
 	}
