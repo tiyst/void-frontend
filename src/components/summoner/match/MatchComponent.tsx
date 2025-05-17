@@ -12,6 +12,7 @@ import {
 	getKillParticipation,
 	getMultikillBadge,
 	getSummonerSpellIconUrl,
+	isMatchArena,
 	queueTypeTranslations,
 	separateTeams,
 	sortParticipantsByTeam,
@@ -42,6 +43,7 @@ export const MatchComponent = (data: MatchComponentProps) => {
 
 	const champIconUrl = getChampionIconUrl(player.championId);
 	const kda = calculateKDA(player.kills, player.deaths, player.assists);
+	const isArena = isMatchArena(data.match); // Used for css class for components that should be hidden in arena
 
 	const toggleExpand = () => {
 		setIsExpanded(!isExpanded);
@@ -86,8 +88,11 @@ export const MatchComponent = (data: MatchComponentProps) => {
 										{kda} KDA
 									</span>
 								</div>
-								<div className="match-left__cs">
-									{player.totalMinionsKilled} CS / {unixTimestampToDuration(data.match.gameDuration)}
+								<div className="match-left__match-second-line">
+									<span className={`${isArena ? 'hide-when-arena' : ''}`}>
+										{player.totalMinionsKilled} CS /{' '}
+									</span>
+									<span>{unixTimestampToDuration(data.match.gameDuration)}</span>
 								</div>
 							</div>
 						</div>
@@ -127,7 +132,7 @@ export const MatchComponent = (data: MatchComponentProps) => {
 									draggable={false}
 								/>
 							</div>
-							<div className="icon-row">
+							<div className={`icon-row ${isArena ? 'hide-when-arena' : ''}`}>
 								<img
 									className="center-icon rune"
 									src={constructRuneIconUrl(player.perks.styles)}
@@ -148,7 +153,7 @@ export const MatchComponent = (data: MatchComponentProps) => {
 								/>
 							</div>
 						</div>
-						<div className="center-extra-stats">
+						<div className={`center-extra-stats ${isArena ? 'hide-when-arena' : ''}`}>
 							<span className="vision-score" title="Vision Score">
 								<svg
 									width="16"

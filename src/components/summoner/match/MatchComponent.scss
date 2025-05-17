@@ -1,3 +1,7 @@
+.hide-when-arena {
+	display: none !important;
+}
+
 .match-modern {
 	display: flex;
 	align-items: stretch;
@@ -131,10 +135,12 @@
 			}
 		}
 
-		&__cs {
-			font-size: 0.98rem;
-			color: #bdb8d7;
-			margin-top: 2px;
+		&__match-second-line {
+			span {
+				font-size: 0.98rem;
+				color: #bdb8d7;
+				margin-top: 2px;
+			}
 		}
 
 		&__footer {
@@ -243,7 +249,7 @@
 				color: #fff;
 
 				&.multikill-doublekill {
-					background: $uncommon-color-background;
+					background: $rare-color-background;
 				}
 				&.multikill-triplekill {
 					background: $epic-color-background;
