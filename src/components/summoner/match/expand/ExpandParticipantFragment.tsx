@@ -27,7 +27,6 @@ export const ExpandParticipantFragment = (data: ExpandParticipantProps) => {
 	const teamId = player.playerSubteamId === 0 ? player.teamId : player.playerSubteamId;
 	const isArena = isMatchArenaByParticipant(player);
 
-	// TODO rename epf?
 	return (
 		<div className="epf-row">
 			<div

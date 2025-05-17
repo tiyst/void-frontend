@@ -9,7 +9,6 @@ export type TrophyRoomProps = BaseBlockProps & {
 	puuid: string;
 };
 
-// TODO refactor
 export const TrophyRoom = (data: TrophyRoomProps) => {
 	const { className = '' } = data;
 	const [containerWidth, setContainerWidth] = useState<number>(0);

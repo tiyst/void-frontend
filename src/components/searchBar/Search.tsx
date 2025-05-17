@@ -33,7 +33,6 @@ const SUGGESTIONS_KEY = 'suggestions';
 const SERVER_KEY = 'chosenServer';
 const MAX_SUGGESTIONS = 8;
 
-// TODO Optimize
 export const Search = () => {
 	const suggestions: string[] = JSON.parse(localStorage.getItem(SUGGESTIONS_KEY) ?? '[]');
 	const chosenServer: string = localStorage.getItem(SERVER_KEY) ?? 'EUW';
