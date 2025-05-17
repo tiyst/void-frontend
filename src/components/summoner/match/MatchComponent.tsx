@@ -70,7 +70,11 @@ export const MatchComponent = (data: MatchComponentProps) => {
 								/>
 								<div className={`level-badge ${player.win ? 'win' : 'loss'}`}>{player.champLevel}</div>
 								{player.teamPosition !== '' && (
-									<img src={getRoleIconUrl(player.teamPosition)} alt="Role Icon" className="role-image" />
+									<img
+										src={getRoleIconUrl(player.teamPosition)}
+										alt="Role Icon"
+										className="role-image"
+									/>
 								)}
 							</div>
 							<div className="match-left__stats">
@@ -79,8 +83,8 @@ export const MatchComponent = (data: MatchComponentProps) => {
 									<span className="match-left__deaths">{player.deaths}</span>
 									<span> / {player.assists}</span>
 									<span className="kda-ratio" style={{ color: calculateKdaColor(kda) }}>
-									{kda} KDA
-								</span>
+										{kda} KDA
+									</span>
 								</div>
 								<div className="match-left__cs">
 									{player.totalMinionsKilled} CS / {unixTimestampToDuration(data.match.gameDuration)}
@@ -92,10 +96,12 @@ export const MatchComponent = (data: MatchComponentProps) => {
 								<span>{queueTypeTranslations[data.match.queueId]}</span>
 							</div>
 							<div className="match-left__footer">
-							<span className={`match-left__result ${player.win ? 'victory' : 'defeat'}`}>
-								{player.win ? 'Victory' : 'Defeat'}
-							</span>
-								<span className="match-left__ago">{calculateDatePlayed(data.match.gameEndTimestamp)}</span>
+								<span className={`match-left__result ${player.win ? 'victory' : 'defeat'}`}>
+									{player.win ? 'Victory' : 'Defeat'}
+								</span>
+								<span className="match-left__ago">
+									{calculateDatePlayed(data.match.gameEndTimestamp)}
+								</span>
 							</div>
 						</div>
 					</div>
@@ -143,27 +149,27 @@ export const MatchComponent = (data: MatchComponentProps) => {
 							</div>
 						</div>
 						<div className="center-extra-stats">
-						<span className="vision-score" title="Vision Score">
-							<svg
-								width="16"
-								height="16"
-								viewBox="0 0 16 16"
-								style={{ marginRight: 2, verticalAlign: 'middle' }}
-							>
-								<circle cx="8" cy="8" r="7" fill="none" stroke="#b9a7e6" strokeWidth="2" />
-								<circle cx="8" cy="8" r="3" fill="#b9a7e6" />
-							</svg>
-							{player.visionScore}
-						</span>
+							<span className="vision-score" title="Vision Score">
+								<svg
+									width="16"
+									height="16"
+									viewBox="0 0 16 16"
+									style={{ marginRight: 2, verticalAlign: 'middle' }}
+								>
+									<circle cx="8" cy="8" r="7" fill="none" stroke="#b9a7e6" strokeWidth="2" />
+									<circle cx="8" cy="8" r="3" fill="#b9a7e6" />
+								</svg>
+								{player.visionScore}
+							</span>
 							<span className="kill-participation" title="Kill Participation">
-							KP: {killParticipation.toFixed(0)}%
-						</span>
+								KP: {killParticipation.toFixed(0)}%
+							</span>
 							{multikillBadge && (
 								<span
 									className={`multikill-badge multikill-${multikillBadge.replace(' ', '').toLowerCase()}`}
 								>
-								{multikillBadge}
-							</span>
+									{multikillBadge}
+								</span>
 							)}
 						</div>
 					</div>

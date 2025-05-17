@@ -42,7 +42,7 @@
 	}
 
 	.update-button {
- 		display: block;
+		display: block;
 		margin: 0 auto;
 		width: 75%;
 		max-width: 260px;
@@ -55,10 +55,10 @@
 		font-size: 1.15rem;
 		cursor: pointer;
 		transition:
-				background 0.2s,
-				border 0.2s,
-				box-shadow 0.2s,
-				color 0.2s;
+			background 0.2s,
+			border 0.2s,
+			box-shadow 0.2s,
+			color 0.2s;
 		outline: none;
 
 		&:hover:not(:disabled) {
