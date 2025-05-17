@@ -1,0 +1,75 @@
+.baseInfo.missingSummoner {
+	background: #2d2340;
+	margin-top: 10px;
+	border-radius: 18px;
+	padding: 32px 24px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	box-shadow: 0 2px 12px 0 rgba(44, 34, 64, 0.12);
+
+	.summonerIcon {
+		width: 88px;
+		height: 88px;
+		border-radius: 50%;
+		border: 3px solid #6c4fbb;
+		margin-bottom: 16px;
+		background: #221a2e;
+	}
+
+	h1 {
+		font-size: 1.2rem;
+		color: #fff;
+		margin: 0;
+		i {
+			color: #b9a7e6;
+			font-style: normal;
+		}
+	}
+
+	h2 {
+		font-size: 1.1rem;
+		color: #b9a7e6;
+		margin: 4px 0 0 0;
+	}
+
+	.button-container {
+		margin-top: 18px;
+		width: 100%;
+		display: flex;
+		justify-content: center;
+	}
+
+	.update-button {
+		display: block;
+		margin: 0 auto;
+		width: 75%;
+		max-width: 260px;
+		font-weight: 500;
+		padding: 14px 0;
+		background: #2d2340;
+		color: $accent-violet;
+		border: 2px solid $accent-violet;
+		border-radius: 16px;
+		font-size: 1.15rem;
+		cursor: pointer;
+		transition:
+			background 0.2s,
+			border 0.2s,
+			box-shadow 0.2s,
+			color 0.2s;
+		outline: none;
+
+		&:hover:not(:disabled) {
+			box-shadow: 0 0 0 6px rgba(141, 110, 224, 0.13);
+		}
+
+		&:disabled {
+			background: #241b32;
+			color: #b9a7e6;
+			border: 2px solid #3a2c54;
+			cursor: not-allowed;
+			box-shadow: none;
+		}
+	}
+}

@@ -5,7 +5,9 @@
 	min-height: 100px;
 	height: 100px;
 	overflow: hidden;
-	border-bottom: 1px dashed $accent;
+	border-radius: 14px;
+	padding: 0;
+	background: $background-light;
 
 	.masteryIcon {
 		position: absolute;

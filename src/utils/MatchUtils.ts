@@ -119,6 +119,42 @@ export function chunkArenaParticipants(participants: Participant[], chunkSize: n
 	});
 }
 
+export function getTeams(participants: Participant[]): Participant[][] {
+	const teams: Record<number, typeof participants> = {};
+	participants.forEach((p: Participant) => {
+		const groupId = p.playerSubteamId !== 0 ? p.playerSubteamId : p.teamId;
+		if (!teams[groupId]) teams[groupId] = [];
+		teams[groupId].push(p);
+	});
+
+	return Object.values(teams);
+}
+
+export function separateTeams(participants: Participant[]): {
+	topRowTeams: Participant[][];
+	bottomRowTeams: Participant[][];
+} {
+	const teams = getTeams(participants);
+	const half = Math.ceil(teams.length / 2);
+	const topRowTeams = teams.slice(0, half);
+	const bottomRowTeams = teams.slice(half);
+
+	return { topRowTeams, bottomRowTeams };
+}
+
+export function getMultikillBadge(p: Participant) {
+	if (p.pentaKills) return 'Penta Kill';
+	if (p.quadraKills) return 'Quadra Kill';
+	if (p.tripleKills) return 'Triple Kill';
+	if (p.doubleKills) return 'Double Kill';
+	return null;
+}
+
+export function getKillParticipation(team: Participant[], player: Participant) {
+	const teamKills = team.reduce((sum, p) => sum + p.kills, 0);
+	return teamKills > 0 ? ((player.kills + player.assists) / teamKills) * 100 : 0;
+}
+
 export function isMatchArena(match: Match) {
 	return match.gameMode === 'CHERRY' || match.participants[0].playerSubteamId !== 0;
 }
@@ -136,7 +172,13 @@ export function unixTimestampToDuration(unixDurationInSeconds: number) {
 	const minutes = Math.floor((unixDurationInSeconds / 60) % 60);
 	const hours = Math.floor(unixDurationInSeconds / 3600);
 
-	return [hours > 0 ? `${hours}h` : '', minutes > 0 ? `${minutes}m` : '', `${seconds}s`].filter(Boolean).join(' ');
+	return [
+		hours > 0 ? `${hours}:` : '',
+		minutes > 0 ? `${String(minutes).padStart(2, '0')}:` : '',
+		`${String(seconds).padStart(2, '0')}`
+	]
+		.filter(Boolean)
+		.join('');
 }
 
 export function findPlayer(match: Match, playerName: string) {

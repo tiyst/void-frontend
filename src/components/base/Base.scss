@@ -3,14 +3,9 @@
 	background-color: $background-dark;
 	color: #ffffff;
 	justify-content: center;
+	border: 1px solid $border-color;
 
 	transition:
 		box-shadow 0.3s ease,
 		transform 0.2s ease;
-
-	box-shadow: 0 0 5px 2px $accent;
-
-	&:hover {
-		box-shadow: 0 0 5px 5px $accent;
-	}
 }

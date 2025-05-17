@@ -2,19 +2,20 @@ import './ExpandParticipantFragment.scss';
 import { Participant } from '../../../../model/Match.ts';
 import { getChampionIconUrl, urlUnknownChampion } from '../../../../utils/IconsUtils.ts';
 import {
-	calculateArenaPlacementColor,
 	calculateKDA,
 	calculateKdaColor,
-	getArenaPlacementForParticipant,
 	getItemIconUrlByItemId,
 	getItemsFromParticipant,
 	isMatchArenaByParticipant
 } from '../../../../utils/MatchUtils.ts';
 import { ExpandDamageBar } from './damageBar/ExpandDamageBar.tsx';
+import { Link } from 'react-router-dom';
 
 export type ExpandParticipantProps = {
 	participant: Participant;
+	isMainPlayer: boolean;
 	highestTotalDamage: number;
+	server: string;
 };
 
 export const ExpandParticipantFragment = (data: ExpandParticipantProps) => {
@@ -27,84 +28,70 @@ export const ExpandParticipantFragment = (data: ExpandParticipantProps) => {
 	const isArena = isMatchArenaByParticipant(player);
 
 	return (
-		<div
-			className="expand-participant"
-			style={{
-				border: `3px solid var(--team${teamId}-border)`,
-				background: `var(--team${teamId}-background)`
-			}}
-		>
-			<div style={{ display: 'flex', flexDirection: 'row', gap: '0.5rem' }}>
+		<div className="epf-row">
+			<div
+				className="epf-team-bar"
+				style={{
+					background: `var(--team${teamId}-border)`
+				}}
+			/>
+			<div className="epf-cell epf-player">
 				<img
-					src={getChampionIconUrl(player.championId)}
-					alt={'Expanded player champion icon'}
+					className="epf-champ-icon"
+					src={getChampionIconUrl(data.participant.championId)}
+					alt="Champion"
 					onError={(e) => {
 						(e.target as HTMLImageElement).src = urlUnknownChampion;
 					}}
 				/>
-				<div>{player.riotIdGameName}</div>
+				<span className="epf-player-name">
+					<Link
+						reloadDocument
+						className="name"
+						key={player.riotIdGameName ?? 'unknownPlayerGameName'}
+						to={`/summoner/${data.server}/${player.riotIdGameName}/${player.riotIdTagline}`}
+						style={{
+							textDecoration: 'none',
+							fontWeight: data.isMainPlayer ? 'bold' : 'normal'
+						}}
+					>
+						{data.participant.riotIdGameName}
+					</Link>
+				</span>
 			</div>
-			<div
-				style={{
-					display: 'flex',
-					flexDirection: 'row',
-					gap: '1rem',
-					justifyContent: 'center',
-					alignItems: 'center'
-				}}
-			>
-				<h3 style={{ textAlign: 'center' }}>
-					<span>{player.kills}</span> / <span style={{ color: '#F47174' }}>{player.deaths}</span> /{' '}
-					<span>{player.assists}</span>
-				</h3>
+			<div className="epf-cell epf-kda">
+				<span>
+					<span className="epf-kills">{data.participant.kills}</span>
+					<span className="epf-sep">/</span>
+					<span className="epf-deaths">{data.participant.deaths}</span>
+					<span className="epf-sep">/</span>
+					<span className="epf-assists">{data.participant.assists}</span>
+				</span>
 			</div>
-			<div
-				style={{
-					display: 'flex',
-					flexDirection: 'row',
-					gap: '1rem',
-					justifyContent: 'center',
-					alignItems: 'center'
-				}}
-			>
-				<h4>
-					<span style={{ fontWeight: 'bold', color: kdaColor }}>{kda}</span> KDA
-				</h4>
+			<div className="epf-cell epf-kda-value" style={{ color: kdaColor }}>
+				{kda}
 			</div>
-			<div>
+			<div className="epf-cell epf-cs">
+				{data.participant.totalMinionsKilled}
+				{!isArena && <span> CS</span>}
+			</div>
+			<div className="epf-cell epf-damage">
 				<h4>{player.totalDamageDealtToChampions}</h4>
 				<ExpandDamageBar max={data.highestTotalDamage} participant={player} />
 			</div>
-			{!isArena && <div style={{ textAlign: 'end' }}>{player.totalMinionsKilled} CS</div>}
-			{isArena && (
-				<div style={{ textAlign: 'center', fontWeight: 'bold' }}>
-					<span style={{ color: calculateArenaPlacementColor(player) }}>
-						{getArenaPlacementForParticipant(player)}
-					</span>
-				</div>
-			)}
-			<div className="expandedItems">
-				{items.map((itemId, index) => (
-					<div key={itemId + index} className="item-container">
-						{itemId !== 0 ? (
-							<img
-								src={getItemIconUrlByItemId(String(itemId))}
-								alt={`${itemId + index + 'expand'}`}
-								className="item"
-							/>
-						) : (
-							<div
-								style={{
-									opacity: '0.6',
-									backgroundColor: 'gray',
-									width: '30px',
-									height: '30px',
-									borderRadius: '35%'
-								}}
-							/>
-						)}
-					</div>
-				))}
+			<div className="epf-cell epf-items">
+				{items.map((itemId, index) =>
+					itemId !== 0 ? (
+						<img
+							key={itemId + index}
+							src={getItemIconUrlByItemId(String(itemId))}
+							alt=""
+							className="epf-item"
+						/>
+					) : (
+						<div key={itemId + index} className="epf-item-empty" />
+					)
+				)}
 			</div>
 		</div>
 	);

@@ -1,13 +1,6 @@
 import { BaseBlockProps } from '../base/Base.tsx';
-import {
-	calculateKDA,
-	calculateKdaColor,
-	findPlayerByPuuid,
-	getMapUrlByMapId,
-	unixDurationToMinutes
-} from '../../utils/MatchUtils.ts';
+import { findPlayerByPuuid, getMapUrlByMapId } from '../../utils/MatchUtils.ts';
 import { getChampionIconUrl, getUnknownChampionIconUrl, urlUnknownChampion } from '../../utils/IconsUtils.ts';
-import { getRoleIconUrl } from '../../utils/RoleUtils.ts';
 import './TrophyComponent.scss';
 import { Trophy } from '../../model/Summoner.ts';
 
@@ -22,73 +15,49 @@ export const TrophyComponent = (data: TrophyProms) => {
 	if (!match) {
 		return (
 			<div className="trophy-component">
-				<div className="trophy-title-container">
-					<h4 className="trophy-title-text">{data.trophy.name}</h4>
-				</div>
-				<div className="trophy-image-container">
+				<div className="trophy-icon-wrap">
 					<img
 						src={getUnknownChampionIconUrl()}
 						alt="Champion icon"
+						draggable={false}
 						onError={(e) => {
 							(e.target as HTMLImageElement).src = urlUnknownChampion;
 						}}
 					/>
 				</div>
-				<div>
-					<h2>??</h2>
+				<div className="trophy-info">
+					<div className="trophy-title">{data.trophy.name}</div>
+					<div className="trophy-value">??</div>
+					<div className="trophy-date">??/??</div>
 				</div>
-				<div className="trophy-player-stats">
-					<h3>
-						<span>?</span>/<span style={{ color: '#F47174' }}>?</span>/<span>?</span>
-						{' • '}
-						<span style={{ fontWeight: 'bold', color: '#ffffff' }}>?</span> KDA
-					</h3>
-					<h4></h4>
-					<h4>{`?CS  • (? CSPM)`}</h4>
-				</div>
-				<div>???/??</div>
 			</div>
 		);
 	}
 
 	const player = findPlayerByPuuid(match, data.puuid);
-	const kda = calculateKDA(player.kills, player.deaths, player.assists);
 	const champIconUrl = getChampionIconUrl(player.championId);
 	const date = new Date(match.gameEndTimestamp);
 
 	return (
 		<div className="trophy-component">
-			<div className="trophy-title-container">
-				<h4 className="trophy-title-text">{data.trophy.name}</h4>
-			</div>
-			<div className="trophy-image-container">
-				<img src={getMapUrlByMapId(match.mapId)} className="trophy-map-image" alt="Map icon" />
+			<div className="trophy-icon-wrap">
+				<img className="trophy-map-icon" src={getMapUrlByMapId(match.mapId)} alt="Map icon" draggable={false} />
 				<img
 					src={champIconUrl}
 					alt="Champion icon"
+					draggable={false}
 					onError={(e) => {
 						(e.target as HTMLImageElement).src = urlUnknownChampion;
 					}}
 				/>
-				<div className="trophy-level-badge">{player.champLevel}</div>
-				{player.teamPosition !== '' && (
-					<img src={getRoleIconUrl(player.teamPosition)} alt="Role Icon" className="trophy-role-image" />
-				)}
 			</div>
-			<div>
-				<h2>{data.trophy.bestValue}</h2>
+			<div className="trophy-info">
+				<div className="trophy-title">{data.trophy.name}</div>
+				<div className="trophy-date">
+					{date.toLocaleString('en-US', { month: 'short', day: '2-digit' }).replace(' ', '/')}
+				</div>
+				<div className="trophy-value">{data.trophy.bestValue}</div>
 			</div>
-			<div className="trophy-player-stats">
-				<h3>
-					<span>{player.kills}</span>/<span style={{ color: '#F47174' }}>{player.deaths}</span>/
-					<span>{player.assists}</span>
-					{' • '}
-					<span style={{ fontWeight: 'bold', color: calculateKdaColor(kda) }}>{kda}</span> KDA
-				</h3>
-				<h4></h4>
-				<h4>{`${player.totalMinionsKilled}CS  • (${(player.totalMinionsKilled / unixDurationToMinutes(data.trophy.bestMatch.gameDuration)).toFixed(1)} CSPM)`}</h4>
-			</div>
-			<div>{date.toLocaleString('en-US', { month: 'short', day: '2-digit' }).replace(' ', '/')}</div>
 		</div>
 	);
 };

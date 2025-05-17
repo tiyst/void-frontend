@@ -1,45 +1,69 @@
 .trophy-room-container {
 	position: relative;
 	width: 100%;
+	border-radius: 16px;
+	padding: 8px 0;
 	overflow: hidden;
+	scrollbar-width: none;
+	-ms-overflow-style: none;
 
 	.trophy-room {
 		display: flex;
+		flex-wrap: wrap;
+		padding: 0 18px;
+		gap: 4px 8px;
+		user-select: none;
 		overflow-x: auto;
-		gap: 15px;
-		scroll-behavior: smooth;
-		max-width: 100%;
-		padding-left: 10px;
+	}
+
+	.trophy-room:before {
+		content: '';
+		flex-basis: 100%;
+		order: 1;
+	}
+
+	.trophy-room *:nth-child(even) {
+		order: 2;
 	}
 
 	.trophy-room::-webkit-scrollbar {
 		height: 8px;
+		display: none;
 	}
 
 	.trophy-room::-webkit-scrollbar-thumb {
 		background-color: rgba(0, 0, 0, 0.3);
 		border-radius: 10px;
 	}
+}
+
+.trophy-base {
+	position: relative;
 
 	.arrow-btn {
 		position: absolute;
 		top: 50%;
 		transform: translateY(-50%);
-		background-color: rgba(0, 0, 0, 0.3);
-		color: white;
-		padding: 10px;
+		background-color: transparent;
+		color: #b57aff;
+		padding: 0;
+		width: 40px;
+		height: 40px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border: none;
 		border-radius: 50%;
 		cursor: pointer;
 		z-index: 10;
-		font-size: 24px;
 		user-select: none;
 	}
 
 	.arrow-left {
-		left: 10px;
+		left: 1px;
 	}
 
 	.arrow-right {
-		right: 10px;
+		right: 1px;
 	}
 }
