@@ -103,9 +103,7 @@ export const MatchComponent = (data: MatchComponentProps) => {
 								<span>{queueTypeTranslations[data.match.queueId]}</span>
 							</div>
 							<div className="match-left__footer">
-								<span className={`match-left__result ${matchResult}`}>
-									{matchResult}
-								</span>
+								<span className={`match-left__result ${matchResult}`}>{matchResult}</span>
 								<span className="match-left__ago">
 									{calculateDatePlayed(data.match.gameEndTimestamp)}
 								</span>
@@ -260,9 +258,7 @@ export const MatchComponent = (data: MatchComponentProps) => {
 					</div>
 				</Base>
 			</div>
-			<div
-				className={`expandable-content${isExpanded ? ' expanded' : ''}`}
-			>
+			<div className={`expandable-content${isExpanded ? ' expanded' : ''}`}>
 				<MatchExpandComponent playerName={player.riotIdGameName} match={data.match} server={data.server} />
 			</div>
 		</div>
