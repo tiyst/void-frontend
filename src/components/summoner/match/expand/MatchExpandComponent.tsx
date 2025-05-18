@@ -2,7 +2,7 @@ import './MatchExpandComponent.scss';
 import { BaseBlockProps } from '../../../base/Base.tsx';
 import { Match } from '../../../../model/Match.ts';
 import { ExpandParticipantFragment } from './ExpandParticipantFragment.tsx';
-import { sortParticipantsByTeam } from '../../../../utils/MatchUtils.ts';
+import { getTeams } from '../../../../utils/MatchUtils.ts';
 
 export type MatchExpandProps = BaseBlockProps & {
 	playerName: string;
@@ -18,18 +18,25 @@ export const MatchExpandComponent = (data: MatchExpandProps) => {
 		{ totalDamageDealtToChampions: -Infinity }
 	).totalDamageDealtToChampions;
 
-	const participants = sortParticipantsByTeam(data.match.participants); // ordered due to arena scrambling subteams
+	const teams = getTeams(data.match.participants);
 
 	return (
 		<div className="match-expand-wrapper">
-			{participants.map((participant, index) => (
-				<ExpandParticipantFragment
-					key={participant.riotIdGameName + index}
-					participant={participant}
-					isMainPlayer={data.playerName === participant.riotIdGameName} // Searching player has bold name
-					highestTotalDamage={highestDamage}
-					server={data.server}
-				/>
+			{teams.map((team, teamIndex) => (
+				<div
+					key={team.length > 0 ? `team-${team[0].teamId}` : `empty-team-${teamIndex}`}
+					className="expanded-team-section"
+				>
+					{team.map((participant) => (
+						<ExpandParticipantFragment
+							key={`${participant.riotIdGameName}`}
+							participant={participant}
+							isMainPlayer={data.playerName === participant.riotIdGameName}
+							highestTotalDamage={highestDamage}
+							server={data.server}
+						/>
+					))}
+				</div>
 			))}
 		</div>
 	);
