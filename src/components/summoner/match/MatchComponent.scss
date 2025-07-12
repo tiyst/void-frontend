@@ -218,21 +218,56 @@
 	.match__center {
 		flex: 1;
 		display: flex;
-		flex-direction: column;
-		align-items: flex-end;
-		gap: 4px;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: flex-start;
+
+		.match-badges-container {
+			display: flex;
+			flex-direction: column;
+			align-items: flex-start;
+			gap: 4px;
+			flex-basis: 150px;
+			flex-shrink: 0;
+			margin-right: 4px; // Add some space between badges and other content
+		}
+
+		.match-badge {
+			display: flex;
+			align-items: center;
+			gap: 4px;
+			background-color: #2e2a4d;
+			padding: 4px 8px;
+			border-radius: 6px;
+			font-size: 0.85rem;
+			color: #fff;
+
+			&__icon {
+				width: 16px;
+				height: 16px;
+				filter: invert(1);
+			}
+		}
+
+		.center-right-column {
+			display: flex;
+			flex-direction: column;
+			align-items: flex-end;
+			gap: 4px;
+			flex-grow: 1;
+		}
 
 		.center-icons {
 			display: flex;
 			flex-direction: column;
 			align-items: flex-end;
-			gap: 6px; // space between icons
+			gap: 6px;
 		}
 
 		.icon-row {
 			display: flex;
 			flex-direction: row;
-			gap: 6px; // space between icons in a row
+			gap: 6px;
 		}
 
 		.center-icon {
@@ -253,11 +288,19 @@
 		}
 		.center-extra-stats {
 			display: flex;
-			align-items: center;
+			flex-direction: column;
+			align-items: flex-end;
 			gap: 12px;
 			margin-top: 4px;
 			font-size: 0.98rem;
 			color: #bdb8d7;
+
+			.stats-row {
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+				gap: 12px;
+			}
 
 			.vision-score {
 				display: flex;
