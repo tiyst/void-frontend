@@ -225,11 +225,12 @@
 		.match-badges-container {
 			display: flex;
 			flex-direction: column;
-			align-items: flex-start;
+			align-items: flex-end;
 			gap: 4px;
 			flex-basis: 150px;
 			flex-shrink: 0;
-			margin-right: 4px; // Add some space between badges and other content
+      flex-grow: 1;
+			margin-right: 4px;
 		}
 
 		.match-badge {
@@ -254,7 +255,6 @@
 			flex-direction: column;
 			align-items: flex-end;
 			gap: 4px;
-			flex-grow: 1;
 		}
 
 		.center-icons {

@@ -11,7 +11,6 @@ import {
 	getItemsFromParticipant,
 	getKillParticipation,
 	getMatchResult,
-	getMultikillBadge,
 	getSummonerSpellIconUrl,
 	isMatchArena,
 	queueTypeTranslations,
@@ -56,8 +55,8 @@ export const MatchComponent = (data: MatchComponentProps) => {
 	const teamId = player.playerSubteamId !== 0 ? player.playerSubteamId : player.teamId;
 	const team = participants.filter((p) => (p.playerSubteamId !== 0 ? p.playerSubteamId : p.teamId) === teamId);
 	const killParticipation = getKillParticipation(team, player);
-	const multikillBadge = getMultikillBadge(player);
-	const badges: Badge[] = calculateBadges(data.match, player.riotIdGameName);
+	
+	const badges: Badge[] = calculateBadges(data.match, player.summonerName);
 
 	return (
 		<div>
@@ -166,10 +165,7 @@ export const MatchComponent = (data: MatchComponentProps) => {
 							</div>
 							<div className={`center-extra-stats ${isArena ? 'hide-when-arena' : ''}`}>
 								<div className="stats-row">
-									<span
-										className={`vision-score ${isArena ? 'hide-when-arena' : ''}`}
-										title="Vision Score"
-									>
+									<span className={`vision-score ${isArena ? 'hide-when-arena' : ''}`} title="Vision Score">
 										<svg
 											width="16"
 											height="16"
@@ -185,15 +181,6 @@ export const MatchComponent = (data: MatchComponentProps) => {
 										KP: {killParticipation.toFixed(0)}%
 									</span>
 								</div>
-								{multikillBadge && (
-									<div className="multikill-row">
-										<span
-											className={`multikill-badge multikill-${multikillBadge.replace(' ', '').toLowerCase()}`}
-										>
-											{multikillBadge}
-										</span>
-									</div>
-								)}
 							</div>
 						</div>
 					</div>
