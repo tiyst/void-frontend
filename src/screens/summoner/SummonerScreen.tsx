@@ -61,7 +61,11 @@ export const SummonerScreen = () => {
 		return () => clearInterval(timer);
 	}, [countdown]);
 
-	const { data: summoner, isLoading, isFetching } = useQuery<Summoner>({
+	const {
+		data: summoner,
+		isLoading,
+		isFetching
+	} = useQuery<Summoner>({
 		queryKey: [server, gameName, tagLine],
 		queryFn: fetchSummoner,
 		refetchOnWindowFocus: false,
