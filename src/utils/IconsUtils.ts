@@ -5,8 +5,7 @@ export const urlKnownChampion = 'https://cdn.communitydragon.org/latest/champion
 export const urlKnownChampionSplash = 'https://cdn.communitydragon.org/latest/champion/{ID}/splash-art/centered';
 export const urlMastery = 'https://cdn.tiy.st/champion-mastery/mastery-{num}.png';
 
-// TODO https://cdn.communitydragon.org/latest/profile-icon/{ID} use this in the future
-export const urlIcon = 'https://ddragon.leagueoflegends.com/cdn/15.10.1/img/profileicon/{iconId}.png';
+export const urlIcon = 'https://cdn.communitydragon.org/latest/profile-icon/{iconId}';
 
 export function getChampionIconUrl(championId: number) {
 	return replaceString(urlKnownChampion, 'ID', String(championId));
