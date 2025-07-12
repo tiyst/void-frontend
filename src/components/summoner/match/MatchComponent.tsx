@@ -154,7 +154,7 @@ export const MatchComponent = (data: MatchComponentProps) => {
 							</div>
 						</div>
 						<div className={`center-extra-stats ${isArena ? 'hide-when-arena' : ''}`}>
-							<span className="vision-score" title="Vision Score">
+							<span className={`vision-score ${isArena ? 'hide-when-arena' : ''}`} title="Vision Score">
 								<svg
 									width="16"
 									height="16"

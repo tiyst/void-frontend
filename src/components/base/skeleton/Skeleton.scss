@@ -1,0 +1,13 @@
+.skeleton {
+  background-color: $background-dark;
+  animation: skeleton-animation 1s infinite alternate;
+}
+
+@keyframes skeleton-animation {
+  from {
+    background-color: $background-dark;
+  }
+  to {
+    background-color: lighten($background-dark, 5%);
+  }
+}

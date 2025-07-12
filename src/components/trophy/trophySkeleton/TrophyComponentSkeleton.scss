@@ -1,0 +1,32 @@
+.trophy-skeleton__icon {
+  width: 72px;
+  height: 72px;
+  border-radius: 12px;
+}
+
+.trophy-skeleton__title {
+  width: 100px;
+  height: 20px;
+}
+
+.trophy-skeleton__value {
+  width: 70px;
+  height: 15px;
+}
+
+.trophy-skeleton__date {
+  width: 50px;
+  height: 15px;
+}
+
+.trophy-info .skeleton {
+  margin: 0;
+}
+
+.trophy-info .skeleton:nth-child(2) {
+  margin-top: 2px;
+}
+
+.trophy-info .skeleton:nth-child(3) {
+  margin-top: 2px;
+}
