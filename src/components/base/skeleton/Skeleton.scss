@@ -1,13 +1,17 @@
+@use 'sass:color';
+
 .skeleton {
-	background-color: $background-dark;
-	animation: skeleton-animation 1s infinite alternate;
+  opacity: 0.7;
+  animation: skeleton-loading 1s linear infinite alternate;
+  border-radius: 12px;
 }
 
-@keyframes skeleton-animation {
-	from {
-		background-color: $background-dark;
-	}
-	to {
-		background-color: lighten($background-dark, 5%);
-	}
+@keyframes skeleton-loading {
+  0% {
+    background-color: color.adjust($background-dark, $lightness: 5%);
+  }
+  100% {
+    background-color: #221a2e;
+  }
 }
+
