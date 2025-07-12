@@ -7,7 +7,7 @@ import { MatchComponent } from '../../components/summoner/match/MatchComponent.t
 import { Summoner } from '../../model/Summoner.ts';
 import { useParams } from 'react-router';
 import { Match } from '../../model/Match.ts';
-import { LoadingSpinner } from '../../components/base/LoadingSpinner.tsx';
+import { SummonerScreenSkeleton } from './summonerSkeleton/SummonerScreenSkeleton.tsx';
 import { MissingSummonerFragment } from '../../components/summoner/missingSummoner/MissingSummonerFragment.tsx';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
@@ -119,7 +119,7 @@ export const SummonerScreen = () => {
 				matches: mergedMatches.toSorted((a, b) => b.gameEndTimestamp - a.gameEndTimestamp)
 			};
 		});
-	}, [additionalMatches]);
+	}, [additionalMatches, gameName, queryClient, server, tagLine]);
 
 	const fetchMoreMatches = () => {
 		getMoreMatches();
@@ -146,7 +146,7 @@ export const SummonerScreen = () => {
 	});
 
 	if (isFetching || isLoading) {
-		return <LoadingSpinner />;
+		return <SummonerScreenSkeleton />;
 	}
 
 	if (!summoner) {
