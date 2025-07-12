@@ -11,14 +11,16 @@ export const BaseInfoSkeleton = () => {
                 </div>
                 <div className="baseInfo__info-block">
                     <div className="baseInfo__name" style={{ display: 'flex', alignItems: 'center' }}>
-                        <Skeleton style={{ width: '180px', height: '24px' }} />
+                        <Skeleton style={{ width: '120px', height: '24px' }} />
                     </div>
                     <div className="baseInfo__level">
-                        <Skeleton style={{ width: '100px', height: '20px' }} />
+                        <Skeleton style={{ width: '60px', height: '20px' }} />
                     </div>
                 </div>
             </div>
-            <Skeleton className="baseInfo__update-button" width="75%" height="46px" border="2px solid #8a7ebf" />
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <Skeleton className="baseInfo__update-button" border="$accent-violet" height="28px" borderRadius="16px" />
+            </div>
         </Base>
     );
 };
