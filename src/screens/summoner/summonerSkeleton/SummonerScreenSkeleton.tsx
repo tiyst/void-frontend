@@ -7,24 +7,24 @@ import { MatchSkeleton } from '../../../components/summoner/match/matchSkeleton/
 import { TrophyRoomSkeleton } from '../../../components/trophy/trophySkeleton/TrophyRoomSkeleton.tsx';
 
 export const SummonerScreenSkeleton = () => {
-    return (
-        <div className='summoner-screen-container'>
-            <TopBar />
-            <div className='content'>
-                <div className='left-side'>
-                    <BaseInfoSkeleton />
-                    <RankSkeleton />
-                    <MasterySkeleton />
-                </div>
-                <div className='right-side'>
-                    <TrophyRoomSkeleton />
-                    <MatchSkeleton />
-                    <MatchSkeleton />
-                    <MatchSkeleton />
-                    <MatchSkeleton />
-                    <MatchSkeleton />
-                </div>
-            </div>
-        </div>
-    );
+	return (
+		<div className="summoner-screen-container">
+			<TopBar />
+			<div className="content">
+				<div className="left-side">
+					<BaseInfoSkeleton />
+					<RankSkeleton />
+					<MasterySkeleton />
+				</div>
+				<div className="right-side">
+					<TrophyRoomSkeleton />
+					<MatchSkeleton />
+					<MatchSkeleton />
+					<MatchSkeleton />
+					<MatchSkeleton />
+					<MatchSkeleton />
+				</div>
+			</div>
+		</div>
+	);
 };

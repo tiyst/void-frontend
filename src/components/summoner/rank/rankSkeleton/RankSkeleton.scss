@@ -1,28 +1,28 @@
 .rank-skeleton__text-container {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  flex: 1;
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+	flex: 1;
 }
 
 .rank-skeleton__queue-placeholder {
-  width: 100%;
-  height: 20px;
+	width: 100%;
+	height: 20px;
 }
 
 .rank-skeleton__tier-placeholder {
-  width: 70%;
-  height: 15px;
-  margin: 4px 0 0 0;
+	width: 70%;
+	height: 15px;
+	margin: 4px 0 0 0;
 }
 
 .rank-skeleton__wr-placeholder {
-  width: 60%;
-  height: 15px;
-  margin-top: 2px;
+	width: 60%;
+	height: 15px;
+	margin-top: 2px;
 }
 
 .rank-fragment__icon .skeleton {
-  width: 64px;
-  height: 64px;
+	width: 64px;
+	height: 64px;
 }
