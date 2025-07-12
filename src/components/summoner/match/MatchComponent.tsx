@@ -166,19 +166,20 @@ export const MatchComponent = (data: MatchComponentProps) => {
 							<div className={`center-extra-stats ${isArena ? 'hide-when-arena' : ''}`}>
 								<div className="stats-row">
 									<span className={`vision-score ${isArena ? 'hide-when-arena' : ''}`} title="Vision Score">
+										{player.visionScore}&nbsp;
 										<svg
-											width="16"
-											height="16"
+											width="20"
+											height="20"
 											viewBox="0 0 16 16"
-											style={{ marginRight: 2, verticalAlign: 'middle' }}
+											style={{verticalAlign: 'middle' }}
 										>
 											<circle cx="8" cy="8" r="7" fill="none" stroke="#b9a7e6" strokeWidth="2" />
 											<circle cx="8" cy="8" r="3" fill="#b9a7e6" />
 										</svg>
-										{player.visionScore}
 									</span>
 									<span className="kill-participation" title="Kill Participation">
-										KP: {killParticipation.toFixed(0)}%
+										{killParticipation.toFixed(0)}%
+										<svg width="24" height="24" viewBox="0 0 100 100" fill="currentColor" style={{verticalAlign: 'middle' }}><rect x="20" y="40" width="60" height="10" transform="rotate(45 50 50)"/><rect x="20" y="40" width="60" height="10" transform="rotate(-45 50 50)"/></svg>
 									</span>
 								</div>
 							</div>

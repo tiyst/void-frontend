@@ -51,7 +51,7 @@ export function calculateBadges(match: Match, playerName: string, config: BadgeC
 	addBadge(
 		'PENTAKILL',
 		'Achieved a Pentakill!',
-		'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M12 2L1 21h22L12 2zm0 3.84L18.14 19H5.86L12 5.84zM12 10a2 2 0 100 4 2 2 0 000-4z"/></svg>',
+		'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L1 21h22L12 2zm0 3.84L18.14 19H5.86L12 5.84zM12 10a2 2 0 100 4 2 2 0 000-4z"/></svg>',
 		playerParticipant.pentaKills > 0
 	);
 
@@ -59,7 +59,7 @@ export function calculateBadges(match: Match, playerName: string, config: BadgeC
 	addBadge(
 		'QUADRAKILL',
 		'Achieved a Quadrakill!',
-		'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M12 2L1 21h22L12 2zm0 3.84L18.14 19H5.86L12 5.84zM12 10a2 2 0 100 4 2 2 0 000-4z"/></svg>',
+		'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L1 21h22L12 2zm0 3.84L18.14 19H5.86L12 5.84zM12 10a2 2 0 100 4 2 2 0 000-4z"/></svg>',
 		playerParticipant.quadraKills > 0
 	);
 
@@ -67,7 +67,7 @@ export function calculateBadges(match: Match, playerName: string, config: BadgeC
 	addBadge(
 		'TRIPLEKILL',
 		'Achieved a Triplekill!',
-		'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M12 2L1 21h22L12 2zm0 3.84L18.14 19H5.86L12 5.84zM12 10a2 2 0 100 4 2 2 0 000-4z"/></svg>',
+		'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L1 21h22L12 2zm0 3.84L18.14 19H5.86L12 5.84zM12 10a2 2 0 100 4 2 2 0 000-4z"/></svg>',
 		playerParticipant.tripleKills > 0
 	);
 
@@ -76,7 +76,7 @@ export function calculateBadges(match: Match, playerName: string, config: BadgeC
 	addBadge(
 		'HIGH_KDA',
 		`High KDA (${kda.toFixed(1)})`,
-		'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M12 2L1 21h22L12 2zm0 3.84L18.14 19H5.86L12 5.84zM12 10a2 2 0 100 4 2 2 0 000-4z"/></svg>',
+		'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L1 21h22L12 2zm0 3.84L18.14 19H5.86L12 5.84zM12 10a2 2 0 100 4 2 2 0 000-4z"/></svg>',
 		kda >= 10
 	);
 
@@ -85,7 +85,7 @@ export function calculateBadges(match: Match, playerName: string, config: BadgeC
 	addBadge(
 		'HIGH_DAMAGE',
 		'Most Damage Dealt',
-		'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M12 2L1 21h22L12 2zm0 3.84L18.14 19H5.86L12 5.84zM12 10a2 2 0 100 4 2 2 0 000-4z"/></svg>',
+		'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L1 21h22L12 2zm0 3.84L18.14 19H5.86L12 5.84zM12 10a2 2 0 100 4 2 2 0 000-4z"/></svg>',
 		playerParticipant.totalDamageDealtToChampions === maxDamage
 	);
 
@@ -95,7 +95,7 @@ export function calculateBadges(match: Match, playerName: string, config: BadgeC
 	addBadge(
 		'HIGH_CS',
 		`High CS (${csPerMinute.toFixed(1)}/min)`,
-		'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M12 2L1 21h22L12 2zm0 3.84L18.14 19H5.86L12 5.84zM12 10a2 2 0 100 4 2 2 0 000-4z"/></svg>',
+		'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L1 21h22L12 2zm0 3.84L18.14 19H5.86L12 5.84zM12 10a2 2 0 100 4 2 2 0 000-4z"/></svg>',
 		csPerMinute >= 10
 	);
 
@@ -103,7 +103,7 @@ export function calculateBadges(match: Match, playerName: string, config: BadgeC
 	addBadge(
 		'NO_DEATHS',
 		'No Deaths',
-		'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M12 2L1 21h22L12 2zm0 3.84L18.14 19H5.86L12 5.84zM12 10a2 2 0 100 4 2 2 0 000-4z"/></svg>',
+		'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L1 21h22L12 2zm0 3.84L18.14 19H5.86L12 5.84zM12 10a2 2 0 100 4 2 2 0 000-4z"/></svg>',
 		playerParticipant.deaths === 0
 	);
 
@@ -111,7 +111,7 @@ export function calculateBadges(match: Match, playerName: string, config: BadgeC
 	addBadge(
 		'FIRST_BLOOD',
 		'First Blood',
-		'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M12 2L1 21h22L12 2zm0 3.84L18.14 19H5.86L12 5.84zM12 10a2 2 0 100 4 2 2 0 000-4z"/></svg>',
+		'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L1 21h22L12 2zm0 3.84L18.14 19H5.86L12 5.84zM12 10a2 2 0 100 4 2 2 0 000-4z"/></svg>',
 		playerParticipant.firstBloodKill || playerParticipant.firstBloodAssist
 	);
 
@@ -120,7 +120,7 @@ export function calculateBadges(match: Match, playerName: string, config: BadgeC
 	addBadge(
 		'MOST_GOLD',
 		'Most Gold Earned',
-		'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M12 2L1 21h22L12 2zm0 3.84L18.14 19H5.86L12 5.84zM12 10a2 2 0 100 4 2 2 0 000-4z"/></svg>',
+		'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L1 21h22L12 2zm0 3.84L18.14 19H5.86L12 5.84zM12 10a2 2 0 100 4 2 2 0 000-4z"/></svg>',
 		playerParticipant.goldEarned === maxGold
 	);
 
@@ -129,7 +129,7 @@ export function calculateBadges(match: Match, playerName: string, config: BadgeC
 	addBadge(
 		'MOST_VISION',
 		'Most Vision Score',
-		'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M12 2L1 21h22L12 2zm0 3.84L18.14 19H5.86L12 5.84zM12 10a2 2 0 100 4 2 2 0 000-4z"/></svg>',
+		'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L1 21h22L12 2zm0 3.84L18.14 19H5.86L12 5.84zM12 10a2 2 0 100 4 2 2 0 000-4z"/></svg>',
 		playerParticipant.visionScore === maxVisionScore
 	);
 

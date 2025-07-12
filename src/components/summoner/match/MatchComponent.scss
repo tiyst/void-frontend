@@ -237,16 +237,22 @@
 			display: flex;
 			align-items: center;
 			gap: 4px;
-			background-color: #2e2a4d;
-			padding: 4px 8px;
-			border-radius: 6px;
-			font-size: 0.85rem;
-			color: #fff;
+			background-color: $background-dark;
+			padding: 6px 10px;
+			border-radius: 8px;
+			font-size: 0.8rem;
+			color: $accent-violet-light;
+			border: 1px solid $border-color;
+			box-shadow: 0 2px 8px rgba(30, 20, 60, 0.1);
 
 			&__icon {
-				width: 16px;
-				height: 16px;
-				filter: invert(1);
+				width: 18px;
+				height: 18px;
+				color: $accent-violet-light;
+			}
+
+			&__text {
+				font-weight: 600;
 			}
 		}
 
@@ -297,21 +303,22 @@
 
 			.stats-row {
 				display: flex;
-				flex-direction: row;
-				align-items: center;
-				gap: 12px;
+				flex-direction: column;
+				align-items: end;
+				gap: 4px;
 			}
 
 			.vision-score {
 				display: flex;
 				align-items: center;
+				justify-content: flex-start;
 				font-weight: 600;
 				color: #b9a7e6;
-				svg {
-					margin-right: 2px;
-				}
 			}
 			.kill-participation {
+				display: flex;
+				align-items: center;
+				justify-content: flex-start;
 				font-weight: 600;
 				color: #a7e6c2;
 			}
