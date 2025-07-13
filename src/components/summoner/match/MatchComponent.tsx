@@ -117,6 +117,10 @@ export const MatchComponent = (data: MatchComponentProps) => {
 								<div key={badge.name} className="match-badge">
 									<img src={badge.icon} alt={badge.name} className="match-badge__icon" />
 									<span className="match-badge__text">{badge.description}</span>
+									<div className="match-badge-tooltip">
+										<div className="tooltip-title">{badge.name}</div>
+										<div className="tooltip-description">{badge.description}</div>
+									</div>
 								</div>
 							))}
 						</div>

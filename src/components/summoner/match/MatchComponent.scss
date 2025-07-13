@@ -234,6 +234,38 @@
 		}
 
 		.match-badge {
+			cursor: default;
+			position: relative;
+
+			.match-badge-tooltip {
+				display: none;
+				position: absolute;
+				top: -50px;
+				left: 50%;
+				transform: translateX(-50%);
+				background-color: $background-light;
+				color: #fff;
+				padding: 10px;
+				border-radius: 8px;
+				z-index: 1;
+				width: 220px;
+				border: 1px solid $border-color;
+				box-shadow: 0 2px 8px rgba(30, 20, 60, 0.1);
+
+				.tooltip-title {
+					font-weight: bold;
+					color: $accent-violet-light;
+					margin-bottom: 5px;
+				}
+
+				.tooltip-description {
+					font-size: 0.9em;
+				}
+			}
+
+			&:hover .match-badge-tooltip {
+				display: block;
+			}
 			display: flex;
 			align-items: center;
 			gap: 4px;
@@ -254,6 +286,8 @@
 			&__text {
 				font-weight: 600;
 			}
+
+			
 		}
 
 		.center-right-column {
