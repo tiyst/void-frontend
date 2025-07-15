@@ -266,7 +266,8 @@ export const BADGE_DEFINITIONS: BadgeDefinition[] = [
 	{
 		id: 'SHIELD_MORE_THAN_DAMAGED',
 		name: 'SHIELD MASTER',
-		description: (p) => `Shielded more damage than dealt (${p.totalDamageShieldedOnTeammates} / ${p.totalDamageDealt})`,
+		description: (p) =>
+			`Shielded more damage than dealt (${p.totalDamageShieldedOnTeammates} / ${p.totalDamageDealt})`,
 		icon: '/badges/shield.svg',
 		rarity: 'legendary',
 		condition: (p) => p.totalDamageShieldedOnTeammates > p.totalDamageDealt
