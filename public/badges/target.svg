@@ -1,0 +1,12 @@
+<svg width="64" height="64" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <title>Dartboard Icon</title>
+  <g fill="white" stroke="white">
+    <circle cx="50" cy="50" r="45" stroke-width="5" fill="none" />
+    <circle cx="50" cy="50" r="28" stroke-width="5" fill="none" />
+    <circle cx="50" cy="50" r="10" stroke="none" />
+    <g transform="translate(50, 50) rotate(-45)">
+      <line x1="0" y1="0" x2="35" y2="0" stroke-width="3" />
+      <path d="M35,0 l8,-5 v10 z" stroke="none" />
+    </g>
+  </g>
+</svg>

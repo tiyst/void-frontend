@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 .hide-when-arena {
 	display: none !important;
 }
@@ -237,12 +239,56 @@
 			cursor: default;
 			position: relative;
 
+			&.trash {
+				border-color: $trash-color;
+				.match-badge__text {
+					color: $trash-color;
+				}
+			}
+
+			&.common {
+				border-color: $common-color;
+				.match-badge__text {
+					color: $common-color;
+				}
+			}
+
+			&.uncommon {
+				border-color: $uncommon-color;
+				.match-badge__text {
+					color: $uncommon-color;
+				}
+			}
+
+			&.rare {
+				border-color: $rare-color;
+				.match-badge__text {
+					color: $rare-color;
+				}
+			}
+
+			&.epic {
+				//border-color: $epic-color;
+				//.match-badge__text {
+				//	color: $epic-color;
+				//}
+			}
+
+			&.legendary {
+				//border-color: $legendary-color;
+				//border-color: color.adjust($legendary-color-background, $lightness: 15%);
+				//background: color.adjust($legendary-color-background, $lightness: 15%);
+				//.match-badge__text {
+				//	color: $legendary-color;
+				//}
+			}
+
 			.match-badge-tooltip {
 				display: none;
 				position: absolute;
 				top: -50px;
 				left: 50%;
-				transform: translateX(-50%);
+				transform: translate(-50%, -25%);
 				background-color: $background-light;
 				color: #fff;
 				padding: 10px;
@@ -286,8 +332,6 @@
 			&__text {
 				font-weight: 600;
 			}
-
-			
 		}
 
 		.center-right-column {

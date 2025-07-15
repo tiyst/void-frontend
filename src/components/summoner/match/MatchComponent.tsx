@@ -22,10 +22,11 @@ import { getChampionIconUrl, urlUnknownChampion } from '../../../utils/IconsUtil
 import { getRoleIconUrl } from '../../../utils/RoleUtils.ts';
 import { constructRuneIconUrl, constructRuneClassUrl, runeUrlFallback } from '../../../utils/RuneUtils.ts';
 import { Link } from 'react-router-dom';
-import { calculateBadges, Badge } from '../../../service/MatchBadgeService.ts';
+import { calculateBadges } from '../../../service/badge/MatchBadgeService.ts';
 import { useState } from 'react';
 import { MatchExpandComponent } from './expand/MatchExpandComponent.tsx';
 import { useIsMobile } from '../../../hooks/useIsMobile.ts';
+import { Badge } from '../../../service/badge/BadgeDefinitions.ts';
 
 export type MatchComponentProps = BaseBlockProps & {
 	match: Match;
@@ -56,7 +57,7 @@ export const MatchComponent = (data: MatchComponentProps) => {
 	const team = participants.filter((p) => (p.playerSubteamId !== 0 ? p.playerSubteamId : p.teamId) === teamId);
 	const killParticipation = getKillParticipation(team, player);
 
-	const badges: Badge[] = calculateBadges(data.match, player.summonerName);
+	const badges: Badge[] = calculateBadges(data.match, data.gameName);
 
 	return (
 		<div>
@@ -114,9 +115,9 @@ export const MatchComponent = (data: MatchComponentProps) => {
 					<div className="match__center">
 						<div className="match-badges-container">
 							{badges.map((badge) => (
-								<div key={badge.name} className="match-badge">
+								<div key={badge.name} className={`match-badge ${badge.rarity}`}>
 									<img src={badge.icon} alt={badge.name} className="match-badge__icon" />
-									<span className="match-badge__text">{badge.description}</span>
+									<span className="match-badge__text">{badge.name}</span>
 									<div className="match-badge-tooltip">
 										<div className="tooltip-title">{badge.name}</div>
 										<div className="tooltip-description">{badge.description}</div>
