@@ -94,7 +94,7 @@ export function getMatchResult(match: Match, player: Participant): 'Victory' | '
 	return 'Defeat';
 }
 
-const wasMatchRemade = (match: Match): boolean => {
+export const wasMatchRemade = (match: Match): boolean => {
 	const durationInSeconds = match.gameDuration;
 	const maxDurationForRemake = 270;
 

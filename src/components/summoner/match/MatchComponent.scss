@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 .hide-when-arena {
 	display: none !important;
 }
@@ -218,21 +220,138 @@
 	.match__center {
 		flex: 1;
 		display: flex;
-		flex-direction: column;
-		align-items: flex-end;
-		gap: 4px;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: flex-start;
+
+		.match-badges-container {
+			display: flex;
+			flex-direction: column;
+			align-items: flex-end;
+			gap: 4px;
+			flex-basis: 150px;
+			flex-shrink: 0;
+			flex-grow: 1;
+			margin-right: 4px;
+		}
+
+		.match-badge {
+			cursor: default;
+			position: relative;
+
+			&.trash {
+				border-color: $trash-color;
+				.match-badge__text {
+					color: $trash-color;
+				}
+			}
+
+			&.common {
+				border-color: $common-color;
+				.match-badge__text {
+					color: $common-color;
+				}
+			}
+
+			&.uncommon {
+				border-color: $uncommon-color;
+				.match-badge__text {
+					color: $uncommon-color;
+				}
+			}
+
+			&.rare {
+				border-color: $rare-color;
+				.match-badge__text {
+					color: $rare-color;
+				}
+			}
+
+			&.epic {
+				//border-color: $epic-color;
+				//.match-badge__text {
+				//	color: $epic-color;
+				//}
+			}
+
+			&.legendary {
+				//border-color: $legendary-color;
+				//border-color: color.adjust($legendary-color-background, $lightness: 15%);
+				//background: color.adjust($legendary-color-background, $lightness: 15%);
+				//.match-badge__text {
+				//	color: $legendary-color;
+				//}
+			}
+
+			.match-badge-tooltip {
+				display: none;
+				position: absolute;
+				top: -50px;
+				left: 50%;
+				transform: translate(-50%, -25%);
+				background-color: $background-light;
+				color: #fff;
+				padding: 10px;
+				border-radius: 8px;
+				z-index: 1;
+				width: 220px;
+				border: 1px solid $border-color;
+				box-shadow: 0 2px 8px rgba(30, 20, 60, 0.1);
+
+				.tooltip-title {
+					font-weight: bold;
+					color: $accent-violet-light;
+					margin-bottom: 5px;
+				}
+
+				.tooltip-description {
+					font-size: 0.9em;
+				}
+			}
+
+			&:hover .match-badge-tooltip {
+				display: block;
+			}
+			display: flex;
+			align-items: center;
+			gap: 4px;
+			background-color: $background-dark;
+			padding: 6px 10px;
+			border-radius: 8px;
+			font-size: 0.8rem;
+			color: $accent-violet-light;
+			border: 1px solid $border-color;
+			box-shadow: 0 2px 8px rgba(30, 20, 60, 0.1);
+
+			&__icon {
+				width: 18px;
+				height: 18px;
+				color: $accent-violet-light;
+			}
+
+			&__text {
+				font-weight: 600;
+			}
+		}
+
+		.center-right-column {
+			display: flex;
+			flex-direction: column;
+			align-items: flex-end;
+			gap: 4px;
+		}
 
 		.center-icons {
 			display: flex;
 			flex-direction: column;
 			align-items: flex-end;
-			gap: 6px; // space between icons
+			gap: 6px;
 		}
 
 		.icon-row {
 			display: flex;
 			flex-direction: row;
-			gap: 6px; // space between icons in a row
+			gap: 6px;
 		}
 
 		.center-icon {
@@ -253,22 +372,31 @@
 		}
 		.center-extra-stats {
 			display: flex;
-			align-items: center;
+			flex-direction: column;
+			align-items: flex-end;
 			gap: 12px;
 			margin-top: 4px;
 			font-size: 0.98rem;
 			color: #bdb8d7;
 
+			.stats-row {
+				display: flex;
+				flex-direction: column;
+				align-items: end;
+				gap: 4px;
+			}
+
 			.vision-score {
 				display: flex;
 				align-items: center;
+				justify-content: flex-start;
 				font-weight: 600;
 				color: #b9a7e6;
-				svg {
-					margin-right: 2px;
-				}
 			}
 			.kill-participation {
+				display: flex;
+				align-items: center;
+				justify-content: flex-start;
 				font-weight: 600;
 				color: #a7e6c2;
 			}

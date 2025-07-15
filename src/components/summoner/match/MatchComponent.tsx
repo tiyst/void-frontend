@@ -11,7 +11,6 @@ import {
 	getItemsFromParticipant,
 	getKillParticipation,
 	getMatchResult,
-	getMultikillBadge,
 	getSummonerSpellIconUrl,
 	isMatchArena,
 	queueTypeTranslations,
@@ -23,9 +22,11 @@ import { getChampionIconUrl, urlUnknownChampion } from '../../../utils/IconsUtil
 import { getRoleIconUrl } from '../../../utils/RoleUtils.ts';
 import { constructRuneIconUrl, constructRuneClassUrl, runeUrlFallback } from '../../../utils/RuneUtils.ts';
 import { Link } from 'react-router-dom';
+import { calculateBadges } from '../../../service/badge/MatchBadgeService.ts';
 import { useState } from 'react';
 import { MatchExpandComponent } from './expand/MatchExpandComponent.tsx';
 import { useIsMobile } from '../../../hooks/useIsMobile.ts';
+import { Badge } from '../../../service/badge/BadgeDefinitions.ts';
 
 export type MatchComponentProps = BaseBlockProps & {
 	match: Match;
@@ -55,7 +56,8 @@ export const MatchComponent = (data: MatchComponentProps) => {
 	const teamId = player.playerSubteamId !== 0 ? player.playerSubteamId : player.teamId;
 	const team = participants.filter((p) => (p.playerSubteamId !== 0 ? p.playerSubteamId : p.teamId) === teamId);
 	const killParticipation = getKillParticipation(team, player);
-	const multikillBadge = getMultikillBadge(player);
+
+	const badges: Badge[] = calculateBadges(data.match, data.gameName);
 
 	return (
 		<div>
@@ -111,71 +113,93 @@ export const MatchComponent = (data: MatchComponentProps) => {
 						</div>
 					</div>
 					<div className="match__center">
-						<div className="center-icons">
-							<div className="icon-row">
-								<img
-									className="center-icon summoner-spell"
-									src={getSummonerSpellIconUrl(player.summoner1Id)}
-									alt="Summoner Spell 1"
-									onError={(e) => {
-										(e.target as HTMLImageElement).src = fallbackSummonerSpellIconUrl;
-									}}
-									draggable={false}
-								/>
-								<img
-									className="center-icon summoner-spell"
-									src={getSummonerSpellIconUrl(player.summoner2Id)}
-									alt="Summoner Spell 2"
-									onError={(e) => {
-										(e.target as HTMLImageElement).src = fallbackSummonerSpellIconUrl;
-									}}
-									draggable={false}
-								/>
-							</div>
-							<div className={`icon-row ${isArena ? 'hide-when-arena' : ''}`}>
-								<img
-									className="center-icon rune"
-									src={constructRuneIconUrl(player.perks.styles)}
-									alt="Primary Rune"
-									onError={(e) => {
-										(e.target as HTMLImageElement).src = runeUrlFallback;
-									}}
-									draggable={false}
-								/>
-								<img
-									className="center-icon rune"
-									src={constructRuneClassUrl(player.perks.styles)}
-									alt="Secondary Rune"
-									onError={(e) => {
-										(e.target as HTMLImageElement).src = runeUrlFallback;
-									}}
-									draggable={false}
-								/>
-							</div>
+						<div className="match-badges-container">
+							{badges.map((badge) => (
+								<div key={badge.name} className={`match-badge ${badge.rarity}`}>
+									<img src={badge.icon} alt={badge.name} className="match-badge__icon" />
+									<span className="match-badge__text">{badge.name}</span>
+									<div className="match-badge-tooltip">
+										<div className="tooltip-title">{badge.name}</div>
+										<div className="tooltip-description">{badge.description}</div>
+									</div>
+								</div>
+							))}
 						</div>
-						<div className={`center-extra-stats ${isArena ? 'hide-when-arena' : ''}`}>
-							<span className={`vision-score ${isArena ? 'hide-when-arena' : ''}`} title="Vision Score">
-								<svg
-									width="16"
-									height="16"
-									viewBox="0 0 16 16"
-									style={{ marginRight: 2, verticalAlign: 'middle' }}
-								>
-									<circle cx="8" cy="8" r="7" fill="none" stroke="#b9a7e6" strokeWidth="2" />
-									<circle cx="8" cy="8" r="3" fill="#b9a7e6" />
-								</svg>
-								{player.visionScore}
-							</span>
-							<span className="kill-participation" title="Kill Participation">
-								KP: {killParticipation.toFixed(0)}%
-							</span>
-							{multikillBadge && (
-								<span
-									className={`multikill-badge multikill-${multikillBadge.replace(' ', '').toLowerCase()}`}
-								>
-									{multikillBadge}
-								</span>
-							)}
+						<div className="center-right-column">
+							<div className="center-icons">
+								<div className="icon-row">
+									<img
+										className="center-icon summoner-spell"
+										src={getSummonerSpellIconUrl(player.summoner1Id)}
+										alt="Summoner Spell 1"
+										onError={(e) => {
+											(e.target as HTMLImageElement).src = fallbackSummonerSpellIconUrl;
+										}}
+										draggable={false}
+									/>
+									<img
+										className="center-icon summoner-spell"
+										src={getSummonerSpellIconUrl(player.summoner2Id)}
+										alt="Summoner Spell 2"
+										onError={(e) => {
+											(e.target as HTMLImageElement).src = fallbackSummonerSpellIconUrl;
+										}}
+										draggable={false}
+									/>
+								</div>
+								<div className={`icon-row ${isArena ? 'hide-when-arena' : ''}`}>
+									<img
+										className="center-icon rune"
+										src={constructRuneIconUrl(player.perks.styles)}
+										alt="Primary Rune"
+										onError={(e) => {
+											(e.target as HTMLImageElement).src = runeUrlFallback;
+										}}
+										draggable={false}
+									/>
+									<img
+										className="center-icon rune"
+										src={constructRuneClassUrl(player.perks.styles)}
+										alt="Secondary Rune"
+										onError={(e) => {
+											(e.target as HTMLImageElement).src = runeUrlFallback;
+										}}
+										draggable={false}
+									/>
+								</div>
+							</div>
+							<div className={`center-extra-stats ${isArena ? 'hide-when-arena' : ''}`}>
+								<div className="stats-row">
+									<span
+										className={`vision-score ${isArena ? 'hide-when-arena' : ''}`}
+										title="Vision Score"
+									>
+										{player.visionScore}&nbsp;
+										<svg
+											width="20"
+											height="20"
+											viewBox="0 0 16 16"
+											style={{ verticalAlign: 'middle' }}
+										>
+											<circle cx="8" cy="8" r="7" fill="none" stroke="#b9a7e6" strokeWidth="2" />
+											<circle cx="8" cy="8" r="3" fill="#b9a7e6" />
+										</svg>
+									</span>
+									<span className="kill-participation" title="Kill Participation">
+										{killParticipation.toFixed(0)}%
+										<svg
+											width="24"
+											height="24"
+											viewBox="0 0 100 100"
+											fill="currentColor"
+											style={{ verticalAlign: 'middle' }}
+										>
+											<rect x="20" y="40" width="60" height="10" transform="rotate(45 50 50)" />
+											<rect x="20" y="40" width="60" height="10" transform="rotate(-45 50 50)" />
+										</svg>
+									</span>
+								</div>
+							</div>
 						</div>
 					</div>
 					<div className="match__right">
