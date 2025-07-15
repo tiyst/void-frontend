@@ -114,7 +114,7 @@ export const BADGE_DEFINITIONS: BadgeDefinition[] = [
 	{
 		id: 'HIGHEST_DAMAGE_GAME',
 		name: 'THE CARRY',
-		description: () => 'Most Damage Dealt',
+		description: (p) => `Most Damage Dealt in the game ${p.totalDamageDealtToChampions}`,
 		icon: '/badges/sword.svg',
 		rarity: 'legendary',
 		condition: (p, match) =>
@@ -124,8 +124,8 @@ export const BADGE_DEFINITIONS: BadgeDefinition[] = [
 	},
 	{
 		id: 'HIGHEST_DAMAGE_TEAM',
-		name: 'THE (almost) CARRY',
-		description: () => 'Most Damage in Team',
+		name: 'TEAM TOO HEAVY',
+		description: (p) => `Most Damage in your team (${p.totalDamageDealtToChampions})`,
 		icon: '/badges/sword.svg',
 		rarity: 'legendary',
 		condition: (p, match) =>
@@ -176,7 +176,7 @@ export const BADGE_DEFINITIONS: BadgeDefinition[] = [
 	{
 		id: 'NO_DEATHS',
 		name: 'BAITER',
-		description: () => 'No Deaths',
+		description: () => 'No deaths',
 		icon: '/badges/cross.svg',
 		rarity: 'legendary',
 		condition: (p) => p.deaths === 0
@@ -184,7 +184,7 @@ export const BADGE_DEFINITIONS: BadgeDefinition[] = [
 	{
 		id: 'MOST_DEATHS',
 		name: 'FEARLESS',
-		description: () => 'Most deaths in the game',
+		description: (p) => `Most deaths in the game (${p.deaths})`,
 		icon: '/badges/cross.svg',
 		rarity: 'legendary',
 		condition: (p, match) => p.deaths === Math.max(...match.participants.map((part) => part.deaths))
@@ -192,7 +192,7 @@ export const BADGE_DEFINITIONS: BadgeDefinition[] = [
 	{
 		id: 'MOST_GOLD',
 		name: 'RICH',
-		description: () => 'Most Gold Earned',
+		description: (p) => `Most Gold Earned (${p.goldEarned})`,
 		icon: '/badges/gold.svg',
 		rarity: 'legendary',
 		condition: (p, match) => p.goldEarned === Math.max(...match.participants.map((part) => part.goldEarned))
@@ -200,7 +200,7 @@ export const BADGE_DEFINITIONS: BadgeDefinition[] = [
 	{
 		id: 'MOST_VISION',
 		name: 'THE EYE',
-		description: () => 'Most Vision Score',
+		description: (p) => `Most Vision Score (${p.visionScore})`,
 		icon: '/badges/vision.svg',
 		rarity: 'legendary',
 		condition: (p, match) => p.visionScore === Math.max(...match.participants.map((part) => part.visionScore)),
@@ -220,7 +220,7 @@ export const BADGE_DEFINITIONS: BadgeDefinition[] = [
 	{
 		id: 'HEALED_MORE_THAN_DAMAGED',
 		name: 'HEALER',
-		description: () => 'Healed more than damage dealt',
+		description: (p) => `Healed more than damage dealt ${p.totalHealsOnTeammates}`,
 		icon: '/badges/healed.svg',
 		rarity: 'legendary',
 		condition: (p) => p.totalHealsOnTeammates > p.totalDamageDealtToChampions
@@ -236,7 +236,7 @@ export const BADGE_DEFINITIONS: BadgeDefinition[] = [
 	{
 		id: 'TANKED_100K',
 		name: 'THE TANK',
-		description: () => 'Tanked more than 100k',
+		description: (p) => `Tanked more than 100k (${p.totalDamageTaken})`,
 		icon: '/badges/shield.svg',
 		rarity: 'epic',
 		condition: (p) => p.totalDamageTaken > 100000,
@@ -245,7 +245,7 @@ export const BADGE_DEFINITIONS: BadgeDefinition[] = [
 	{
 		id: 'TAKEN_MOST_DAMAGE',
 		name: 'THE TANK',
-		description: () => 'Taken most damage in game',
+		description: (p) => `Taken most damage in game (${p.totalDamageTaken})`,
 		icon: '/badges/shield.svg',
 		rarity: 'legendary',
 		condition: (p, match) =>
@@ -254,7 +254,7 @@ export const BADGE_DEFINITIONS: BadgeDefinition[] = [
 	},
 	{
 		id: 'HIGH_KILL_PARTICIPATION',
-		name: 'ALWAYS PRESENT',
+		name: 'MR WORLDWIDE',
 		description: (p, m) =>
 			`Highest kill participation in the game ${Math.round(calculateKillParticipation(p, m) * 100)}%`,
 		icon: '/badges/skull.svg',
@@ -266,7 +266,7 @@ export const BADGE_DEFINITIONS: BadgeDefinition[] = [
 	{
 		id: 'SHIELD_MORE_THAN_DAMAGED',
 		name: 'SHIELD MASTER',
-		description: () => 'Shielded more damage than dealt',
+		description: (p) => `Shielded more damage than dealt (${p.totalDamageShieldedOnTeammates} / ${p.totalDamageDealt})`,
 		icon: '/badges/shield.svg',
 		rarity: 'legendary',
 		condition: (p) => p.totalDamageShieldedOnTeammates > p.totalDamageDealt
@@ -283,7 +283,7 @@ export const BADGE_DEFINITIONS: BadgeDefinition[] = [
 	{
 		id: 'HAD_OPEN_NEXUS',
 		name: 'HUGE COMEBACK',
-		description: () => 'Won a game after having and open nexus',
+		description: () => 'Won a game after having an open nexus',
 		icon: '/badges/sparkle.svg',
 		rarity: 'legendary',
 		condition: (p) => p.challenges && (p.challenges.hadOpenNexus ?? 0) > 0,
@@ -292,7 +292,7 @@ export const BADGE_DEFINITIONS: BadgeDefinition[] = [
 	{
 		id: 'LARGEST_CRITICAL_STRIKE',
 		name: 'TONS OF DAMAGE',
-		description: (p) => `Dealt a huge critical strike (${p.largestCriticalStrike})`,
+		description: (p) => `Dealt a huge critical strike! (${p.largestCriticalStrike})`,
 		icon: '/badges/crit.svg',
 		rarity: 'legendary',
 		condition: (p) => p.largestCriticalStrike > 999
@@ -300,7 +300,7 @@ export const BADGE_DEFINITIONS: BadgeDefinition[] = [
 	{
 		id: 'OBJECTIVE_STOLEN',
 		name: 'THIEF',
-		description: () => 'Stolen an objective from the enemy team',
+		description: () => 'Stole an objective from the enemy team',
 		icon: '/badges/baron.svg',
 		rarity: 'legendary',
 		condition: (p) =>
@@ -371,7 +371,7 @@ export const BADGE_DEFINITIONS: BadgeDefinition[] = [
 	{
 		id: 'LARGE_TEAM_DAMAGE_PERCENTAGE',
 		name: 'BRINGER OF DEATH',
-		description: (p) => `You had a team damage percentage of ${p.challenges.teamDamagePercentage}%`,
+		description: (p) => `You had a team damage share of ${p.challenges.teamDamagePercentage}%`,
 		icon: '/badges/star.svg',
 		rarity: 'legendary',
 		condition: (p) => p.challenges && (p.challenges.teamDamagePercentage ?? 0) > 40
