@@ -10,6 +10,8 @@
 	min-width: 180px;
 	box-shadow: 0 2px 8px rgba(30, 20, 60, 0.1);
 	box-sizing: border-box;
+	position: relative;
+	cursor: default;
 
 	.trophy-icon-wrap {
 		width: 72px;
@@ -67,4 +69,45 @@
 		color: #bdb8d7;
 		font-weight: 500;
 	}
+
+.trophy-tooltip-cursor {
+	position: fixed;
+	background-color: $background-light;
+	color: #fff;
+	padding: 12px;
+	border-radius: 8px;
+	z-index: 9999;
+	width: 280px;
+	border: 1px solid $border-color;
+	box-shadow: 0 4px 12px rgba(30, 20, 60, 0.2);
+	pointer-events: none;
+
+	.tooltip-title {
+		font-weight: bold;
+		color: $accent-violet-light;
+		margin-bottom: 6px;
+		font-size: 1rem;
+	}
+
+	.tooltip-description {
+		font-size: 0.9em;
+		color: #bdb8d7;
+		margin-bottom: 8px;
+		line-height: 1.3;
+	}
+
+	.tooltip-match-info {
+		display: flex;
+		flex-direction: column;
+		gap: 3px;
+		font-size: 0.85em;
+		color: #fff;
+
+		div {
+			padding: 2px 0;
+		}
+	}
+}
+
+
 }
