@@ -24,7 +24,7 @@ export const TrophyComponent = (data: TrophyProms) => {
 
 	const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
 		setTooltipPosition({
-			x: e.clientX - 140, // Center horizontally (140 = half of 280px width)
+			x: e.clientX,
 			y: e.clientY + 20, // 20px below cursor
 			show: true
 		});
@@ -36,6 +36,21 @@ export const TrophyComponent = (data: TrophyProms) => {
 				onMouseEnter={handleMouseEnter}
 				onMouseLeave={handleMouseLeave}
 				onMouseMove={handleMouseMove}>
+				<div className="trophy-icon-wrap">
+					<img
+						src={getUnknownChampionIconUrl()}
+						alt="Champion icon"
+						draggable={false}
+						onError={(e) => {
+							(e.target as HTMLImageElement).src = urlUnknownChampion;
+						}}
+					/>
+				</div>
+				<div className="trophy-info">
+					<div className="trophy-title">{data.trophy.name}</div>
+					<div className="trophy-value">??</div>
+					<div className="trophy-date">??/??</div>
+				</div>
 				{tooltipPosition.show && (
 					<div 
 						className="trophy-tooltip-cursor"
@@ -52,21 +67,6 @@ export const TrophyComponent = (data: TrophyProms) => {
 						</div>
 					</div>
 				)}
-				<div className="trophy-icon-wrap">
-					<img
-						src={getUnknownChampionIconUrl()}
-						alt="Champion icon"
-						draggable={false}
-						onError={(e) => {
-							(e.target as HTMLImageElement).src = urlUnknownChampion;
-						}}
-					/>
-				</div>
-				<div className="trophy-info">
-					<div className="trophy-title">{data.trophy.name}</div>
-					<div className="trophy-value">??</div>
-					<div className="trophy-date">??/??</div>
-				</div>
 			</div>
 		);
 	}
@@ -80,24 +80,6 @@ export const TrophyComponent = (data: TrophyProms) => {
 			onMouseEnter={handleMouseEnter}
 			onMouseLeave={handleMouseLeave}
 			onMouseMove={handleMouseMove}>
-			{tooltipPosition.show && (
-				<div 
-					className="trophy-tooltip-cursor"
-					style={{
-						left: `${tooltipPosition.x}px`,
-						top: `${tooltipPosition.y}px`,
-					}}
-				>
-					<div className="tooltip-title">{data.trophy.name}</div>
-					<div className="tooltip-description">{data.trophy.description}</div>
-					<div className="tooltip-match-info">
-						<div>Best Value: {data.trophy.bestValue}</div>
-						<div>Match Date: {date.toLocaleDateString()}</div>
-						<div>Map: {match.mapId}</div>
-						<div>Game Duration: {Math.floor(match.gameDuration / 60)}m {match.gameDuration % 60}s</div>
-					</div>
-				</div>
-			)}
 			<div className="trophy-icon-wrap">
 				<img className="trophy-map-icon" src={getMapUrlByMapId(match.mapId)} alt="Map icon" draggable={false} />
 				<img
@@ -116,6 +98,24 @@ export const TrophyComponent = (data: TrophyProms) => {
 				</div>
 				<div className="trophy-value">{data.trophy.bestValue}</div>
 			</div>
+			{tooltipPosition.show && (
+				<div 
+					className="trophy-tooltip-cursor"
+					style={{
+						left: `${tooltipPosition.x}px`,
+						top: `${tooltipPosition.y}px`,
+					}}
+				>
+					<div className="tooltip-title">{data.trophy.name}</div>
+					<div className="tooltip-description">{data.trophy.description}</div>
+					<div className="tooltip-match-info">
+						<div>Best Value: {data.trophy.bestValue}</div>
+						<div>Match Date: {date.toLocaleDateString()}</div>
+						<div>Map: {match.mapId}</div>
+						<div>Game Duration: {Math.floor(match.gameDuration / 60)}m {match.gameDuration % 60}s</div>
+					</div>
+				</div>
+			)}
 		</div>
 	);
 };

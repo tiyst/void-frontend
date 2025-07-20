@@ -81,6 +81,7 @@
 	border: 1px solid $border-color;
 	box-shadow: 0 4px 12px rgba(30, 20, 60, 0.2);
 	pointer-events: none;
+	transform: translate(-50%, 0);
 
 	.tooltip-title {
 		font-weight: bold;
