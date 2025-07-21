@@ -4,6 +4,7 @@ import { getChampionIconUrl, getUnknownChampionIconUrl, urlUnknownChampion } fro
 import './TrophyComponent.scss';
 import { Trophy } from '../../model/Summoner.ts';
 import { useState } from 'react';
+import { TrophyTooltip } from './TrophyTooltip.tsx';
 
 export type TrophyProms = BaseBlockProps & {
 	trophy: Trophy;
@@ -15,11 +16,11 @@ export const TrophyComponent = (data: TrophyProms) => {
 	const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0, show: false });
 
 	const handleMouseEnter = () => {
-		setTooltipPosition(prev => ({ ...prev, show: true }));
+		setTooltipPosition((prev) => ({ ...prev, show: true }));
 	};
 
 	const handleMouseLeave = () => {
-		setTooltipPosition(prev => ({ ...prev, show: false }));
+		setTooltipPosition((prev) => ({ ...prev, show: false }));
 	};
 
 	const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -32,10 +33,12 @@ export const TrophyComponent = (data: TrophyProms) => {
 
 	if (!match) {
 		return (
-			<div className="trophy-component"
+			<div
+				className="trophy-component"
 				onMouseEnter={handleMouseEnter}
 				onMouseLeave={handleMouseLeave}
-				onMouseMove={handleMouseMove}>
+				onMouseMove={handleMouseMove}
+			>
 				<div className="trophy-icon-wrap">
 					<img
 						src={getUnknownChampionIconUrl()}
@@ -51,22 +54,13 @@ export const TrophyComponent = (data: TrophyProms) => {
 					<div className="trophy-value">??</div>
 					<div className="trophy-date">??/??</div>
 				</div>
-				{tooltipPosition.show && (
-					<div 
-						className="trophy-tooltip-cursor"
-						style={{
-							left: `${tooltipPosition.x}px`,
-							top: `${tooltipPosition.y}px`,
-						}}
-					>
-						<div className="tooltip-title">{data.trophy.name}</div>
-						<div className="tooltip-description">{data.trophy.description}</div>
-						<div className="tooltip-match-info">
-							<div>Best Value: Not achieved yet</div>
-							<div>No match data available</div>
-						</div>
-					</div>
-				)}
+				<TrophyTooltip
+					trophy={data.trophy}
+					x={tooltipPosition.x}
+					y={tooltipPosition.y}
+					show={tooltipPosition.show}
+					hasMatch={false}
+				/>
 			</div>
 		);
 	}
@@ -76,10 +70,12 @@ export const TrophyComponent = (data: TrophyProms) => {
 	const date = new Date(match.gameEndTimestamp);
 
 	return (
-		<div className="trophy-component"
+		<div
+			className="trophy-component"
 			onMouseEnter={handleMouseEnter}
 			onMouseLeave={handleMouseLeave}
-			onMouseMove={handleMouseMove}>
+			onMouseMove={handleMouseMove}
+		>
 			<div className="trophy-icon-wrap">
 				<img className="trophy-map-icon" src={getMapUrlByMapId(match.mapId)} alt="Map icon" draggable={false} />
 				<img
@@ -98,24 +94,16 @@ export const TrophyComponent = (data: TrophyProms) => {
 				</div>
 				<div className="trophy-value">{data.trophy.bestValue}</div>
 			</div>
-			{tooltipPosition.show && (
-				<div 
-					className="trophy-tooltip-cursor"
-					style={{
-						left: `${tooltipPosition.x}px`,
-						top: `${tooltipPosition.y}px`,
-					}}
-				>
-					<div className="tooltip-title">{data.trophy.name}</div>
-					<div className="tooltip-description">{data.trophy.description}</div>
-					<div className="tooltip-match-info">
-						<div>Best Value: {data.trophy.bestValue}</div>
-						<div>Match Date: {date.toLocaleDateString()}</div>
-						<div>Map: {match.mapId}</div>
-						<div>Game Duration: {Math.floor(match.gameDuration / 60)}m {match.gameDuration % 60}s</div>
-					</div>
-				</div>
-			)}
+			<TrophyTooltip
+				trophy={data.trophy}
+				x={tooltipPosition.x}
+				y={tooltipPosition.y}
+				show={tooltipPosition.show}
+				hasMatch={true}
+				matchDate={date.toLocaleDateString()}
+				mapId={match.mapId}
+				gameDuration={match.gameDuration}
+			/>
 		</div>
 	);
 };
