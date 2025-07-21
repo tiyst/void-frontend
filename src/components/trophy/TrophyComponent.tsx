@@ -40,11 +40,13 @@ export const TrophyComponent = (data: TrophyProms) => {
 		return (
 			<div
 				className="trophy-component"
-				{...(isMobile ? {} : {
-					onMouseEnter: handleMouseEnter,
-					onMouseLeave: handleMouseLeave,
-					onMouseMove: handleMouseMove
-				})}
+				{...(isMobile
+					? {}
+					: {
+							onMouseEnter: handleMouseEnter,
+							onMouseLeave: handleMouseLeave,
+							onMouseMove: handleMouseMove
+						})}
 			>
 				<div className="trophy-icon-wrap">
 					<img
@@ -81,11 +83,13 @@ export const TrophyComponent = (data: TrophyProms) => {
 	return (
 		<div
 			className="trophy-component"
-			{...(isMobile ? {} : {
-				onMouseEnter: handleMouseEnter,
-				onMouseLeave: handleMouseLeave,
-				onMouseMove: handleMouseMove
-			})}
+			{...(isMobile
+				? {}
+				: {
+						onMouseEnter: handleMouseEnter,
+						onMouseLeave: handleMouseLeave,
+						onMouseMove: handleMouseMove
+					})}
 		>
 			<div className="trophy-icon-wrap">
 				<img className="trophy-map-icon" src={getMapUrlByMapId(match.mapId)} alt="Map icon" draggable={false} />
