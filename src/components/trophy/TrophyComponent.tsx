@@ -70,6 +70,7 @@ export const TrophyComponent = (data: TrophyProms) => {
 						y={tooltipPosition.y}
 						show={tooltipPosition.show}
 						hasMatch={false}
+						playerGameName={''}
 					/>
 				)}
 			</div>
@@ -116,9 +117,7 @@ export const TrophyComponent = (data: TrophyProms) => {
 					y={tooltipPosition.y}
 					show={tooltipPosition.show}
 					hasMatch={true}
-					matchDate={date.toLocaleDateString()}
-					mapId={match.mapId}
-					gameDuration={match.gameDuration}
+					playerGameName={player.riotIdGameName}
 				/>
 			)}
 		</div>
