@@ -234,7 +234,7 @@ export const BADGE_DEFINITIONS: BadgeDefinition[] = [
 	{
 		id: 'VISION_SCORE_BETTER_THAN_OPPONENT',
 		name: 'ALL SEEING EYE',
-		description: () => 'You out-Vision Score\'d your opponent.',
+		description: () => "You out-Vision Score'd your opponent.",
 		icon: '/badges/vision.svg',
 		rarity: 'legendary',
 		condition: (p) => p.challenges && (p.challenges?.visionScoreAdvantageLaneOpponent ?? 0) > 0,
@@ -353,7 +353,8 @@ export const BADGE_DEFINITIONS: BadgeDefinition[] = [
 	{
 		id: 'JUNGLE_CS_BEFORE_10MINS',
 		name: 'JUNGLE CANYON',
-		description: (p) => `You were ahead of your jungle opponent by ${p.challenges.jungleCsBefore10Minutes}CS in 10th minute`,
+		description: (p) =>
+			`You were ahead of your jungle opponent by ${p.challenges.jungleCsBefore10Minutes}CS in 10th minute`,
 		icon: '/badges/jungle.svg',
 		rarity: 'legendary',
 		condition: (p) => p.challenges && (p.challenges.jungleCsBefore10Minutes ?? 0) > 40,
@@ -362,7 +363,8 @@ export const BADGE_DEFINITIONS: BadgeDefinition[] = [
 	{
 		id: 'MAX_CS_ADVANTAGE_ON_LANE_OPPONENT',
 		name: 'FLAME HORIZON',
-		description: (p) => `At one point in the game, You were ahead of your lane opponent by ${p.challenges.maxCsAdvantageOnLaneOpponent}CS`,
+		description: (p) =>
+			`At one point in the game, You were ahead of your lane opponent by ${p.challenges.maxCsAdvantageOnLaneOpponent}CS`,
 		icon: '/badges/minion.svg',
 		rarity: 'legendary',
 		condition: (p) => p.challenges && (p.challenges.maxCsAdvantageOnLaneOpponent ?? 0) >= 100,
