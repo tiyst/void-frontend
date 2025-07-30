@@ -309,7 +309,7 @@ export const BADGE_DEFINITIONS: BadgeDefinition[] = [
 		icon: '/badges/skull.svg',
 		rarity: 'legendary',
 		condition: (p, match) => Math.round(calculateKillParticipation(p, match) * 100) > 99,
-		tag: "KILL_PARTICIPATION"
+		tag: 'KILL_PARTICIPATION'
 	},
 	{
 		id: 'HIGH_KILL_PARTICIPATION',
@@ -321,7 +321,7 @@ export const BADGE_DEFINITIONS: BadgeDefinition[] = [
 		condition: (p, match) =>
 			calculateKillParticipation(p, match) ===
 			Math.max(...match.participants.map((part) => calculateKillParticipation(part, match))),
-		tag: "KILL_PARTICIPATION"
+		tag: 'KILL_PARTICIPATION'
 	},
 	{
 		id: 'SHIELD_MORE_THAN_DAMAGED',
