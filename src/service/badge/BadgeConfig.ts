@@ -12,7 +12,10 @@ export const BADGE_CONFIG: BadgeConfig = {
 		'HUNDRED_PERCENT_KILL_PARTICIPATION',
 		'HIGH_KILL_PARTICIPATION',
 		'HIGHEST_KDA_GAME',
-		'HIGHEST_KDA_TEAM',
+		'HIGHEST_KDA_TEAM_WIN',
+		'HIGHEST_KDA_TEAM_LOSS',
+		'MOST_DEATHS_WIN',
+		'MOST_DEATHS_LOSS',
 		'HIGH_KDA',
 		'TANKED_100K',
 		'TAKEN_MOST_DAMAGE',
@@ -30,7 +33,7 @@ export const BADGE_CONFIG: BadgeConfig = {
 		'MULTIKILL_WITH_ONE_SPELL',
 		'CAUSED_PORO_EXPLOSION',
 		'MADE_QUICK_CLEANSE',
-		'STOLEN_AN_EPIC_MONSTER',
+		'STOLEN_AN_EPIC_MONSTER', // Not implemented, Grand theft baron
 		'VISION_SCORE_BETTER_THAN_OPPONENT',
 		'HIGH_CSPM',
 		'MOST_CS_GAME',
@@ -42,7 +45,7 @@ export const BADGE_CONFIG: BadgeConfig = {
 		'FIRST_BLOOD',
 		'MOST_GOLD',
 		'MOST_VISION',
-		'KILLS_UNDER_OWN_TOWER'
+		'KILLS_UNDER_OWN_TOWER' // not implemented "Welcome To My House"
 		// skillshotsDodged skillshotsHit
 	]
 };

@@ -46,7 +46,7 @@ function calculateTotalCs(participant: Participant) {
 export const BADGE_DEFINITIONS: BadgeDefinition[] = [
 	{
 		id: 'PENTAKILL',
-		name: 'PENTAKILL',
+		name: 'ONE MAN ARMY',
 		description: () => 'Achieved a Pentakill!',
 		icon: '/badges/star.svg',
 		rarity: 'legendary',
@@ -55,7 +55,7 @@ export const BADGE_DEFINITIONS: BadgeDefinition[] = [
 	},
 	{
 		id: 'QUADRAKILL',
-		name: 'QUADRAKILL',
+		name: 'FOUR FELL DOWN',
 		description: () => 'Achieved a Quadrakill!',
 		icon: '/badges/star.svg',
 		rarity: 'legendary',
@@ -64,7 +64,7 @@ export const BADGE_DEFINITIONS: BadgeDefinition[] = [
 	},
 	{
 		id: 'FIRST_BLOOD',
-		name: 'FIRST BLOOD',
+		name: 'EARLY BIRD SPECIAL',
 		description: () => 'Got First Blood. Jankos would be proud of you.',
 		icon: '/badges/target.svg',
 		rarity: 'legendary',
@@ -101,18 +101,35 @@ export const BADGE_DEFINITIONS: BadgeDefinition[] = [
 		tag: 'KDA'
 	},
 	{
-		id: 'HIGHEST_KDA_TEAM',
+		id: 'HIGHEST_KDA_TEAM_WIN',
+		name: 'I PEAKED HERE',
+		description: (p) => `Highest KDA in your Team (${calculateKdaFromParticipant(p).toFixed(1)})`,
+		icon: '/badges/skull.svg',
+		rarity: 'legendary',
+		condition: (p, match) =>
+			p.win &&
+			calculateKdaFromParticipant(p) ===
+				Math.max(
+					...match.participants
+						.filter((part) => part.teamId === p.teamId)
+						.map((part) => calculateKdaFromParticipant(part))
+				),
+		tag: 'KDA'
+	},
+	{
+		id: 'HIGHEST_KDA_TEAM_LOSS',
 		name: 'BAITER',
 		description: (p) => `Highest KDA in your Team (${calculateKdaFromParticipant(p).toFixed(1)})`,
 		icon: '/badges/skull.svg',
 		rarity: 'legendary',
 		condition: (p, match) =>
+			!p.win &&
 			calculateKdaFromParticipant(p) ===
-			Math.max(
-				...match.participants
-					.filter((part) => part.teamId === p.teamId)
-					.map((part) => calculateKdaFromParticipant(part))
-			),
+				Math.max(
+					...match.participants
+						.filter((part) => part.teamId === p.teamId)
+						.map((part) => calculateKdaFromParticipant(part))
+				),
 		tag: 'KDA'
 	},
 	{
@@ -143,7 +160,7 @@ export const BADGE_DEFINITIONS: BadgeDefinition[] = [
 	},
 	{
 		id: 'HIGH_CSPM',
-		name: 'FROGGEN',
+		name: 'FARMING SIMULATOR',
 		description: (p, match) =>
 			`You achieved very high CSPM (${(calculateTotalCs(p) / (match.gameDuration / 60)).toFixed(1)}).`,
 		icon: '/badges/minion.svg',
@@ -154,7 +171,7 @@ export const BADGE_DEFINITIONS: BadgeDefinition[] = [
 	},
 	{
 		id: 'MOST_CS_GAME',
-		name: 'FARMER++',
+		name: 'THE TRUE HARVEST',
 		description: (p) => `You had the most CS in the game! (${calculateTotalCs(p)})`,
 		icon: '/badges/minion.svg',
 		rarity: 'legendary',
@@ -165,7 +182,7 @@ export const BADGE_DEFINITIONS: BadgeDefinition[] = [
 	},
 	{
 		id: 'MOST_CS_TEAM',
-		name: 'FARMER',
+		name: 'MINION TAX',
 		description: (p) => `You had the most CS in your team! (${calculateTotalCs(p)})`,
 		icon: '/badges/minion.svg',
 		rarity: 'legendary',
@@ -188,11 +205,11 @@ export const BADGE_DEFINITIONS: BadgeDefinition[] = [
 	},
 	{
 		id: 'NO_DEATHS_WIN',
-		name: 'BAITER',
+		name: 'UNTOUCHABLE',
 		description: () => 'You had no deaths!',
 		icon: '/badges/cross.svg',
 		rarity: 'legendary',
-		condition: (p) => p.deaths === 0,
+		condition: (p) => p.deaths === 0 && p.win,
 		tag: 'DEATHS'
 	},
 	{
@@ -201,16 +218,25 @@ export const BADGE_DEFINITIONS: BadgeDefinition[] = [
 		description: () => 'You had no deaths! And you still lost. :kekl:',
 		icon: '/badges/cross.svg',
 		rarity: 'legendary',
-		condition: (p) => p.deaths === 0,
+		condition: (p) => p.deaths === 0 && !p.win,
 		tag: 'DEATHS'
 	},
 	{
-		id: 'MOST_DEATHS',
+		id: 'MOST_DEATHS_WIN',
+		name: 'LIMIT TESTING',
+		description: (p) => `You had the most deaths in the game! (${p.deaths})`,
+		icon: '/badges/cross.svg',
+		rarity: 'legendary',
+		condition: (p, match) => p.win && p.deaths === Math.max(...match.participants.map((part) => part.deaths)),
+		tag: 'DEATHS'
+	},
+	{
+		id: 'MOST_DEATHS_LOSS',
 		name: 'FEARLESS',
 		description: (p) => `You had the most deaths in the game! (${p.deaths})`,
 		icon: '/badges/cross.svg',
 		rarity: 'legendary',
-		condition: (p, match) => p.deaths === Math.max(...match.participants.map((part) => part.deaths)),
+		condition: (p, match) => !p.win && p.deaths === Math.max(...match.participants.map((part) => part.deaths)),
 		tag: 'DEATHS'
 	},
 	{
@@ -223,7 +249,7 @@ export const BADGE_DEFINITIONS: BadgeDefinition[] = [
 	},
 	{
 		id: 'MOST_VISION',
-		name: 'THE EYE',
+		name: "CAN'T HIDE",
 		description: (p) => `You had the highest Vision Score in the game! (${p.visionScore})`,
 		icon: '/badges/vision.svg',
 		rarity: 'legendary',
@@ -233,7 +259,7 @@ export const BADGE_DEFINITIONS: BadgeDefinition[] = [
 	},
 	{
 		id: 'VISION_SCORE_BETTER_THAN_OPPONENT',
-		name: 'ALL SEEING EYE',
+		name: 'I SEE YOU',
 		description: () => "You out-Vision Score'd your opponent.",
 		icon: '/badges/vision.svg',
 		rarity: 'legendary',
@@ -243,7 +269,7 @@ export const BADGE_DEFINITIONS: BadgeDefinition[] = [
 	},
 	{
 		id: 'HEALED_MORE_THAN_DAMAGED',
-		name: 'HEALER',
+		name: 'THOU SHALL NOT DIE',
 		description: (p) => `Healed more than damage dealt ${p.totalHealsOnTeammates}`,
 		icon: '/badges/healed.svg',
 		rarity: 'legendary',
@@ -251,7 +277,7 @@ export const BADGE_DEFINITIONS: BadgeDefinition[] = [
 	},
 	{
 		id: 'STOMPED_ENEMY_TEAM',
-		name: 'STOMP',
+		name: 'KILL GAP',
 		description: () => 'Won before 15 minutes',
 		icon: '/badges/boot.svg',
 		rarity: 'epic',
@@ -259,7 +285,7 @@ export const BADGE_DEFINITIONS: BadgeDefinition[] = [
 	},
 	{
 		id: 'TANKED_100K',
-		name: 'THE TANK',
+		name: 'PUNCHING BAG',
 		description: (p) => `Tanked more than 100k (${p.totalDamageTaken})`,
 		icon: '/badges/shield.svg',
 		rarity: 'epic',
@@ -268,7 +294,7 @@ export const BADGE_DEFINITIONS: BadgeDefinition[] = [
 	},
 	{
 		id: 'TAKEN_MOST_DAMAGE',
-		name: 'THE TANK',
+		name: 'MEAT SHIELD',
 		description: (p) => `Taken most damage in game (${p.totalDamageTaken})`,
 		icon: '/badges/shield.svg',
 		rarity: 'legendary',
@@ -286,7 +312,7 @@ export const BADGE_DEFINITIONS: BadgeDefinition[] = [
 	},
 	{
 		id: 'HIGH_KILL_PARTICIPATION',
-		name: 'MR WORLDWIDE',
+		name: 'TEAMFIGHT MAGNET',
 		description: (p, m) =>
 			`Highest kill participation in the game ${Math.round(calculateKillParticipation(p, m) * 100)}%`,
 		icon: '/badges/skull.svg',
@@ -297,7 +323,7 @@ export const BADGE_DEFINITIONS: BadgeDefinition[] = [
 	},
 	{
 		id: 'SHIELD_MORE_THAN_DAMAGED',
-		name: 'SHIELD MASTER',
+		name: 'BUBBLE WRAP ENTHUSIAST',
 		description: (p) =>
 			`Shielded more damage than dealt (${p.totalDamageShieldedOnTeammates} / ${p.totalDamageDealt})`,
 		icon: '/badges/shield.svg',
@@ -306,7 +332,7 @@ export const BADGE_DEFINITIONS: BadgeDefinition[] = [
 	},
 	{
 		id: 'WON_WITH_INHIBITOR_LOST',
-		name: 'COMEBACK',
+		name: 'AGAINST THE ODDS',
 		description: () => 'Won a game after losing an inhibitor',
 		icon: '/badges/sparkle.svg',
 		rarity: 'legendary',
@@ -315,7 +341,7 @@ export const BADGE_DEFINITIONS: BadgeDefinition[] = [
 	},
 	{
 		id: 'HAD_OPEN_NEXUS',
-		name: 'HUGE COMEBACK',
+		name: 'FROM THE ASHES',
 		description: () => 'Won a game after having an open nexus',
 		icon: '/badges/sparkle.svg',
 		rarity: 'legendary',
@@ -324,7 +350,7 @@ export const BADGE_DEFINITIONS: BadgeDefinition[] = [
 	},
 	{
 		id: 'LARGEST_CRITICAL_STRIKE',
-		name: 'TONS OF DAMAGE',
+		name: 'ONE PUNCH MAN',
 		description: (p) => `Dealt a huge critical strike! (${p.largestCriticalStrike})`,
 		icon: '/badges/crit.svg',
 		rarity: 'legendary',
@@ -332,7 +358,7 @@ export const BADGE_DEFINITIONS: BadgeDefinition[] = [
 	},
 	{
 		id: 'OBJECTIVE_STOLEN',
-		name: 'THIEF',
+		name: 'YOINK',
 		description: () => 'Stole an objective from the enemy team',
 		icon: '/badges/baron.svg',
 		rarity: 'legendary',
@@ -344,7 +370,7 @@ export const BADGE_DEFINITIONS: BadgeDefinition[] = [
 	},
 	{
 		id: 'PARTICIPATED_IN_FIST_BUMP',
-		name: 'FIST BUMP',
+		name: 'THE BRO CODE',
 		description: () => 'Participated in team fist bump!',
 		icon: '/badges/sparkle.svg',
 		rarity: 'legendary',
@@ -352,7 +378,7 @@ export const BADGE_DEFINITIONS: BadgeDefinition[] = [
 	},
 	{
 		id: 'ACHIEVED_A_FLAWLESS_ACE',
-		name: 'FLAWLESS ACE',
+		name: "DIDN' BREAK A SWEAT",
 		description: () => 'Your team has achieved a flawless ace!',
 		icon: '/badges/sparkle.svg',
 		rarity: 'legendary',
@@ -360,7 +386,7 @@ export const BADGE_DEFINITIONS: BadgeDefinition[] = [
 	},
 	{
 		id: 'JUNGLE_CS_BEFORE_10MINS',
-		name: 'JUNGLE CANYON',
+		name: 'EFFICIENT PATHING',
 		description: (p) =>
 			`You were ahead of your jungle opponent by ${p.challenges.jungleCsBefore10Minutes}CS in 10th minute`,
 		icon: '/badges/jungle.svg',
@@ -380,7 +406,7 @@ export const BADGE_DEFINITIONS: BadgeDefinition[] = [
 	},
 	{
 		id: 'MULTIKILL_WITH_ONE_SPELL',
-		name: 'MAGICIAN',
+		name: 'PRESS R TO WIN',
 		description: () => 'You achieved a multikill with one spell',
 		icon: '/badges/mage.svg',
 		rarity: 'legendary',
@@ -397,7 +423,7 @@ export const BADGE_DEFINITIONS: BadgeDefinition[] = [
 	},
 	{
 		id: 'MADE_QUICK_CLEANSE',
-		name: 'CPT JACK',
+		name: 'NOPE...',
 		description: () => 'You insta-cleansed a CC',
 		icon: '/badges/sparkle.svg',
 		rarity: 'legendary',
