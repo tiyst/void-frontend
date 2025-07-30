@@ -308,7 +308,8 @@ export const BADGE_DEFINITIONS: BadgeDefinition[] = [
 		description: () => `You achieved 100% kill participation in the game`,
 		icon: '/badges/skull.svg',
 		rarity: 'legendary',
-		condition: (p, match) => calculateKillParticipation(p, match) > 99
+		condition: (p, match) => Math.round(calculateKillParticipation(p, match) * 100) > 99,
+		tag: "KILL_PARTICIPATION"
 	},
 	{
 		id: 'HIGH_KILL_PARTICIPATION',
@@ -319,7 +320,8 @@ export const BADGE_DEFINITIONS: BadgeDefinition[] = [
 		rarity: 'legendary',
 		condition: (p, match) =>
 			calculateKillParticipation(p, match) ===
-			Math.max(...match.participants.map((part) => calculateKillParticipation(part, match)))
+			Math.max(...match.participants.map((part) => calculateKillParticipation(part, match))),
+		tag: "KILL_PARTICIPATION"
 	},
 	{
 		id: 'SHIELD_MORE_THAN_DAMAGED',
@@ -378,7 +380,7 @@ export const BADGE_DEFINITIONS: BadgeDefinition[] = [
 	},
 	{
 		id: 'ACHIEVED_A_FLAWLESS_ACE',
-		name: "DIDN' BREAK A SWEAT",
+		name: "DIDN'T BREAK A SWEAT",
 		description: () => 'Your team has achieved a flawless ace!',
 		icon: '/badges/sparkle.svg',
 		rarity: 'legendary',
