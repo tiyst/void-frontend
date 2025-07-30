@@ -277,6 +277,14 @@ export const BADGE_DEFINITIONS: BadgeDefinition[] = [
 		tag: 'TANK'
 	},
 	{
+		id: 'HUNDRED_PERCENT_KILL_PARTICIPATION',
+		name: 'PERFECT ATTENDANCE',
+		description: () => `You achieved 100% kill participation in the game`,
+		icon: '/badges/skull.svg',
+		rarity: 'legendary',
+		condition: (p, match) => calculateKillParticipation(p, match) > 99
+	},
+	{
 		id: 'HIGH_KILL_PARTICIPATION',
 		name: 'MR WORLDWIDE',
 		description: (p, m) =>
