@@ -39,6 +39,10 @@ function calculateKillParticipation(participant: Participant, match: Match) {
 	return (participant.kills + participant.assists) / (teamKills || 1);
 }
 
+function calculateTotalCs(participant: Participant) {
+	return participant.totalMinionsKilled + participant.neutralMinionsKilled;
+}
+
 export const BADGE_DEFINITIONS: BadgeDefinition[] = [
 	{
 		id: 'PENTAKILL',
@@ -61,7 +65,7 @@ export const BADGE_DEFINITIONS: BadgeDefinition[] = [
 	{
 		id: 'FIRST_BLOOD',
 		name: 'FIRST BLOOD',
-		description: () => 'Got First Blood',
+		description: () => 'Got First Blood. Jankos would be proud of you.',
 		icon: '/badges/target.svg',
 		rarity: 'legendary',
 		condition: (p) => p.firstBloodKill,
@@ -70,7 +74,7 @@ export const BADGE_DEFINITIONS: BadgeDefinition[] = [
 	{
 		id: 'PERFECT_GAME',
 		name: 'PERFECTIONIST',
-		description: () => 'Perfect Game (0 deaths, 0 turrets & objectives lost)',
+		description: () => 'Perfect Game (0 deaths, 0 turrets & objectives lost).',
 		icon: '/badges/star.svg',
 		rarity: 'legendary',
 		condition: (p) => p.challenges && p.challenges.perfectGame === 1,
@@ -79,7 +83,7 @@ export const BADGE_DEFINITIONS: BadgeDefinition[] = [
 	{
 		id: 'HIGH_KDA',
 		name: 'HIGH KDA',
-		description: (p) => `High KDA (${calculateKdaFromParticipant(p).toFixed(1)})`,
+		description: (p) => `You had very high KDA (${calculateKdaFromParticipant(p).toFixed(1)}). Banger...`,
 		icon: '/badges/skull.svg',
 		rarity: 'legendary',
 		condition: (p) => calculateKdaFromParticipant(p) >= 10,
@@ -88,7 +92,7 @@ export const BADGE_DEFINITIONS: BadgeDefinition[] = [
 	{
 		id: 'HIGHEST_KDA_GAME',
 		name: 'KDA PLAYER',
-		description: (p) => `Highest KDA in Game (${calculateKdaFromParticipant(p).toFixed(1)})`,
+		description: (p) => `Highest KDA in the Game (${calculateKdaFromParticipant(p).toFixed(1)}).`,
 		icon: '/badges/skull.svg',
 		rarity: 'legendary',
 		condition: (p, match) =>
@@ -99,7 +103,7 @@ export const BADGE_DEFINITIONS: BadgeDefinition[] = [
 	{
 		id: 'HIGHEST_KDA_TEAM',
 		name: 'BAITER',
-		description: (p) => `Highest KDA in Team (${calculateKdaFromParticipant(p).toFixed(1)})`,
+		description: (p) => `Highest KDA in your Team (${calculateKdaFromParticipant(p).toFixed(1)})`,
 		icon: '/badges/skull.svg',
 		rarity: 'legendary',
 		condition: (p, match) =>
@@ -114,7 +118,7 @@ export const BADGE_DEFINITIONS: BadgeDefinition[] = [
 	{
 		id: 'HIGHEST_DAMAGE_GAME',
 		name: 'THE CARRY',
-		description: (p) => `Most Damage Dealt in the game ${p.totalDamageDealtToChampions}`,
+		description: (p) => `You dealt the most damage in the entire game! (${p.totalDamageDealtToChampions})`,
 		icon: '/badges/sword.svg',
 		rarity: 'legendary',
 		condition: (p, match) =>
@@ -125,7 +129,7 @@ export const BADGE_DEFINITIONS: BadgeDefinition[] = [
 	{
 		id: 'HIGHEST_DAMAGE_TEAM',
 		name: 'TEAM TOO HEAVY',
-		description: (p) => `Most Damage in your team (${p.totalDamageDealtToChampions})`,
+		description: (p) => `You dealt the most damage in your entire team! (${p.totalDamageDealtToChampions})`,
 		icon: '/badges/sword.svg',
 		rarity: 'legendary',
 		condition: (p, match) =>
@@ -139,60 +143,80 @@ export const BADGE_DEFINITIONS: BadgeDefinition[] = [
 	},
 	{
 		id: 'HIGH_CSPM',
-		name: 'High CS/m',
+		name: 'FROGGEN',
 		description: (p, match) =>
-			`High CSPM (${((p.totalMinionsKilled + p.neutralMinionsKilled) / (match.gameDuration / 60)).toFixed(1)})`,
+			`You achieved very high CSPM (${(calculateTotalCs(p) / (match.gameDuration / 60)).toFixed(1)}).`,
 		icon: '/badges/minion.svg',
 		rarity: 'legendary',
-		condition: (p, match) => (p.totalMinionsKilled + p.neutralMinionsKilled) / (match.gameDuration / 60) >= 9.5,
+		condition: (p, match) => calculateTotalCs(p) / (match.gameDuration / 60) >= 9.5,
 		gameModes: ['CLASSIC'],
 		tag: 'CS'
 	},
 	{
 		id: 'MOST_CS_GAME',
 		name: 'FARMER++',
-		description: (p) => `Most CS in game (${p.totalMinionsKilled})`,
+		description: (p) => `You had the most CS in the game! (${calculateTotalCs(p)})`,
 		icon: '/badges/minion.svg',
 		rarity: 'legendary',
 		condition: (p, match) =>
-			p.totalMinionsKilled === Math.max(...match.participants.map((part) => part.totalMinionsKilled)),
+			calculateTotalCs(p) === Math.max(...match.participants.map((part) => calculateTotalCs(part))),
 		gameModes: ['CLASSIC'],
 		tag: 'CS'
 	},
 	{
 		id: 'MOST_CS_TEAM',
 		name: 'FARMER',
-		description: (p) => `Most CS in team (${p.totalMinionsKilled})`,
+		description: (p) => `You had the most CS in your team! (${calculateTotalCs(p)})`,
 		icon: '/badges/minion.svg',
 		rarity: 'legendary',
 		condition: (p, match) =>
-			p.totalMinionsKilled ===
+			calculateTotalCs(p) ===
 			Math.max(
-				...match.participants.filter((part) => part.teamId === p.teamId).map((part) => part.totalMinionsKilled)
+				...match.participants.filter((part) => part.teamId === p.teamId).map((part) => calculateTotalCs(part))
 			),
 		gameModes: ['CLASSIC'],
 		tag: 'CS'
 	},
 	{
-		id: 'NO_DEATHS',
-		name: 'BAITER',
-		description: () => 'No deaths',
+		id: 'NO_DEATHS_ARAM',
+		name: 'IDIOT',
+		description: () => 'You had no deaths! IN ARAM!!!',
 		icon: '/badges/cross.svg',
 		rarity: 'legendary',
-		condition: (p) => p.deaths === 0
+		condition: (p) => p.deaths === 0,
+		tag: 'DEATHS'
+	},
+	{
+		id: 'NO_DEATHS_WIN',
+		name: 'BAITER',
+		description: () => 'You had no deaths!',
+		icon: '/badges/cross.svg',
+		rarity: 'legendary',
+		condition: (p) => p.deaths === 0,
+		tag: 'DEATHS'
+	},
+	{
+		id: 'NO_DEATHS_LOSS',
+		name: 'YOU TRIED',
+		description: () => 'You had no deaths! And you still lost. :kekl:',
+		icon: '/badges/cross.svg',
+		rarity: 'legendary',
+		condition: (p) => p.deaths === 0,
+		tag: 'DEATHS'
 	},
 	{
 		id: 'MOST_DEATHS',
 		name: 'FEARLESS',
-		description: (p) => `Most deaths in the game (${p.deaths})`,
+		description: (p) => `You had the most deaths in the game! (${p.deaths})`,
 		icon: '/badges/cross.svg',
 		rarity: 'legendary',
-		condition: (p, match) => p.deaths === Math.max(...match.participants.map((part) => part.deaths))
+		condition: (p, match) => p.deaths === Math.max(...match.participants.map((part) => part.deaths)),
+		tag: 'DEATHS'
 	},
 	{
 		id: 'MOST_GOLD',
-		name: 'RICH',
-		description: (p) => `Most Gold Earned (${p.goldEarned})`,
+		name: 'UNCLE SAM',
+		description: (p) => `You earned the most gold in the entire game. (${p.goldEarned})`,
 		icon: '/badges/gold.svg',
 		rarity: 'legendary',
 		condition: (p, match) => p.goldEarned === Math.max(...match.participants.map((part) => part.goldEarned))
@@ -200,7 +224,7 @@ export const BADGE_DEFINITIONS: BadgeDefinition[] = [
 	{
 		id: 'MOST_VISION',
 		name: 'THE EYE',
-		description: (p) => `Most Vision Score (${p.visionScore})`,
+		description: (p) => `You had the highest Vision Score in the game! (${p.visionScore})`,
 		icon: '/badges/vision.svg',
 		rarity: 'legendary',
 		condition: (p, match) => p.visionScore === Math.max(...match.participants.map((part) => part.visionScore)),
@@ -210,7 +234,7 @@ export const BADGE_DEFINITIONS: BadgeDefinition[] = [
 	{
 		id: 'VISION_SCORE_BETTER_THAN_OPPONENT',
 		name: 'ALL SEEING EYE',
-		description: () => 'Vision Score Better Than Opponent',
+		description: () => 'You out-Vision Score\'d your opponent.',
 		icon: '/badges/vision.svg',
 		rarity: 'legendary',
 		condition: (p) => p.challenges && (p.challenges?.visionScoreAdvantageLaneOpponent ?? 0) > 0,
@@ -329,7 +353,7 @@ export const BADGE_DEFINITIONS: BadgeDefinition[] = [
 	{
 		id: 'JUNGLE_CS_BEFORE_10MINS',
 		name: 'JUNGLE CANYON',
-		description: (p) => `You were ahead of your jungle opponent by ${p.challenges.jungleCsBefore10Minutes}CS`,
+		description: (p) => `You were ahead of your jungle opponent by ${p.challenges.jungleCsBefore10Minutes}CS in 10th minute`,
 		icon: '/badges/jungle.svg',
 		rarity: 'legendary',
 		condition: (p) => p.challenges && (p.challenges.jungleCsBefore10Minutes ?? 0) > 40,
@@ -338,7 +362,7 @@ export const BADGE_DEFINITIONS: BadgeDefinition[] = [
 	{
 		id: 'MAX_CS_ADVANTAGE_ON_LANE_OPPONENT',
 		name: 'FLAME HORIZON',
-		description: (p) => `You were ahead of your lane opponent by ${p.challenges.maxCsAdvantageOnLaneOpponent}CS`,
+		description: (p) => `At one point in the game, You were ahead of your lane opponent by ${p.challenges.maxCsAdvantageOnLaneOpponent}CS`,
 		icon: '/badges/minion.svg',
 		rarity: 'legendary',
 		condition: (p) => p.challenges && (p.challenges.maxCsAdvantageOnLaneOpponent ?? 0) >= 100,

@@ -38,7 +38,7 @@ export const ExpandParticipantFragment = (data: ExpandParticipantProps) => {
 			<div className="epf-cell epf-player">
 				<img
 					className="epf-champ-icon"
-					src={getChampionIconUrl(data.participant.championId)}
+					src={getChampionIconUrl(player.championId)}
 					alt="Champion"
 					onError={(e) => {
 						(e.target as HTMLImageElement).src = urlUnknownChampion;
@@ -61,18 +61,18 @@ export const ExpandParticipantFragment = (data: ExpandParticipantProps) => {
 			</div>
 			<div className="epf-cell epf-kda">
 				<span>
-					<span className="epf-kills">{data.participant.kills}</span>
+					<span className="epf-kills">{player.kills}</span>
 					<span className="epf-sep">/</span>
-					<span className="epf-deaths">{data.participant.deaths}</span>
+					<span className="epf-deaths">{player.deaths}</span>
 					<span className="epf-sep">/</span>
-					<span className="epf-assists">{data.participant.assists}</span>
+					<span className="epf-assists">{player.assists}</span>
 				</span>
 			</div>
 			<div className="epf-cell epf-kda-value" style={{ color: kdaColor }}>
 				{kda}
 			</div>
 			<div className="epf-cell epf-cs">
-				{data.participant.totalMinionsKilled}
+				{player.totalMinionsKilled + player.neutralMinionsKilled}
 				{!isArena && <span> CS</span>}
 			</div>
 			<div className="epf-cell epf-damage">
