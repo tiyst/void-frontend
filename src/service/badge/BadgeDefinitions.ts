@@ -277,7 +277,7 @@ export const BADGE_DEFINITIONS: BadgeDefinition[] = [
 	},
 	{
 		id: 'STOMPED_ENEMY_TEAM',
-		name: 'KILL GAP',
+		name: 'SKILL GAP',
 		description: () => 'Won before 15 minutes',
 		icon: '/badges/boot.svg',
 		rarity: 'epic',
